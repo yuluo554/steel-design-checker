@@ -1,0 +1,705 @@
+[
+  {
+    "id": "GB50017-2017:4.3.2",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "4 材料 · 4.3 材料选用",
+    "clause_no": "4.3.2",
+    "title": "钢材力学性能与化学成分的合格保证",
+    "kind": "mandatory",
+    "mandatory": true,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（plan/07 §一 渠道 A；本次复取返回 404，本地转储缓存已被删除，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与主题按 plan/07 §二.2 逐字登记；强条身份经三渠道一致"
+    },
+    "gist": "钢材应具有屈服强度、抗拉强度、断后伸长率和硫、磷含量的合格保证，焊接结构尚应具有冷弯试验的合格保证。",
+    "notes": "plan/07 §二.2 附带发现：本条已列入 GB 55006-2021 施行后的废止清单，对应内容由 55006 3.0.2 承接（50017 用「冷弯试验」、55006 用「弯曲试验」）。该废止关系仅单渠道，见 plan/07 §四 V7，未二次核验前不得据此下线本条。"
+  },
+  {
+    "id": "GB50017-2017:4.4.1",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "4 材料 · 4.4 设计指标和设计参数",
+    "clause_no": "4.4.1",
+    "title": "钢材强度设计指标（表 4.4.1）",
+    "kind": "mandatory",
+    "mandatory": true,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与表号已定位；表体数值未取到（plan/07 §四 V1）"
+    },
+    "gist": "钢材的强度设计值应按表 4.4.1 采用（f、fv、fce，并含 fy、fu）。",
+    "tables": ["T-steel-design-value"],
+    "notes": "牌号体系存在 Q345 与 Q355 之争（plan/07 §三.2），参数卡枚举与全部查表都受阻于 V1/V5。"
+  },
+  {
+    "id": "GB50017-2017:4.4.2",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "4 材料 · 4.4 设计指标和设计参数",
+    "clause_no": "4.4.2",
+    "title": "建筑结构用钢板强度指标（表 4.4.2）",
+    "kind": "table",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与主题定位；非强条"
+    },
+    "gist": "建筑结构用钢板的强度设计指标按表 4.4.2 采用。",
+    "notes": "题设曾把 4.4.1～4.4.6 整体当作强制性条文；plan/07 §二.2 三渠道一致更正为 4.4.2 非强条（共 7 条强条）。首期不入库表值。"
+  },
+  {
+    "id": "GB50017-2017:4.4.3",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "4 材料 · 4.4 设计指标和设计参数",
+    "clause_no": "4.4.3",
+    "title": "无缝钢管强度指标（表 4.4.3）",
+    "kind": "mandatory",
+    "mandatory": true,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与主题定位；表值未取到"
+    },
+    "gist": "无缝钢管的强度设计指标按表 4.4.3 采用。",
+    "notes": "非首期范围（plan/07 §二.3）。"
+  },
+  {
+    "id": "GB50017-2017:4.4.4",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "4 材料 · 4.4 设计指标和设计参数",
+    "clause_no": "4.4.4",
+    "title": "铸钢件强度指标（表 4.4.4）",
+    "kind": "mandatory",
+    "mandatory": true,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与主题定位；表值未取到"
+    },
+    "gist": "铸钢件的强度设计指标按表 4.4.4 采用。",
+    "notes": "非首期范围；铸钢件焊后热处理要求属核查侧规则（plan/04 §四）。"
+  },
+  {
+    "id": "GB50017-2017:4.4.5",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "4 材料 · 4.4 设计指标和设计参数",
+    "clause_no": "4.4.5",
+    "title": "焊缝强度设计指标（表 4.4.5）",
+    "kind": "mandatory",
+    "mandatory": true,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与表号定位；表体数值未取到（V1）"
+    },
+    "gist": "焊缝的强度设计指标按表 4.4.5 采用：对接焊缝抗拉（一、二级与三级分列）、抗压、抗剪，以及角焊缝强度设计值。",
+    "tables": ["T-weld-design-value", "T-fillet-weld-value"],
+    "notes": "A1/A2 两个模块的设计值全部依赖本表，表值未到即 blocked（D04/D11）。"
+  },
+  {
+    "id": "GB50017-2017:4.4.6",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "4 材料 · 4.4 设计指标和设计参数",
+    "clause_no": "4.4.6",
+    "title": "螺栓连接强度设计指标（表 4.4.6）",
+    "kind": "mandatory",
+    "mandatory": true,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与表号定位；表体数值未取到（V1）"
+    },
+    "gist": "螺栓连接的强度设计指标按表 4.4.6 采用：普通螺栓抗拉/抗剪/承压、锚栓，以及承压型高强螺栓。",
+    "tables": ["T-bolt-design-value"],
+    "notes": "A3 模块依赖本表。"
+  },
+  {
+    "id": "GB50017-2017:11.1.6",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "11 连接 · 11.1 一般规定",
+    "clause_no": "11.1.6",
+    "title": "焊缝质量分级与选用",
+    "kind": "limit",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与主题定位（plan/07 §二.4）"
+    },
+    "gist": "焊缝质量分级按一、二、三级划分，分级选用与受力方向和荷载性质相关；核查侧「对接焊缝质量等级与受力匹配」规则锚在本条。",
+    "notes": "设计说明文本核查规则 R-WELD-CLASS-001 的依据条号；规则本体待 M3 核对后入库。"
+  },
+  {
+    "id": "GB50017-2017:11.2.1",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "11 连接 · 11.2 焊缝计算",
+    "clause_no": "11.2.1",
+    "title": "对接焊缝（全熔透）计算",
+    "kind": "formula",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号定位；式 11.2.1-1 式体未取到（V2）"
+    },
+    "gist": "对接焊缝（含全熔透焊缝）的强度计算式与计算截面取值规则所在条。",
+    "formulas": ["F-11.2.1-1"],
+    "symbols": ["sigma", "tau", "f_t_w", "f_v_w"],
+    "tables": ["T-weld-design-value"],
+    "notes": "A1 模块主依据条；引弧板/焊透方式对计算长度的影响也在本章，逐条式体待核。"
+  },
+  {
+    "id": "GB50017-2017:11.2.2",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "11 连接 · 11.2 焊缝计算",
+    "clause_no": "11.2.2",
+    "title": "直角角焊缝强度计算",
+    "kind": "formula",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与主题定位；式体未取到（V2）"
+    },
+    "gist": "直角角焊缝的正面对接与侧面受力计算，含有效厚度 h_e、焊缝计算长度 l_w 与正面角焊缝强度增大系数 beta_f。",
+    "formulas": ["F-11.2.2-1"],
+    "symbols": ["h_e", "l_w", "beta_f", "f_f_w", "sigma_f", "tau_f"],
+    "tables": ["T-fillet-weld-value"],
+    "notes": "plan/07 §二.4 记载渠道正文含 h_e=0.7*h_f、l_w=实长-2*h_f 与 beta_f 取值（静力及间接动力 1.22、直接动力 1.0）。均为转述，正式文本核对前不得进入计算（D11 同源纪律）。"
+  },
+  {
+    "id": "GB50017-2017:11.2.3",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "11 连接 · 11.2 焊缝计算",
+    "clause_no": "11.2.3",
+    "title": "斜角角焊缝计算",
+    "kind": "formula",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号定位；式体未取到（V2）"
+    },
+    "gist": "斜角角焊缝的计算规定（夹角范围与取值方式）。",
+    "symbols": ["h_e", "theta"],
+    "notes": "首期 A2 只做直角角焊缝；斜角形式作为扩展接口。"
+  },
+  {
+    "id": "GB50017-2017:11.2.4",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "11 连接 · 11.2 焊缝计算",
+    "clause_no": "11.2.4",
+    "title": "部分熔透焊缝计算",
+    "kind": "formula",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号定位；式体未取到（V2）"
+    },
+    "gist": "部分熔透对接焊缝的计算与有效熔深取值规定。",
+    "notes": "A1 参数卡的 groove_form（全熔透/部分熔透）分支依据本条，未核对前该分支不启用。"
+  },
+  {
+    "id": "GB50017-2017:11.2.5",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "11 连接 · 11.2 焊缝计算",
+    "clause_no": "11.2.5",
+    "title": "塞焊和槽焊缝计算",
+    "kind": "formula",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号定位；式体未取到（V2）"
+    },
+    "gist": "塞焊和槽焊缝的受剪计算规定。",
+    "notes": "首期不实现，接口预留。"
+  },
+  {
+    "id": "GB50017-2017:11.2.6",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "11 连接 · 11.2 焊缝计算",
+    "clause_no": "11.2.6",
+    "title": "搭接焊缝计算长度超过 60h_f 时的折减",
+    "kind": "limit",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与规则形式定位；折减系数 alpha_f 的数值式未取到（V2）"
+    },
+    "gist": "搭接连接角焊缝计算长度大于 60h_f 时，承载力按折减系数 alpha_f 折减；并非「60h_f 硬上限」。",
+    "limits": [
+      {"param": "l_w_over_h_f", "op": ">", "value": 60, "unit": "倍", "basis": "GB50017-2017:11.2.6（折减系数待核对）"}
+    ],
+    "symbols": ["alpha_f", "h_e", "l_w"],
+    "notes": "plan/04 A2 原写「l_w ≤ 60h_f（动力荷载另有）」属误述，已按本条更正为「超过即折减」。"
+  },
+  {
+    "id": "GB50017-2017:11.3.5",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "11 连接 · 11.3 焊缝构造要求",
+    "clause_no": "11.3.5",
+    "title": "角焊缝最小计算长度与构造尺寸",
+    "kind": "construct",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与主题定位；限值数值形式待核对（V8）"
+    },
+    "gist": "角焊缝的最小计算长度构造要求（8h_f 且不小于 40mm 的形式见 plan/07 §二.4）。",
+    "limits": [
+      {"param": "min_l_w", "op": ">=", "value": null, "unit": "mm", "basis": "GB50017-2017:11.3.5（数值待核对，未核对不得启用）"}
+    ],
+    "symbols": ["h_e", "l_w"],
+    "notes": "构造检查项，值必须来自原文，禁止按记忆填 8/40。"
+  },
+  {
+    "id": "GB50017-2017:11.3.6",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "11 连接 · 11.3 焊缝构造要求",
+    "clause_no": "11.3.6",
+    "title": "搭接连接的构造要求",
+    "kind": "construct",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号定位；限值待核对（V8）"
+    },
+    "gist": "搭接连接板件重叠尺寸与焊缝布置的构造要求。",
+    "notes": "与 11.2.6 的折减规则配套，属构造检查项。"
+  },
+  {
+    "id": "GB50017-2017:11.4.1",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "11 连接 · 11.4 紧固件连接计算",
+    "clause_no": "11.4.1",
+    "title": "普通螺栓（受剪、承压、受拉与拉剪共同）计算",
+    "kind": "formula",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号定位；式 11.4.1-1~4 式体未取到（V2）"
+    },
+    "gist": "普通螺栓连接的抗剪、承压、抗拉以及拉剪共同作用的承载力计算式所在条，并含锚栓、铆钉的相应规定。",
+    "formulas": ["F-11.4.1-1", "F-11.4.1-2", "F-11.4.1-3", "F-11.4.1-4"],
+    "symbols": ["N_v_b", "N_c_b", "N_t_b", "A_e", "f_v_b", "f_c_b", "f_t_b"],
+    "tables": ["T-bolt-design-value"],
+    "notes": "A3 模块主依据条。群栓内力分配假定在 §11.4（止于 11.4.5）内未找到对应条号，属真空项（plan/07 §三.5、V6），核对前不实现分配逻辑。"
+  },
+  {
+    "id": "GB50017-2017:11.4.2",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "11 连接 · 11.4 紧固件连接计算",
+    "clause_no": "11.4.2",
+    "title": "高强度螺栓摩擦型连接计算（含表 11.4.2-1、11.4.2-2）",
+    "kind": "formula",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与两张表号定位；式体与表值未取到（V1/V2）"
+    },
+    "gist": "高强度螺栓摩擦型连接的受剪承载力计算，含摩擦面数目 n_f、抗滑移系数 mu、预拉力 P 与各系数定义；mu 按表 11.4.2-1、P 按表 11.4.2-2 采用。",
+    "formulas": ["F-11.4.2-1"],
+    "symbols": ["n_f", "mu", "P", "k", "N_v_b"],
+    "tables": ["T-slip-factor", "T-hbolt-preload"],
+    "notes": "plan/04 曾按「0.9*n_f*mu*P」写式；plan/07 §三.4 明确任何可直连页面都未逐字出现该系数（条文说明只给 n_f*mu*P 与抗力分项系数 1.111），故式体保持待核、不得落库为已确认形式（D04）。单栓抗拉 0.8P 亦出自条文说明转述，同样待核。"
+  },
+  {
+    "id": "GB50017-2017:11.4.3",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "11 连接 · 11.4 紧固件连接计算",
+    "clause_no": "11.4.3",
+    "title": "高强度螺栓承压型连接计算",
+    "kind": "formula",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号定位；承压型属扩展项 E，首期不实现"
+    },
+    "gist": "高强度螺栓承压型连接的计算规定。",
+    "notes": "本项目 A4 只做摩擦型（plan/04 §二 纪律提示），承压型留作扩展。"
+  },
+  {
+    "id": "GB50017-2017:11.4.4",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "11 连接 · 11.4 紧固件连接计算",
+    "clause_no": "11.4.4",
+    "title": "螺栓数量与连接形式引起的承载力调整",
+    "kind": "limit",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与调整项形式定位；百分比数值待核对（V1）"
+    },
+    "gist": "螺栓数目增加、单面搭接、短角钢连接等情形下的内力增大调整规定。",
+    "symbols": ["k"],
+    "notes": "plan/07 §二.4 转述了「+10%/+50%」等形式，属渠道正文，未经正式文本核对前不落具体数值。"
+  },
+  {
+    "id": "GB50017-2017:11.4.5",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "11 连接 · 11.4 紧固件连接计算",
+    "clause_no": "11.4.5",
+    "title": "大变形长度下的承载力折减",
+    "kind": "limit",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号定位；折减门槛与系数值待核对（V1）"
+    },
+    "gist": "连接长度超过一定螺栓直径倍数时的承载力折减规定（l_1 与 d_0 的关系形式见 plan/07 §二.4）。",
+    "symbols": ["l_1", "d_0"],
+    "notes": "§11.4 正文止于 11.4.5（正文与条文说明双证）。"
+  },
+  {
+    "id": "GB50017-2017:11.5.2",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "11 连接 · 11.5 紧固件构造要求",
+    "clause_no": "11.5.2",
+    "title": "螺栓间距、边距与端距限值（表 11.5.2）",
+    "kind": "construct",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与表号定位；表体数值未取到（V8）"
+    },
+    "gist": "螺栓最小中距、最小边距与端距等构造限值按表 11.5.2 采用（并见 11.5.1）。",
+    "tables": ["T-construct-limit"],
+    "notes": "A3/A4 的构造检查项；也是群栓分配条号真空（V6）时最接近的落点，需单独核对。"
+  },
+  {
+    "id": "GB50017-2017:7.2.1",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "7 轴心受力构件 · 7.2 轴心受压构件的稳定性计算",
+    "clause_no": "7.2.1",
+    "title": "轴心受压构件整体稳定验算式",
+    "kind": "formula",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与稳定验算式所在条定位；式体待核（V2）"
+    },
+    "gist": "轴心受压构件的整体稳定性验算式（N/(phi*A) 与 f 的比较形式），稳定系数 phi 按附录 D 采用。",
+    "formulas": ["F-7.2.1-1"],
+    "symbols": ["phi", "lambda", "A", "f"],
+    "tables": ["T-buckling-curve"],
+    "notes": "A5 模块主依据条。式体以 N/(phi*A)<=f 形式转述自渠道，未核对前不落 verified。"
+  },
+  {
+    "id": "GB50017-2017:7.2.1-表1",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "7 轴心受力构件 · 7.2 轴心受压构件的稳定性计算",
+    "clause_no": "7.2.1 表 7.2.1-1 / 表 7.2.1-2",
+    "title": "受压构件截面 a/b/c/d 分类（t<=40mm 与 t>40mm）",
+    "kind": "table",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "两张表号与分界（t=40mm）定位；表体分类归属未取到（V4）"
+    },
+    "gist": "截面分类表：按板件类型、轧制或焊接、边缘加工状况与板件厚度（t<=40mm 与 t>40mm 两张表）确定 a/b/c/d 类别。",
+    "tables": ["T-buckling-curve", "T-section-class"],
+    "notes": "分类未核对，A5 不得据记忆赋类别（D11）。"
+  },
+  {
+    "id": "GB50017-2017:7.2.2",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "7 轴心受力构件 · 7.2 轴心受压构件的稳定性计算",
+    "clause_no": "7.2.2",
+    "title": "长细比与弯扭失稳换算",
+    "kind": "formula",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号定位；式体待核（V2）"
+    },
+    "gist": "轴心受压构件长细比计算与弯扭屈曲的换算长细比规定。",
+    "symbols": ["lambda", "i", "l_0"],
+    "notes": "格构式虚轴换算长细比首期不做（plan/04 A5 易错点 4）。"
+  },
+  {
+    "id": "GB50017-2017:7.4.6",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "7 轴心受力构件 · 7.4 实腹式构件与格构式构件的构造",
+    "clause_no": "7.4.6",
+    "title": "受压构件容许长细比（表 7.4.6）",
+    "kind": "limit",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与表号定位；表体限值未取到（V1）"
+    },
+    "gist": "受压构件的容许长细比限值按表 7.4.6 采用。",
+    "tables": ["T-slenderness-limit"],
+    "notes": "A5 构造检查项。"
+  },
+  {
+    "id": "GB50017-2017:7.4.7",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "7 轴心受力构件 · 7.4 实腹式构件与格构式构件的构造",
+    "clause_no": "7.4.7",
+    "title": "受拉构件容许长细比（表 7.4.7）",
+    "kind": "limit",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与表号定位；表体限值未取到（V1）"
+    },
+    "gist": "受拉构件（含支撑）的容许长细比限值按表 7.4.7 采用。",
+    "tables": ["T-slenderness-limit"],
+    "notes": "拉弯压弯构件（第 8 章）不在首期范围。"
+  },
+  {
+    "id": "GB50017-2017:D.0.1",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "附录 D 轴心受压构件的稳定系数",
+    "clause_no": "D.0.1",
+    "title": "a 类截面稳定系数",
+    "kind": "table",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "附录分档定位；表值与拟合公式系数均未取到（V3）"
+    },
+    "gist": "a 类截面的稳定系数 phi 取值（按正则化长细比或 lambda 查表/公式）。",
+    "tables": ["T-buckling-curve"],
+    "notes": "D11：phi 必须「离散表 + 拟合公式」双源同值才升 verified；两源皆无 → A5 blocked，禁止用记忆值或自行拟合。"
+  },
+  {
+    "id": "GB50017-2017:D.0.2",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "附录 D 轴心受压构件的稳定系数",
+    "clause_no": "D.0.2",
+    "title": "b 类截面稳定系数",
+    "kind": "table",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "附录分档定位；表值待核（V3）"
+    },
+    "gist": "b 类截面的稳定系数 phi 取值。",
+    "tables": ["T-buckling-curve"]
+  },
+  {
+    "id": "GB50017-2017:D.0.3",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "附录 D 轴心受压构件的稳定系数",
+    "clause_no": "D.0.3",
+    "title": "c 类截面稳定系数",
+    "kind": "table",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "附录分档定位；表值待核（V3）"
+    },
+    "gist": "c 类截面的稳定系数 phi 取值。",
+    "tables": ["T-buckling-curve"]
+  },
+  {
+    "id": "GB50017-2017:D.0.4",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "附录 D 轴心受压构件的稳定系数",
+    "clause_no": "D.0.4",
+    "title": "d 类截面稳定系数",
+    "kind": "table",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "附录分档定位；表值待核（V3）"
+    },
+    "gist": "d 类截面的稳定系数 phi 取值。",
+    "tables": ["T-buckling-curve"]
+  },
+  {
+    "id": "GB50017-2017:D.0.5",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "附录 D 轴心受压构件的稳定系数",
+    "clause_no": "D.0.5",
+    "title": "稳定系数拟合公式与表 D.0.5 系数",
+    "kind": "formula",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号定位；alpha1~alpha3 数值与公式式体未取到（V3）"
+    },
+    "gist": "以拟合公式计算 phi 的规定及表 D.0.5 的分段系数（alpha1~alpha3）。",
+    "formulas": ["F-D.0.5-1"],
+    "tables": ["T-buckling-curve"],
+    "notes": "本条是 D11 双源交叉核对的另一源；在拿到表值与本条系数之前，A5 只能 blocked。"
+  },
+  {
+    "id": "GB50017-2017:18.3.3",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "18 防护 · 18.3 防高温",
+    "clause_no": "18.3.3",
+    "title": "高于 100℃ 环境的温度作用验算与防护",
+    "kind": "mandatory",
+    "mandatory": true,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "条号与主题定位（plan/07 §二.2）"
+    },
+    "gist": "结构表面温度高于 100℃ 的高温环境下，应验算温度作用并采取防护措施。",
+    "notes": "强条联动提示的触发条之一（共 7 条，见 plan/07 §二.2）；防护章与 55006 6.3.4 同题，检查单需并列。"
+  },
+  {
+    "id": "GB50017-2017:C.0.1",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "附录 C 受弯构件的整体稳定系数",
+    "clause_no": "C.0.1",
+    "title": "受弯构件整体稳定系数（表 C.0.1）",
+    "kind": "table",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "附录定位；属扩展项，首期不实现"
+    },
+    "gist": "工字形截面受弯构件整体稳定系数 phi_b 的取值表。",
+    "notes": "对应 plan/02 扩展项（受弯验算），M1 只登记不实现。"
+  },
+  {
+    "id": "GB50017-2017:7.4.1",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "7 轴心受力构件 · 7.4 实腹式构件与格构式构件的构造",
+    "clause_no": "7.4.1 表 7.4.1-1 / 表 7.4.1-2",
+    "title": "构件计算长度系数",
+    "kind": "table",
+    "mandatory": false,
+    "status": "located",
+    "verified_by": {
+      "channel": "建标库",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）",
+      "date": "2026-10-06",
+      "note": "两张表号定位；表体系数未取到（V1）"
+    },
+    "gist": "轴心受压构件在平面内/平面外的计算长度系数表（支承条件对应取值）。",
+    "symbols": ["l_0", "mu_len"],
+    "notes": "A5 参数卡的 l_0x/l_0y 来源；未核对前要求用户直接输入计算长度。"
+  }
+]

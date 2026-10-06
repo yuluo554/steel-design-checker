@@ -1,0 +1,266 @@
+{
+  "clean_count": 12,
+  "doc_count": 24,
+  "documents": [
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0000",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0000.docx",
+      "injection_types": [],
+      "sha256": "fde9dfb98d5831618e4b034c82b265ddc9e8ed156aa31c0c19df6e1512d4bd04"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0001",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0001.docx",
+      "injection_types": [],
+      "sha256": "eafbc1dcb6d22b474af7abd9c0fe813dea9dda3ecf04fdeb6578f4885b673986"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0002",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0002.docx",
+      "injection_types": [],
+      "sha256": "00d694f5870ea3623868f38ebc2d6ad8dfcb783f227d0311a412617e54cb05bc"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0003",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0003.docx",
+      "injection_types": [],
+      "sha256": "e7f07a7faeaeba2c6a605c58c6395690a4e8a60fed6fc862b75f975c28e4c0f5"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0004",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0004.docx",
+      "injection_types": [],
+      "sha256": "70204fe563dda8fac9e691dddf6d10d781b27837a38c1d62e56b95937127123a"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0005",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0005.docx",
+      "injection_types": [],
+      "sha256": "3994eda4b17346734c22af8f5d5207f4d62b635fc36eef5595fc1513d4ae8a4c"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0006",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0006.docx",
+      "injection_types": [],
+      "sha256": "1664438911ab02aef1ddcf0f4f0b89c6844fbe563d40c449c6150927abbc091c"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0007",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0007.docx",
+      "injection_types": [],
+      "sha256": "71146205e4c6d94b2c0ec5aabc4b0cb1798ef745299102063d0775293d37e5d4"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0008",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0008.docx",
+      "injection_types": [],
+      "sha256": "745799605d1998c69b9205847aafa617a0bba42d2b5e75fae304c0fb6fbe85c3"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0009",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0009.docx",
+      "injection_types": [],
+      "sha256": "e60bae08d6cad87eefc79176ab660799751a9930048c24257201cde2b769ee3c"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0010",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0010.docx",
+      "injection_types": [],
+      "sha256": "8241e4cb056ddbebf8b373fe1dff298997449c5fb3673636fc12eae292c3ea61"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0011",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0011.docx",
+      "injection_types": [],
+      "sha256": "9904e91cf743fc800c02e206835ea1d9ba0ded8b419f296a6934480992eb1f47"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0012",
+      "expected_non_pass": [
+        "R-WELD-CLASS-001",
+        "焊缝检验要求未写明对应质量等级"
+      ],
+      "file": "docx/SYNTH-0012.docx",
+      "injection_types": [
+        "weld_class_missing"
+      ],
+      "sha256": "9f34010647799e72bcfab5abc33c70670b4d368c153dbff53f4b9e7ccea772a9"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0013",
+      "expected_non_pass": [
+        "R-STEEL-GRADE-CONSISTENCY",
+        "连接板与主体材质不匹配需人工确认"
+      ],
+      "file": "docx/SYNTH-0013.docx",
+      "injection_types": [
+        "steel_grade_contradiction"
+      ],
+      "sha256": "3f7e0d7d4c970afb114fb5645374adbb3047aa7b7a15eba115f139ba4ac8d6bf"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0014",
+      "expected_non_pass": [
+        "R-BOLT-GRADE-MISMATCH",
+        "主受力连接未采用摩擦型高强螺栓"
+      ],
+      "file": "docx/SYNTH-0014.docx",
+      "injection_types": [
+        "bolt_grade_mismatch"
+      ],
+      "sha256": "d01298639ed6643c15ea6dfa8d763d46b88aff7ec5b950f8da2a6e078957e2c2"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0015",
+      "expected_non_pass": [
+        "R-WELD-CLASS-001",
+        "焊缝检验要求未写明对应质量等级"
+      ],
+      "file": "docx/SYNTH-0015.docx",
+      "injection_types": [
+        "weld_class_missing"
+      ],
+      "sha256": "2bc34fb122754175916a2d677394e34971e26c4ffdd7a301bb5342dab2cd6052"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0016",
+      "expected_non_pass": [
+        "R-STEEL-GRADE-CONSISTENCY",
+        "连接板与主体材质不匹配需人工确认"
+      ],
+      "file": "docx/SYNTH-0016.docx",
+      "injection_types": [
+        "steel_grade_contradiction"
+      ],
+      "sha256": "4adcba7576add3a55768b5460c77b39dbb3983848db82828d19e220059245ceb"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0017",
+      "expected_non_pass": [
+        "R-BOLT-GRADE-MISMATCH",
+        "主受力连接未采用摩擦型高强螺栓"
+      ],
+      "file": "docx/SYNTH-0017.docx",
+      "injection_types": [
+        "bolt_grade_mismatch"
+      ],
+      "sha256": "a60b20be4a002258c5938f81c2656f689b2be85192c7147d7a88d4d1cffce7bd"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0018",
+      "expected_non_pass": [
+        "R-WELD-CLASS-001",
+        "焊缝检验要求未写明对应质量等级"
+      ],
+      "file": "docx/SYNTH-0018.docx",
+      "injection_types": [
+        "weld_class_missing"
+      ],
+      "sha256": "d9317d0496ea08b1ba36402a7dbff7c8e72bc76115a73a08d6456e3d7441d6eb"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0019",
+      "expected_non_pass": [
+        "R-STEEL-GRADE-CONSISTENCY",
+        "连接板与主体材质不匹配需人工确认"
+      ],
+      "file": "docx/SYNTH-0019.docx",
+      "injection_types": [
+        "steel_grade_contradiction"
+      ],
+      "sha256": "f734959c3b262cd539802ce8e63a0a5578b9435b2095e2750a6e50f475e91e0b"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0020",
+      "expected_non_pass": [
+        "R-BOLT-GRADE-MISMATCH",
+        "主受力连接未采用摩擦型高强螺栓"
+      ],
+      "file": "docx/SYNTH-0020.docx",
+      "injection_types": [
+        "bolt_grade_mismatch"
+      ],
+      "sha256": "c7b2bd0460575f493b44cb7b530050d40ea16282a5ee2a17fe848ace410a24b8"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0021",
+      "expected_non_pass": [
+        "R-WELD-CLASS-001",
+        "焊缝检验要求未写明对应质量等级"
+      ],
+      "file": "docx/SYNTH-0021.docx",
+      "injection_types": [
+        "weld_class_missing"
+      ],
+      "sha256": "d13e1a847975c09dec8c7a14eabfc9f4fc6819d60720628d8bb41ecf1d118e8e"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0022",
+      "expected_non_pass": [
+        "R-STEEL-GRADE-CONSISTENCY",
+        "连接板与主体材质不匹配需人工确认"
+      ],
+      "file": "docx/SYNTH-0022.docx",
+      "injection_types": [
+        "steel_grade_contradiction"
+      ],
+      "sha256": "a2457d566d4d206d1c96c527314f0a82982b48b48d1b3af05997d76286ab854b"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0023",
+      "expected_non_pass": [
+        "R-BOLT-GRADE-MISMATCH",
+        "主受力连接未采用摩擦型高强螺栓"
+      ],
+      "file": "docx/SYNTH-0023.docx",
+      "injection_types": [
+        "bolt_grade_mismatch"
+      ],
+      "sha256": "1d6aa608d2e71ea241331a6fa40c41d88989873e9a551aaf5b53e3e5cb9c1aef"
+    }
+  ],
+  "generator": "sdc.synth v0",
+  "injected_count": 12,
+  "injection_counts": {
+    "bolt_grade_mismatch": 4,
+    "steel_grade_contradiction": 4,
+    "weld_class_missing": 4
+  },
+  "seed": 20261006
+}

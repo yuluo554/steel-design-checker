@@ -1,0 +1,45 @@
+[
+  {"id": "F-11.2.1-1", "clause_id": "GB50017-2017:11.2.1", "applies_to": "butt_weld",
+   "expr": "TBD：对接焊缝正应力/剪应力验算式（式 11.2.1-1 式体未取到，见 plan/07 §四 V2）",
+   "symbols": ["sigma", "tau", "f_t_w", "f_v_w"], "unit_system": "N,mm,MPa", "status": "pending",
+   "notes": "式体必须由正式文本核对后逐字录入，禁止按记忆补全。"},
+
+  {"id": "F-11.2.2-1", "clause_id": "GB50017-2017:11.2.2", "applies_to": "fillet_weld",
+   "expr": "TBD：直角角焊缝正面/侧面受力与共同作用式（式 11.2.2-1 式体未取到，V2）",
+   "symbols": ["sigma_f", "tau_f", "h_e", "l_w", "beta_f", "f_f_w"], "unit_system": "N,mm,MPa",
+   "status": "pending",
+   "notes": "渠道转述含 h_e=0.7*h_f、l_w=实长-2*h_f、beta_f（静力及间接动力 1.22／直接动力 1.0），均为二手表述，核对前不作为已知系数。"},
+
+  {"id": "F-11.4.1-1", "clause_id": "GB50017-2017:11.4.1", "applies_to": "bolt_normal",
+   "expr": "TBD：单栓抗剪承载力式（式 11.4.1-1，V2）", "symbols": ["N_v_b", "A_e", "f_v_b"],
+   "unit_system": "N,mm,MPa", "status": "pending",
+   "notes": "受剪面数目 n_v 与螺纹处有效截面 A_e 的取法都在待核范围内。"},
+
+  {"id": "F-11.4.1-2", "clause_id": "GB50017-2017:11.4.1", "applies_to": "bolt_normal",
+   "expr": "TBD：单栓承压承载力式（式 11.4.1-2，V2）", "symbols": ["N_c_b", "f_c_b"],
+   "unit_system": "N,mm,MPa", "status": "pending", "notes": "承压计算取较小 Σt 的形式待核。"},
+
+  {"id": "F-11.4.1-3", "clause_id": "GB50017-2017:11.4.1", "applies_to": "bolt_normal",
+   "expr": "TBD：单栓抗拉承载力式（式 11.4.1-3，V2）", "symbols": ["N_t_b", "A_e", "f_t_b"],
+   "unit_system": "N,mm,MPa", "status": "pending", "notes": "有效直径/有效截面系数取法待核。"},
+
+  {"id": "F-11.4.1-4", "clause_id": "GB50017-2017:11.4.1", "applies_to": "bolt_normal",
+   "expr": "TBD：拉剪共同作用式（式 11.4.1-4，V2）", "symbols": ["N_v_b", "N_t_b"],
+   "unit_system": "无量纲比值", "status": "pending",
+   "notes": "C 级与普通是否另有附加拉力项未确认（plan/04 A3 已标待核）。"},
+
+  {"id": "F-11.4.2-1", "clause_id": "GB50017-2017:11.4.2", "applies_to": "bolt_hsb_friction",
+   "expr": "TBD：高强螺栓摩擦型单栓受剪承载力式（式 11.4.2-1，V2）",
+   "symbols": ["N_v_b", "n_f", "mu", "P", "k"], "unit_system": "N,mm,MPa", "status": "pending",
+   "notes": "plan/07 §三.4：右端系数（如 0.9）未在任何可直连页面逐字出现，条文说明只给 n_f*mu*P 与抗力分项系数 1.111 → 严禁按 0.9 落库。"},
+
+  {"id": "F-7.2.1-1", "clause_id": "GB50017-2017:7.2.1", "applies_to": "column_buckling",
+   "expr": "TBD：轴心受压构件整体稳定验算式（式 7.2.1，V2）", "symbols": ["phi", "A", "f", "lambda"],
+   "unit_system": "N,mm,MPa", "status": "pending",
+   "notes": "转述形式 N/(phi*A)<=f 待正式文本核对；单角钢强度折减不启用。"},
+
+  {"id": "F-D.0.5-1", "clause_id": "GB50017-2017:D.0.5", "applies_to": "column_buckling",
+   "expr": "TBD：稳定系数 phi 的拟合公式（表 D.0.5 系数 alpha1~alpha3，V3）",
+   "symbols": ["phi", "lambda"], "unit_system": "无量纲", "status": "pending",
+   "notes": "D11 双源交叉核对的第二源；与离散表同点同值才能升 verified。"}
+]

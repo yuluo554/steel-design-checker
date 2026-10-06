@@ -16,6 +16,11 @@ output/
 reports/
 *.log
 
+# 第三方规范站点抓取原文（含建标库正文转储）：版权风险，永不入仓，也不入打包
+/.tmp_verify/
+# 会话产物
+.qoder-credits/
+
 # 环境与密钥
 .env
 *.key

@@ -1,0 +1,2024 @@
+{
+  "doc_count": 24,
+  "documents": [
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0000",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0000.docx",
+      "injections": [],
+      "paragraph_count": 11,
+      "sha256": "fde9dfb98d5831618e4b034c82b265ddc9e8ed156aa31c0c19df6e1512d4bd04",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q235B"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "C"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "6"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "一级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "8.8"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.45"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "表面自然生红锈"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "无机富锌底漆加环氧中间漆加面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "1.50"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "8.8",
+        "coating": "无机富锌底漆加环氧中间漆加面漆",
+        "fire_hour": "1.50",
+        "grade": "Q235B",
+        "min_hf": "6",
+        "mu": "0.45",
+        "qclass": "C",
+        "surface": "表面自然生红锈",
+        "weld_class": "一级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0001",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0001.docx",
+      "injections": [],
+      "paragraph_count": 11,
+      "sha256": "eafbc1dcb6d22b474af7abd9c0fe813dea9dda3ecf04fdeb6578f4885b673986",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q420D"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "C"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "8"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "一级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "10.9"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.45"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "喷砂后涂富锌漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "无机富锌底漆加环氧中间漆加面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "1.50"
+        },
+        {
+          "para": 10,
+          "section": "construct",
+          "slot": "surface",
+          "value": "喷砂后涂富锌漆"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "10.9",
+        "coating": "无机富锌底漆加环氧中间漆加面漆",
+        "fire_hour": "1.50",
+        "grade": "Q420D",
+        "min_hf": "8",
+        "mu": "0.45",
+        "qclass": "C",
+        "surface": "喷砂后涂富锌漆",
+        "weld_class": "一级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0002",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0002.docx",
+      "injections": [],
+      "paragraph_count": 11,
+      "sha256": "00d694f5870ea3623868f38ebc2d6ad8dfcb783f227d0311a412617e54cb05bc",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q235B"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "C"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "8"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "二级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "10.9"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.45"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "喷砂后涂富锌漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "两道环氧富锌底漆加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "2.00"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "10.9",
+        "coating": "两道环氧富锌底漆加两道面漆",
+        "fire_hour": "2.00",
+        "grade": "Q235B",
+        "min_hf": "8",
+        "mu": "0.45",
+        "qclass": "C",
+        "surface": "喷砂后涂富锌漆",
+        "weld_class": "二级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0003",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0003.docx",
+      "injections": [],
+      "paragraph_count": 11,
+      "sha256": "e7f07a7faeaeba2c6a605c58c6395690a4e8a60fed6fc862b75f975c28e4c0f5",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q420D"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "B"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "6"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "二级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "8.8"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.45"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "手工钢丝刷清理浮锈"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "无机富锌底漆加环氧中间漆加面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "2.00"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "8.8",
+        "coating": "无机富锌底漆加环氧中间漆加面漆",
+        "fire_hour": "2.00",
+        "grade": "Q420D",
+        "min_hf": "6",
+        "mu": "0.45",
+        "qclass": "B",
+        "surface": "手工钢丝刷清理浮锈",
+        "weld_class": "二级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0004",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0004.docx",
+      "injections": [],
+      "paragraph_count": 11,
+      "sha256": "70204fe563dda8fac9e691dddf6d10d781b27837a38c1d62e56b95937127123a",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q390C"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "D"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "10"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "二级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "8.8"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.30"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "表面自然生红锈"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "热浸镀锌加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "2.00"
+        },
+        {
+          "para": 10,
+          "section": "construct",
+          "slot": "surface",
+          "value": "表面自然生红锈"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "8.8",
+        "coating": "热浸镀锌加两道面漆",
+        "fire_hour": "2.00",
+        "grade": "Q390C",
+        "min_hf": "10",
+        "mu": "0.30",
+        "qclass": "D",
+        "surface": "表面自然生红锈",
+        "weld_class": "二级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0005",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0005.docx",
+      "injections": [],
+      "paragraph_count": 11,
+      "sha256": "3994eda4b17346734c22af8f5d5207f4d62b635fc36eef5595fc1513d4ae8a4c",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q420D"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "B"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "6"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "二级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "8.8"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.30"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "手工钢丝刷清理浮锈"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "两道环氧富锌底漆加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "1.00"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "8.8",
+        "coating": "两道环氧富锌底漆加两道面漆",
+        "fire_hour": "1.00",
+        "grade": "Q420D",
+        "min_hf": "6",
+        "mu": "0.30",
+        "qclass": "B",
+        "surface": "手工钢丝刷清理浮锈",
+        "weld_class": "二级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0006",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0006.docx",
+      "injections": [],
+      "paragraph_count": 11,
+      "sha256": "1664438911ab02aef1ddcf0f4f0b89c6844fbe563d40c449c6150927abbc091c",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q420D"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "C"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "4"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "一级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "8.8"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.35"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "喷砂后涂富锌漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "两道环氧富锌底漆加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "1.50"
+        },
+        {
+          "para": 10,
+          "section": "construct",
+          "slot": "surface",
+          "value": "喷砂后涂富锌漆"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "8.8",
+        "coating": "两道环氧富锌底漆加两道面漆",
+        "fire_hour": "1.50",
+        "grade": "Q420D",
+        "min_hf": "4",
+        "mu": "0.35",
+        "qclass": "C",
+        "surface": "喷砂后涂富锌漆",
+        "weld_class": "一级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0007",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0007.docx",
+      "injections": [],
+      "paragraph_count": 11,
+      "sha256": "71146205e4c6d94b2c0ec5aabc4b0cb1798ef745299102063d0775293d37e5d4",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q355B"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "D"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "8"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "一级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "10.9"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.30"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "表面自然生红锈"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "两道环氧富锌底漆加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "1.00"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "10.9",
+        "coating": "两道环氧富锌底漆加两道面漆",
+        "fire_hour": "1.00",
+        "grade": "Q355B",
+        "min_hf": "8",
+        "mu": "0.30",
+        "qclass": "D",
+        "surface": "表面自然生红锈",
+        "weld_class": "一级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0008",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0008.docx",
+      "injections": [],
+      "paragraph_count": 11,
+      "sha256": "745799605d1998c69b9205847aafa617a0bba42d2b5e75fae304c0fb6fbe85c3",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q420D"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "B"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "4"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "一级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "10.9"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.45"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "手工钢丝刷清理浮锈"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "无机富锌底漆加环氧中间漆加面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "2.00"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "10.9",
+        "coating": "无机富锌底漆加环氧中间漆加面漆",
+        "fire_hour": "2.00",
+        "grade": "Q420D",
+        "min_hf": "4",
+        "mu": "0.45",
+        "qclass": "B",
+        "surface": "手工钢丝刷清理浮锈",
+        "weld_class": "一级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0009",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0009.docx",
+      "injections": [],
+      "paragraph_count": 11,
+      "sha256": "e60bae08d6cad87eefc79176ab660799751a9930048c24257201cde2b769ee3c",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q420D"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "D"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "8"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "二级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "10.9"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.40"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "手工钢丝刷清理浮锈"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "两道环氧富锌底漆加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "2.00"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "10.9",
+        "coating": "两道环氧富锌底漆加两道面漆",
+        "fire_hour": "2.00",
+        "grade": "Q420D",
+        "min_hf": "8",
+        "mu": "0.40",
+        "qclass": "D",
+        "surface": "手工钢丝刷清理浮锈",
+        "weld_class": "二级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0010",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0010.docx",
+      "injections": [],
+      "paragraph_count": 11,
+      "sha256": "8241e4cb056ddbebf8b373fe1dff298997449c5fb3673636fc12eae292c3ea61",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q420D"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "A"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "4"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "二级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "10.9"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.40"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "手工钢丝刷清理浮锈"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "两道环氧富锌底漆加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "1.00"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "10.9",
+        "coating": "两道环氧富锌底漆加两道面漆",
+        "fire_hour": "1.00",
+        "grade": "Q420D",
+        "min_hf": "4",
+        "mu": "0.40",
+        "qclass": "A",
+        "surface": "手工钢丝刷清理浮锈",
+        "weld_class": "二级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": true,
+      "doc_id": "SYNTH-0011",
+      "expected_non_pass": [],
+      "file": "docx/SYNTH-0011.docx",
+      "injections": [],
+      "paragraph_count": 11,
+      "sha256": "9904e91cf743fc800c02e206835ea1d9ba0ded8b419f296a6934480992eb1f47",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q355B"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "D"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "4"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "二级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "8.8"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.45"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "喷砂"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "无机富锌底漆加环氧中间漆加面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "2.00"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "8.8",
+        "coating": "无机富锌底漆加环氧中间漆加面漆",
+        "fire_hour": "2.00",
+        "grade": "Q355B",
+        "min_hf": "4",
+        "mu": "0.45",
+        "qclass": "D",
+        "surface": "喷砂",
+        "weld_class": "二级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0012",
+      "expected_non_pass": [
+        "R-WELD-CLASS-001",
+        "焊缝检验要求未写明对应质量等级"
+      ],
+      "file": "docx/SYNTH-0012.docx",
+      "injections": [
+        {
+          "para": 4,
+          "primary": {
+            "also_expect": [
+              "焊缝检验要求未写明对应质量等级"
+            ],
+            "expect": "abnormal",
+            "para": 4,
+            "rule": "R-WELD-CLASS-001",
+            "slot": "weld_class"
+          },
+          "section": "welding",
+          "type": "weld_class_missing"
+        }
+      ],
+      "paragraph_count": 11,
+      "sha256": "9f34010647799e72bcfab5abc33c70670b4d368c153dbff53f4b9e7ccea772a9",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q420D"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "C"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "8.8"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.40"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "喷砂"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "无机富锌底漆加环氧中间漆加面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "1.50"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "8.8",
+        "coating": "无机富锌底漆加环氧中间漆加面漆",
+        "fire_hour": "1.50",
+        "grade": "Q420D",
+        "mu": "0.40",
+        "qclass": "C",
+        "surface": "喷砂"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0013",
+      "expected_non_pass": [
+        "R-STEEL-GRADE-CONSISTENCY",
+        "连接板与主体材质不匹配需人工确认"
+      ],
+      "file": "docx/SYNTH-0013.docx",
+      "injections": [
+        {
+          "para": 10,
+          "primary": {
+            "also_expect": [
+              "连接板与主体材质不匹配需人工确认"
+            ],
+            "expect": "abnormal",
+            "para": 10,
+            "rule": "R-STEEL-GRADE-CONSISTENCY",
+            "slot": "grade"
+          },
+          "section": "construct",
+          "type": "steel_grade_contradiction"
+        }
+      ],
+      "paragraph_count": 11,
+      "sha256": "3f7e0d7d4c970afb114fb5645374adbb3047aa7b7a15eba115f139ba4ac8d6bf",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q420D"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "A"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "8"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "一级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "8.8"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.35"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "手工钢丝刷清理浮锈"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "热浸镀锌加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "2.00"
+        },
+        {
+          "para": 10,
+          "section": "construct",
+          "slot": "grade_alt",
+          "value": "Q235B"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "8.8",
+        "coating": "热浸镀锌加两道面漆",
+        "fire_hour": "2.00",
+        "grade": "Q420D",
+        "grade_alt": "Q235B",
+        "min_hf": "8",
+        "mu": "0.35",
+        "qclass": "A",
+        "surface": "手工钢丝刷清理浮锈",
+        "weld_class": "一级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0014",
+      "expected_non_pass": [
+        "R-BOLT-GRADE-MISMATCH",
+        "主受力连接未采用摩擦型高强螺栓"
+      ],
+      "file": "docx/SYNTH-0014.docx",
+      "injections": [
+        {
+          "para": 6,
+          "primary": {
+            "also_expect": [
+              "主受力连接未采用摩擦型高强螺栓"
+            ],
+            "expect": "abnormal",
+            "para": 6,
+            "rule": "R-BOLT-GRADE-MISMATCH",
+            "slot": "bolt_grade"
+          },
+          "section": "bolt",
+          "type": "bolt_grade_mismatch"
+        }
+      ],
+      "paragraph_count": 11,
+      "sha256": "d01298639ed6643c15ea6dfa8d763d46b88aff7ec5b950f8da2a6e078957e2c2",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q420D"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "C"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "6"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "一级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "4.6"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "两道环氧富锌底漆加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "2.00"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "4.6",
+        "coating": "两道环氧富锌底漆加两道面漆",
+        "fire_hour": "2.00",
+        "grade": "Q420D",
+        "min_hf": "6",
+        "qclass": "C",
+        "weld_class": "一级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0015",
+      "expected_non_pass": [
+        "R-WELD-CLASS-001",
+        "焊缝检验要求未写明对应质量等级"
+      ],
+      "file": "docx/SYNTH-0015.docx",
+      "injections": [
+        {
+          "para": 4,
+          "primary": {
+            "also_expect": [
+              "焊缝检验要求未写明对应质量等级"
+            ],
+            "expect": "abnormal",
+            "para": 4,
+            "rule": "R-WELD-CLASS-001",
+            "slot": "weld_class"
+          },
+          "section": "welding",
+          "type": "weld_class_missing"
+        }
+      ],
+      "paragraph_count": 11,
+      "sha256": "2bc34fb122754175916a2d677394e34971e26c4ffdd7a301bb5342dab2cd6052",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q390C"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "A"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "8.8"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.45"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "表面自然生红锈"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "热浸镀锌加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "1.50"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "8.8",
+        "coating": "热浸镀锌加两道面漆",
+        "fire_hour": "1.50",
+        "grade": "Q390C",
+        "mu": "0.45",
+        "qclass": "A",
+        "surface": "表面自然生红锈"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0016",
+      "expected_non_pass": [
+        "R-STEEL-GRADE-CONSISTENCY",
+        "连接板与主体材质不匹配需人工确认"
+      ],
+      "file": "docx/SYNTH-0016.docx",
+      "injections": [
+        {
+          "para": 10,
+          "primary": {
+            "also_expect": [
+              "连接板与主体材质不匹配需人工确认"
+            ],
+            "expect": "abnormal",
+            "para": 10,
+            "rule": "R-STEEL-GRADE-CONSISTENCY",
+            "slot": "grade"
+          },
+          "section": "construct",
+          "type": "steel_grade_contradiction"
+        }
+      ],
+      "paragraph_count": 11,
+      "sha256": "4adcba7576add3a55768b5460c77b39dbb3983848db82828d19e220059245ceb",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q390C"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "C"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "10"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "二级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "10.9"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.30"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "表面自然生红锈"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "热浸镀锌加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "2.00"
+        },
+        {
+          "para": 10,
+          "section": "construct",
+          "slot": "grade_alt",
+          "value": "Q235B"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "10.9",
+        "coating": "热浸镀锌加两道面漆",
+        "fire_hour": "2.00",
+        "grade": "Q390C",
+        "grade_alt": "Q235B",
+        "min_hf": "10",
+        "mu": "0.30",
+        "qclass": "C",
+        "surface": "表面自然生红锈",
+        "weld_class": "二级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0017",
+      "expected_non_pass": [
+        "R-BOLT-GRADE-MISMATCH",
+        "主受力连接未采用摩擦型高强螺栓"
+      ],
+      "file": "docx/SYNTH-0017.docx",
+      "injections": [
+        {
+          "para": 6,
+          "primary": {
+            "also_expect": [
+              "主受力连接未采用摩擦型高强螺栓"
+            ],
+            "expect": "abnormal",
+            "para": 6,
+            "rule": "R-BOLT-GRADE-MISMATCH",
+            "slot": "bolt_grade"
+          },
+          "section": "bolt",
+          "type": "bolt_grade_mismatch"
+        }
+      ],
+      "paragraph_count": 11,
+      "sha256": "a60b20be4a002258c5938f81c2656f689b2be85192c7147d7a88d4d1cffce7bd",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q235B"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "A"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "10"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "二级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "4.6"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "热浸镀锌加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "1.00"
+        },
+        {
+          "para": 10,
+          "section": "construct",
+          "slot": "surface",
+          "value": "手工钢丝刷清理浮锈"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "4.6",
+        "coating": "热浸镀锌加两道面漆",
+        "fire_hour": "1.00",
+        "grade": "Q235B",
+        "min_hf": "10",
+        "qclass": "A",
+        "surface": "手工钢丝刷清理浮锈",
+        "weld_class": "二级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0018",
+      "expected_non_pass": [
+        "R-WELD-CLASS-001",
+        "焊缝检验要求未写明对应质量等级"
+      ],
+      "file": "docx/SYNTH-0018.docx",
+      "injections": [
+        {
+          "para": 4,
+          "primary": {
+            "also_expect": [
+              "焊缝检验要求未写明对应质量等级"
+            ],
+            "expect": "abnormal",
+            "para": 4,
+            "rule": "R-WELD-CLASS-001",
+            "slot": "weld_class"
+          },
+          "section": "welding",
+          "type": "weld_class_missing"
+        }
+      ],
+      "paragraph_count": 11,
+      "sha256": "d9317d0496ea08b1ba36402a7dbff7c8e72bc76115a73a08d6456e3d7441d6eb",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q390C"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "C"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "8.8"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.40"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "手工钢丝刷清理浮锈"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "热浸镀锌加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "1.00"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "8.8",
+        "coating": "热浸镀锌加两道面漆",
+        "fire_hour": "1.00",
+        "grade": "Q390C",
+        "mu": "0.40",
+        "qclass": "C",
+        "surface": "手工钢丝刷清理浮锈"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0019",
+      "expected_non_pass": [
+        "R-STEEL-GRADE-CONSISTENCY",
+        "连接板与主体材质不匹配需人工确认"
+      ],
+      "file": "docx/SYNTH-0019.docx",
+      "injections": [
+        {
+          "para": 10,
+          "primary": {
+            "also_expect": [
+              "连接板与主体材质不匹配需人工确认"
+            ],
+            "expect": "abnormal",
+            "para": 10,
+            "rule": "R-STEEL-GRADE-CONSISTENCY",
+            "slot": "grade"
+          },
+          "section": "construct",
+          "type": "steel_grade_contradiction"
+        }
+      ],
+      "paragraph_count": 11,
+      "sha256": "f734959c3b262cd539802ce8e63a0a5578b9435b2095e2750a6e50f475e91e0b",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q390C"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "C"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "4"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "二级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "10.9"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.35"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "喷砂后涂富锌漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "热浸镀锌加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "1.00"
+        },
+        {
+          "para": 10,
+          "section": "construct",
+          "slot": "grade_alt",
+          "value": "Q235B"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "10.9",
+        "coating": "热浸镀锌加两道面漆",
+        "fire_hour": "1.00",
+        "grade": "Q390C",
+        "grade_alt": "Q235B",
+        "min_hf": "4",
+        "mu": "0.35",
+        "qclass": "C",
+        "surface": "喷砂后涂富锌漆",
+        "weld_class": "二级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0020",
+      "expected_non_pass": [
+        "R-BOLT-GRADE-MISMATCH",
+        "主受力连接未采用摩擦型高强螺栓"
+      ],
+      "file": "docx/SYNTH-0020.docx",
+      "injections": [
+        {
+          "para": 6,
+          "primary": {
+            "also_expect": [
+              "主受力连接未采用摩擦型高强螺栓"
+            ],
+            "expect": "abnormal",
+            "para": 6,
+            "rule": "R-BOLT-GRADE-MISMATCH",
+            "slot": "bolt_grade"
+          },
+          "section": "bolt",
+          "type": "bolt_grade_mismatch"
+        }
+      ],
+      "paragraph_count": 11,
+      "sha256": "c7b2bd0460575f493b44cb7b530050d40ea16282a5ee2a17fe848ace410a24b8",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q390C"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "A"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "4"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "二级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "4.6"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "两道环氧富锌底漆加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "2.00"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "4.6",
+        "coating": "两道环氧富锌底漆加两道面漆",
+        "fire_hour": "2.00",
+        "grade": "Q390C",
+        "min_hf": "4",
+        "qclass": "A",
+        "weld_class": "二级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0021",
+      "expected_non_pass": [
+        "R-WELD-CLASS-001",
+        "焊缝检验要求未写明对应质量等级"
+      ],
+      "file": "docx/SYNTH-0021.docx",
+      "injections": [
+        {
+          "para": 4,
+          "primary": {
+            "also_expect": [
+              "焊缝检验要求未写明对应质量等级"
+            ],
+            "expect": "abnormal",
+            "para": 4,
+            "rule": "R-WELD-CLASS-001",
+            "slot": "weld_class"
+          },
+          "section": "welding",
+          "type": "weld_class_missing"
+        }
+      ],
+      "paragraph_count": 11,
+      "sha256": "d13e1a847975c09dec8c7a14eabfc9f4fc6819d60720628d8bb41ecf1d118e8e",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q355B"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "C"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "8.8"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.35"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "喷砂后涂富锌漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "热浸镀锌加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "1.50"
+        },
+        {
+          "para": 10,
+          "section": "construct",
+          "slot": "surface",
+          "value": "喷砂后涂富锌漆"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "8.8",
+        "coating": "热浸镀锌加两道面漆",
+        "fire_hour": "1.50",
+        "grade": "Q355B",
+        "mu": "0.35",
+        "qclass": "C",
+        "surface": "喷砂后涂富锌漆"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0022",
+      "expected_non_pass": [
+        "R-STEEL-GRADE-CONSISTENCY",
+        "连接板与主体材质不匹配需人工确认"
+      ],
+      "file": "docx/SYNTH-0022.docx",
+      "injections": [
+        {
+          "para": 10,
+          "primary": {
+            "also_expect": [
+              "连接板与主体材质不匹配需人工确认"
+            ],
+            "expect": "abnormal",
+            "para": 10,
+            "rule": "R-STEEL-GRADE-CONSISTENCY",
+            "slot": "grade"
+          },
+          "section": "construct",
+          "type": "steel_grade_contradiction"
+        }
+      ],
+      "paragraph_count": 11,
+      "sha256": "a2457d566d4d206d1c96c527314f0a82982b48b48d1b3af05997d76286ab854b",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q390C"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "A"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "4"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "一级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "10.9"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "mu",
+          "value": "0.35"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "surface",
+          "value": "喷砂"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "两道环氧富锌底漆加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "2.00"
+        },
+        {
+          "para": 10,
+          "section": "construct",
+          "slot": "grade_alt",
+          "value": "Q235B"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "10.9",
+        "coating": "两道环氧富锌底漆加两道面漆",
+        "fire_hour": "2.00",
+        "grade": "Q390C",
+        "grade_alt": "Q235B",
+        "min_hf": "4",
+        "mu": "0.35",
+        "qclass": "A",
+        "surface": "喷砂",
+        "weld_class": "一级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    },
+    {
+      "clean": false,
+      "doc_id": "SYNTH-0023",
+      "expected_non_pass": [
+        "R-BOLT-GRADE-MISMATCH",
+        "主受力连接未采用摩擦型高强螺栓"
+      ],
+      "file": "docx/SYNTH-0023.docx",
+      "injections": [
+        {
+          "para": 6,
+          "primary": {
+            "also_expect": [
+              "主受力连接未采用摩擦型高强螺栓"
+            ],
+            "expect": "abnormal",
+            "para": 6,
+            "rule": "R-BOLT-GRADE-MISMATCH",
+            "slot": "bolt_grade"
+          },
+          "section": "bolt",
+          "type": "bolt_grade_mismatch"
+        }
+      ],
+      "paragraph_count": 11,
+      "sha256": "1d6aa608d2e71ea241331a6fa40c41d88989873e9a551aaf5b53e3e5cb9c1aef",
+      "slot_evidence": [
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "grade",
+          "value": "Q390C"
+        },
+        {
+          "para": 2,
+          "section": "material",
+          "slot": "qclass",
+          "value": "C"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "min_hf",
+          "value": "6"
+        },
+        {
+          "para": 4,
+          "section": "welding",
+          "slot": "weld_class",
+          "value": "二级"
+        },
+        {
+          "para": 6,
+          "section": "bolt",
+          "slot": "bolt_grade",
+          "value": "4.6"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "coating",
+          "value": "热浸镀锌加两道面漆"
+        },
+        {
+          "para": 8,
+          "section": "protection",
+          "slot": "fire_hour",
+          "value": "1.00"
+        },
+        {
+          "para": 10,
+          "section": "construct",
+          "slot": "surface",
+          "value": "喷砂后涂富锌漆"
+        }
+      ],
+      "slots": {
+        "bolt_grade": "4.6",
+        "coating": "热浸镀锌加两道面漆",
+        "fire_hour": "1.00",
+        "grade": "Q390C",
+        "min_hf": "6",
+        "qclass": "C",
+        "surface": "喷砂后涂富锌漆",
+        "weld_class": "二级"
+      },
+      "title": "钢结构设计说明（合成样例，非真实工程）"
+    }
+  ],
+  "seed": 20261006
+}

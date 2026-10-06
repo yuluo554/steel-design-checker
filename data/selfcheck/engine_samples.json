@@ -1,0 +1,83 @@
+[
+  {
+    "case_id": "SC-A1-UNIT-001", "module": "butt_weld", "status": "selfcheck",
+    "inputs": {"b": 200.0, "t": 10.0, "l_w": 200.0, "N": 400000.0, "weld_type": "直缝", "has_opening_gap": true},
+    "assertions": [
+      "同一算例的 N 以 kN 输入与以 N 输入（其余不变），ratio 必须完全相同（单位换算只发生在入口适配层，口径 K1）",
+      "inputs 缺失必填键时必须报输入不可用（退出码 2 语义），不得静默按 0 计算"
+    ],
+    "notes": "无数值期望：对接焊缝强度设计值 T-weld-design-value 仍 located（V1），本例只约束单位与错误路径。"
+  },
+  {
+    "case_id": "SC-A1-MONO-001", "module": "butt_weld", "status": "selfcheck",
+    "inputs": {"b": 200.0, "t": 10.0, "l_w": 200.0, "N": 400000.0},
+    "assertions": [
+      "N 增大时 ratio 严格增大；t 或 b 增大时 ratio 严格减小（同一分母形式下的单调性）",
+      "ratio 跨越 1.0 时 conclusion 必须由 satisfied 转 unsatisfied；0.95<ratio<=1.0 判 need_adjust（口径 K2）"
+    ],
+    "notes": "单调性只依赖截面几何，不依赖未核对的设计值，因此现在就能断言。"
+  },
+  {
+    "case_id": "SC-A2-GEOM-001", "module": "fillet_weld", "status": "selfcheck",
+    "inputs": {"h_f": 8.0, "l_w": 240.0, "n_welds": 2, "N": 420000.0, "load_direction": "侧面"},
+    "assertions": [
+      "h_e 必须等于 0.7*h_f 的形式仅在 T/式体核对后启用；未核对前该步必须来自 data 而不是硬编码",
+      "n_welds 增大时承载面积线性增大（h_e*l_w*n_welds），ratio 线性下降"
+    ],
+    "notes": "渠道转述的 h_e=0.7h_f 与 beta_f 取值都未经正式文本核对（plan/07 §二.4），本例不断言具体数值。"
+  },
+  {
+    "case_id": "SC-A2-GATE-001", "module": "fillet_weld", "status": "selfcheck",
+    "inputs": {"h_f": 8.0, "l_w": 240.0, "n_welds": 2, "N": 420000.0},
+    "assertions": [
+      "依赖 T-fillet-weld-value（located）时必须 blocked 且不输出 ratio 数值（口径 K2 硬断言）",
+      "blocked 结果的 blocked[] 必须逐项列出 kind 与 id，不得只给一句笼统提示"
+    ],
+    "notes": "这条是本项目含金量所在：门控被绕过就等于零，M2 必须让它成为失败测试。"
+  },
+  {
+    "case_id": "SC-A3-GROUP-001", "module": "bolt_normal", "status": "selfcheck",
+    "inputs": {"d": 20.0, "bolt_type": "C级", "group": {"n_x": 2, "n_y": 3, "pitch": 80.0}, "V": 300000.0},
+    "assertions": [
+      "群栓分配律（形心一致、剪力与距离成正比）所依据的条号仍是真空项（plan/07 §三.5、V6），实现时必须在 basis[] 标注依据待核",
+      "同一螺栓群按不同角度排列（n_x/n_y 互换）时，最大受力栓的识别必须只由几何决定，与遍历顺序无关（口径 K8 禁 set 迭代序）"
+    ],
+    "notes": "不写具体分配数值期望：11.4 止于 11.4.5 且无分配条文，JGJ 82-2011 是否纳入范围尚未拍板。"
+  },
+  {
+    "case_id": "SC-A4-MU-001", "module": "bolt_hsb_friction", "status": "selfcheck",
+    "inputs": {"surface_treatment": "喷砂", "n_f": 2, "bolt_count": 6, "V": 250000.0},
+    "assertions": [
+      "surface_treatment 的合法取值集合必须来自 T-slip-factor 行名（located、值未到），未核对前拒绝枚举校验通过",
+      "mu 或 P 任一为 pending/located 时结论必须 blocked，不得用记忆值兜底（D11）"
+    ],
+    "notes": "抗滑移系数与预拉力是 A4 的两个数据源，两者都在 V1 阻塞清单里。"
+  },
+  {
+    "case_id": "SC-A4-SCOPE-001", "module": "bolt_hsb_friction", "status": "selfcheck",
+    "inputs": {"load_state": "受剪"},
+    "assertions": [
+      "承压型高强螺栓（11.4.3）不在本模块范围：显式请求承压型时必须拒绝并提示属扩展项 E（plan/04 A4 纪律）"
+    ],
+    "notes": "范围纪律也要有失败路径测试，防止后续顺手实现。"
+  },
+  {
+    "case_id": "SC-A5-PHI-001", "module": "column_buckling", "status": "selfcheck",
+    "inputs": {"A": 6400.0, "i_x": 88.0, "i_y": 42.0, "l_0x": 6000.0, "l_0y": 3000.0, "N": 1200000.0},
+    "assertions": [
+      "λ 取 λx 与 λy 的较大者，方向取舍不得依赖输入顺序（口径 K8）",
+      "φ 必须双源同值才可参与计算：只有附录离散表或只有 D.0.5 拟合公式时，都算单源，A5 保持 blocked（D11）",
+      "禁止用记忆值或自行拟合曲线补 φ（V3 未解除前，任何 φ 数值出现即为缺陷）"
+    ],
+    "notes": "A5 是五个模块里唯一同时受表值（V1）、式体（V2）、双源（V3）三重阻塞的模块。"
+  },
+  {
+    "case_id": "SC-ALL-DTERMINISM-001", "module": "column_buckling", "status": "selfcheck",
+    "inputs": {"A": 6400.0, "l_0x": 6000.0, "i_x": 88.0},
+    "assertions": [
+      "同一输入两次运行的 Result 必须完全一致，且 data_fingerprint 不变（口径 K8）",
+      "data/clauses 或 data/tables 任一数值被改动后，data_fingerprint 必须变化（口径 K12）"
+    ],
+    "notes": "本例只做确定性断言，不做数值断言，因此现在即可纳入 M1 的测试范围。"
+  }
+]

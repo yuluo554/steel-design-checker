@@ -1,0 +1,61 @@
+[
+  {"id": "T-steel-design-value", "clause": "GB50017-2017:4.4.1", "title": "钢材强度设计值",
+   "source_table_no": "表 4.4.1", "axes": ["steel_grade", "thickness_group"], "values": [],
+   "interpolation": "group", "status": "located", "unit": "MPa",
+   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（表体在渠道页面未渲染，本地转储缓存已丢失）", "date": "2026-10-06", "note": "表号与轴向维度定位；表体数值未取到（plan/07 §四 V1）"},
+   "notes": "牌号体系存在 Q345/Q355 争议（V5），厚度分组边界未核对，二者都未确认前禁止填值。"},
+
+  {"id": "T-weld-design-value", "clause": "GB50017-2017:4.4.5", "title": "对接焊缝强度设计值",
+   "source_table_no": "表 4.4.5", "axes": ["weld_quality_class", "force_direction", "has_notch"],
+   "values": [], "interpolation": "group", "status": "located", "unit": "MPa",
+   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）", "date": "2026-10-06", "note": "表号与三级维度定位；数值未取到（V1）"},
+   "notes": "A1 模块抗拉/抗压/抗剪三值都来自本表，一级二级与三级分列；未核对即 blocked（D04）。"},
+
+  {"id": "T-fillet-weld-value", "clause": "GB50017-2017:4.4.5", "title": "角焊缝强度设计值 f_f^w",
+   "source_table_no": "表 4.4.5", "axes": ["steel_grade", "weld_process"], "values": [],
+   "interpolation": "group", "status": "located", "unit": "MPa",
+   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）", "date": "2026-10-06", "note": "表号定位；数值未取到（V1）"},
+   "notes": "A2 模块抗力侧唯一数据来源；与 beta_f（11.2.2）配对使用，两者都待核。"},
+
+  {"id": "T-bolt-design-value", "clause": "GB50017-2017:4.4.6", "title": "普通螺栓强度设计值",
+   "source_table_no": "表 4.4.6", "axes": ["bolt_grade", "force_type"], "values": [],
+   "interpolation": "group", "status": "located", "unit": "MPa",
+   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）", "date": "2026-10-06", "note": "表号定位；数值未取到（V1）"},
+   "notes": "含锚栓与承压型高强螺栓行，首期只取普通螺栓抗拉/抗剪/承压。"},
+
+  {"id": "T-hbolt-preload", "clause": "GB50017-2017:11.4.2", "title": "高强度螺栓预拉力 P",
+   "source_table_no": "表 11.4.2-2", "axes": ["bolt_grade", "nominal_diameter"], "values": [],
+   "interpolation": "group", "status": "located", "unit": "kN",
+   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）", "date": "2026-10-06", "note": "表号定位；数值未取到（V1）"},
+   "notes": "A4 模块的两个数据源之一；温度折减适用条件另挂条款，待核。"},
+
+  {"id": "T-slip-factor", "clause": "GB50017-2017:11.4.2", "title": "抗滑移系数 μ",
+   "source_table_no": "表 11.4.2-1", "axes": ["surface_treatment", "steel_grade_group"], "values": [],
+   "interpolation": "group", "status": "located", "unit": "无量纲",
+   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）", "date": "2026-10-06", "note": "表号定位；表面处理类别词表与数值均未取到（V1）"},
+   "notes": "参数卡的 surface_treatment 枚举必须来自本表行名，未核对前不得自造取值集合。"},
+
+  {"id": "T-buckling-curve", "clause": "GB50017-2017:D.0.1", "title": "轴心受压构件稳定系数 φ（a/b/c/d 类）",
+   "source_table_no": "附录 D 表 D.0.1~D.0.4 与表 D.0.5", "axes": ["section_class", "lambda"],
+   "values": [], "interpolation": "linear", "status": "located", "unit": "无量纲",
+   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（附录页表体未渲染，本地转储缓存已丢失）", "date": "2026-10-06", "note": "附录分档与双源位置定位；表值与拟合公式系数均未取到（V3）"},
+   "notes": "D11 双源＝离散表 + D.0.5 拟合公式同点同值才升 verified；插值口径（linear）是本项目假设，须与来源一致后才成立，两源皆无则 A5 blocked（禁止记忆值或自行拟合）。"},
+
+  {"id": "T-section-class", "clause": "GB50017-2017:7.2.1-表1", "title": "受压构件截面 a/b/c/d 分类",
+   "source_table_no": "表 7.2.1-1 / 表 7.2.1-2", "axes": ["section_form", "manufacture", "edge_condition", "thickness"],
+   "values": [], "interpolation": "group", "status": "located", "unit": "无量纲",
+   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）", "date": "2026-10-06", "note": "两张表号与 t=40mm 分界定位；归属未取到（V4）"},
+   "notes": "A5 的 section_class 输入必须先由本表判定，未核对前只接受人工给定分类并显式标注依据待核。"},
+
+  {"id": "T-slenderness-limit", "clause": "GB50017-2017:7.4.6", "title": "容许长细比 [λ]",
+   "source_table_no": "表 7.4.6（受压）/ 表 7.4.7（受拉）", "axes": ["member_type"], "values": [],
+   "interpolation": "group", "status": "located", "unit": "无量纲",
+   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）", "date": "2026-10-06", "note": "两张表号定位；限值未取到（V1）"},
+   "notes": "A5 构造检查项；构件类型词表也待核。"},
+
+  {"id": "T-construct-limit", "clause": "GB50017-2017:11.5.2", "title": "连接构造限值（焊脚、螺栓间距与边距）",
+   "source_table_no": "表 11.5.2（并见 11.5.1、11.3.5、11.3.6）", "axes": ["param", "condition"],
+   "values": [], "interpolation": "group", "status": "located", "unit": "mm",
+   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）", "date": "2026-10-06", "note": "表号与所在条定位；限值未取到（V8）"},
+   "notes": "A1~A4 的构造检查（最小/最大焊脚、l_w 与 h_f 倍数、螺栓最小间距与边距）统一挂本表；数值缺失时 limits 项 value 保持 null 且启用即 blocked。"}
+]
