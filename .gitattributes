@@ -1,0 +1,16 @@
+# 全库统一 LF：本机 core.autocrlf=true，全新 clone 会把 LF 重写成 CRLF，
+# 直接打挂"字节冻结 fixtures + 逐字节一致"基准（方法论阶段 7 EOL 门）。
+* text=auto eol=lf
+
+# 换行不由 git 改写
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.docx binary
+*.pdf binary
+*.exe binary
+*.dll binary
+*.pyd binary
+*.zip binary
+*.ttf binary
