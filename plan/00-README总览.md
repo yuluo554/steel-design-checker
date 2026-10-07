@@ -20,7 +20,9 @@
 | HANDOFF-M3.md | M2 → M3（文本核查）交接快照 | ✅ 已落盘 2026-10-07 |
 | HANDOFF-M4.md | M3 文本核查 → M4（内置基准 + 报告导出）交接快照 | ✅ 已执行完毕（M4 结果见 HANDOFF-M5）；**M3 定档轮又回填了 §三/§四/§五**（附录 D 落地结果 + K37/K38 + 「0. 引擎支持分段」） |
 | HANDOFF-M5.md | M4 内置基准 → M5（桌面交付）交接快照 | ✅ 已执行完毕（M5 结果见 HANDOFF-M6） |
-| HANDOFF-M6.md | M5 桌面交付 → M6（脱敏发布 + 收尾固化）交接快照 | ✅ 已落盘 2026-10-07 |
+| HANDOFF-M6.md | M5 桌面交付 → M6（脱敏发布 + 收尾固化）交接快照 | ✅ 已落盘 2026-10-07（本轮结束时按 DoD 逐项勾选，M6 结果见 RELEASE-M6.md） |
+| [RELEASE-M6.md](RELEASE-M6.md) | **发布留档**：拍板四项 + 前置事实核验 + 脱敏五步命令与结论 + 复核项判定 + 干净环境/CI/Release 执行记录 + 偏差与复跑手册 | 🚧 §〇~§二 已实测填写；§三~§五 待发布后回填（不预填确认类条目） |
+| [../docs/技术报告.md](../docs/技术报告.md) | 材料固化：三大主题 + 交付形态 + 已知限制诚实清单（docx 由 `scripts/make_tech_report.py` 生成，K51） | ✅ 定稿 2026-10-07，`tests/test_tech_report.py` 7 项钉住字节一致与计数对账 |
 | ../README.md（仓库根） | 面向外部的总说明：能做什么、指标表、纪律、快速开始 | ✅ M4 新建；指标表由 `sdc bench --all --markdown` 生成，`tests/test_suite.py` 逐行对账 |
 
 ## 决策记录
@@ -36,7 +38,7 @@
 - **M3 文本核查**：设计说明参数卡解析 + 限值规则引擎 + GB 55006-2021 检查单 ✅ 完成 2026-10-07（其后 T5 定档轮把附录 D 升 verified，但没有任何模块出数值——f 仍来自 located 的表 4.4.1）
 - **M4 内置基准**：一键四基准 + 指标表写进 README + docx 交付物（0 外链／两次导出字节一致／免责声明强制存在）✅ 完成 2026-10-07（两个指标仍「不可判」：算例分母 0、可硬判 abnormal 规则 0 条）
 - **M5 桌面交付**：PySide6 界面 + PyInstaller onedir 双 exe + 打包断言 ✅ 完成 2026-10-07（GUI 与 CLI 同一批函数、逐字对账；`DIST_AUDIT_OK` + `CLEAN_ENV_OK`；冻结态子进程通路 K45 解决）
-- **M6 脱敏发布 GitHub + Release（exe）+ 收尾固化**
+- **M6 脱敏发布 GitHub + Release（exe）+ 收尾固化** 🚧 进行中（CI 矩阵/脱敏五步/技术报告已落地，发布执行见 plan/RELEASE-M6.md）
 
 ## 当前进度
 
@@ -49,3 +51,4 @@
 | M3 文本核查 | ✅ 完成 2026-10-07：`src/sdc/parse/`（docx/txt→槽位→IR，正则只在解析层）+ `src/sdc/rules/`（闸门矩阵 + 判定引擎，不 import `re`）+ `src/sdc/checklist.py` + `sdc parse/check/checklist` 与 `bench --parse/--audit`。指标：**F1 1.0000**（TP206/FP0/FN0）、**注入 12/12 检出、误报 0**、finding 全带条款与段落位置；数据侧新增 `rules/` 10 条、`checklist/` 107 条、55006 条款 30→107（全 8 章双主机文字层）。**T5 前提被查坏**（双镜像实为同一底图；φ↔公式官方常数下仅 793/953）⇒ 重拍为补第三路证据再定档，本轮 verified 仍 0。细目见 [HANDOFF-M4.md](HANDOFF-M4.md)。**其后 M3 定档轮已完成**（第三路＝出版社电子版 PDF 矢量文字层，±0.001 下 953/953 ⇒ 附录 D 一套升 verified，见 D22/D23）；另：本行原写「判定引擎不 import `re`」的字面表述在 M4 实测中被更正（D24①/K39），成立的是"不读文档、不对文档执行正则 + 解析判定分进程" |
 | M4 内置基准 | ✅ 完成 2026-10-07：**一键基准** `sdc bench --all`（四基准合一 + 指标表，另加 `--sweep`／`--markdown`／`--json`，达标 7 / 不可判 2 / 未达标 0，rc=1）+ **docx 交付物**（`sdc report --case --out`、`check`/`checklist --out`；三类正文与终端渲染同源，落盘前自检 fail closed：0 外链、两次导出字节一致、免责声明必存、无真实身份信息）+ **selfcheck 两档看板**（`[6]` 未启用原因四分类、`[7]` 按解锁数排序的核对队列）+ 根 `README.md` 指标表（与实跑逐行对账）。口径新增 K39~K44（D24），并更正 K26 的字面表述。测试 19 个文件按文件分批全绿（新增 `test_report.py` 19 项、`test_suite.py` 15 项）。偏差：两个「不可判」不是达标——`data/cases/` 仍 0 例 ⇒ 通过率分母 0；10 条核查规则的依据全 located ⇒ 可硬判 abnormal 分母 0。细目见 [HANDOFF-M5.md](HANDOFF-M5.md) |
 | M5 桌面交付 | ✅ 完成 2026-10-07：**五页签 GUI**（`src/sdc/gui/`：①验算台 ②设计说明核查 ③规范检查单 ④报告导出 ⑤知识库与状态）+ **GUI↔CLI 契约测试**（12 项逐字对账，含 `bench --all` 全文与三类 docx 字节相同）+ **onedir 双 exe**（`sdc.spec`：`dist/sdc-cli` 13 MB 不含 Qt、`dist/sdc-gui` 108 MB）+ **构建红线**（`scripts/bundle_rules.py` 白名单单源、`scripts/verify_dist.py` → `DIST_AUDIT_OK`，40 份内嵌数据逐份对账含子目录）+ **干净环境验证**（`scripts/clean_env_check.py` → `CLEAN_ENV_OK`：%TEMP% 中立目录、PATH 无 Python、CLI 六连 + GUI 存活探针 + `sdc-cli gui` 老实降级）。口径新增 K45~K48（D25）：冻结态子进程通路（解 HANDOFF-M5 §三.4）、打包白名单与断言单源、stdout/stderr 同编码、界面与命令面同源。测试 22 个文件 310 项全绿（新增 `test_gui_pages.py` 19、`test_gui_contract.py` 12、`test_packaging.py` 15）。偏差：①GUI 页签②仍只吃 `.docx/.txt/.md`（PDF 未支持，与 M3 同）；②docx 版式仍是最小 OOXML（无 Word 表格/标题样式，M4 留的 spike 未做）；③`data/cases/` 仍 0 例 ⇒ 指标表两个「不可判」照旧；④CI 矩阵（D12）尚未建 workflow，列 M6。细目见 [HANDOFF-M6.md](HANDOFF-M6.md) |
+| M6 发布收尾 | 🚧 进行中 2026-10-07：**CI 从零建**（`.github/workflows/ci.yml` 四矩阵 + `defaults.run.shell: bash` + step 名加引号；`scripts/ci_bench_gate.py` 基准门禁；`tests/test_ci_workflow.py` 8 项含"dev 必须声明 pyyaml"防静默少跑）+ **脱敏五步固化成工具**（`scripts/audit_release.py`：selftest/tracked/binary/messages/metadata/history/dist，掩码输出与硬门/复核分级；tracked 133 份文本、binary 25 份 docx 全 zip 条目、history 1,350,396 字符补丁、dist 252 个产物文件——**硬门全 0**；④ 提交邮箱按用户授权改写为 noreply）+ **MIT LICENSE** + **技术报告**（`docs/技术报告.md` 三大主题 + 程序化生成 docx，重生成逐字节一致）+ **§三.7 文档漂移处置**（plan/03 承认"编排层 = cli.py 命令分派 + suite.py 通路"，不补 pipeline.py）。测试 25 个文件 334 项全绿（新增 `test_ci_workflow` 8、`test_release_audit` 9、`test_tech_report` 7）。发布执行（干净环境复核、GitHub 公开、tag/Release/topics）逐项见 [RELEASE-M6.md](RELEASE-M6.md)；两个「不可判」与 0 例真值**没有**为了绿灯被抹平（K43/K49） |

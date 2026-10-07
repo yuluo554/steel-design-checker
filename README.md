@@ -1,5 +1,8 @@
 # steel-design-checker
 
+[![CI](https://github.com/yuluo554/steel-design-checker/actions/workflows/ci.yml/badge.svg)](https://github.com/yuluo554/steel-design-checker/actions/workflows/ci.yml)
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 钢结构连接与构件验算计算器 —— 规范驱动的离线桌面工具：5 个验算模块 + 设计说明文本核查 +
 GB 55006-2021 符合性检查单 + 内置基准与 docx 交付物。
 
@@ -65,9 +68,12 @@ $ py -3.8 -X utf8 -m sdc run --module fillet_weld --case data/examples/A2-fillet
 
 ## 快速开始
 
+运行只需 Python 3.8+ 标准库，不装任何包也能跑全部命令：
+
 ```bash
-git clone <本仓库> && cd steel-design-checker
-set PYTHONPATH=src                                   # Windows cmd；PowerShell 用 $env:PYTHONPATH="src"
+git clone https://github.com/yuluo554/steel-design-checker.git
+cd steel-design-checker
+set PYTHONPATH=src                    # Windows cmd；PowerShell 用 $env:PYTHONPATH="src"；Git Bash 用 export PYTHONPATH=src
 py -3.8 -X utf8 -m sdc selfcheck                     # 数据完整性 + 推进看板
 py -3.8 -X utf8 -m sdc parse --dir data/synth/docx --out-dir .tmp_parse/ir
 py -3.8 -X utf8 -m sdc check --ir .tmp_parse/ir/SYNTH-0013.ir.json
@@ -77,20 +83,35 @@ py -3.8 -X utf8 -m sdc report --case data/examples/A2-fillet-weld.json --out 验
 
 退出码：`0` 完成 / `1` 降级完成（拒算、有可疑项、指标未达标）/ `2` 输入不可用。
 
-依赖：运行只需 Python 3.8+ 标准库；测试用 `pip install -e ".[dev]"`。
+跑测试与界面走可编辑安装（三条前置是有原因的：3.8 自带的 pip 太老，无法可编辑安装
+pyproject-only 项目；激活后要用 `python`，Windows 的 `py` 启动器会绕过 venv 装到系统 Python）：
+
+```bash
+py -3.8 -m venv .venv
+.venv\Scripts\activate                                # Linux/macOS：source .venv/bin/activate
+python -m pip install -U pip
+python -m pip install -U setuptools wheel
+python -m pip install -e ".[dev]"                     # pytest + pyyaml（CI YAML 守门用）
+python -X utf8 -m pytest -q -rs                       # 25 个测试模块 334 项（装 .[dev,gui] 后 0 跳过）
+```
+
 
 ## 桌面版（GUI + exe）
 
 ```bash
-pip install -e ".[gui]"                      # PySide6（上限按实测 pin：3.8 上可解析的最高版本是 6.6.3.1）
+python -m pip install -e ".[gui]"              # PySide6（上限按实测 pin：3.8 上可解析的最高版本是 6.6.3.1）
 py -3.8 -X utf8 -m sdc gui                  # 五页签界面（页签②的文档解析走子进程）
 py -3.8 -X utf8 -m sdc gui --screenshot 帧.png   # 抓一帧（native QPA 才有中文字体）
 
-pip install -e ".[pkg]"                      # PyInstaller
+python -m pip install -e ".[pkg]"              # PyInstaller
 py -3.8 -m PyInstaller --noconfirm sdc.spec # 产出 dist/sdc-cli 与 dist/sdc-gui 两个 onedir 包
 py -3.8 -X utf8 scripts/verify_dist.py      # 构建红线：白名单 + 逐份 sha256 对账 → DIST_AUDIT_OK
 py -3.8 -X utf8 scripts/clean_env_check.py  # 中立目录 + 剥离 PATH 跑双 exe → CLEAN_ENV_OK
 ```
+
+**两个包要一起发**：`sdc-gui` 的一键基准与页签②的文档解析都用同侧的 `sdc-cli.exe` 当子进程
+（口径 K45）。只拷走 `sdc-gui/` 而不带 `sdc-cli/` 时，这两处会老实显示**不可用**——这是设计行为，
+不是崩溃，但发 Release 时请把两个 zip 一起放。
 
 界面上没有任何一套自己的判定：每个页签的正文就是命令面用的那个渲染函数的输出，
 `tests/test_gui_contract.py` 把两边输出逐字对账（含 `bench --all` 的整张指标表）。
@@ -103,9 +124,12 @@ CWD 上溯」解析；打包版的一键基准用同侧的 `sdc-cli.exe` 当解�
 ```
 src/sdc/{kb,engine,parse,rules,report,synth,gui}/   分层：数据 → 引擎 → 解析 → 判定 → 交付物 → 界面
 sdc.spec + scripts/{bundle_rules,verify_dist,clean_env_check,entry_cli,entry_gui}.py   打包与构建红线
+scripts/{audit_release,ci_bench_gate,make_tech_report}.py   脱敏五步审计 / CI 基准门禁 / 技术报告生成
+.github/workflows/ci.yml                            四矩阵（3.8 基线 + 3.12 防版本差，一个矩阵装 gui）
 data/{clauses,tables,formulas,symbols,rules,checklist,cases,synth,selfcheck,examples}/
-plan/       需求解读、架构选型、模块详设、数据计划与里程碑、决策记录、条文查证、交接快照
-tests/      22 个测试模块（schema/门控/引擎/解析/核查/基准/报告/界面契约/打包与守门）
+docs/技术报告.md + 技术报告.docx                    材料固化（docx 由 md 程序化生成，禁止手改）
+plan/       需求解读、架构选型、模块详设、数据计划与里程碑、决策记录、条文查证、交接与发布留档
+tests/      25 个测试模块（schema/门控/引擎/解析/核查/基准/报告/界面契约/打包与守门/CI 与脱敏守门）
 ```
 
 项目计划与逐条口径见 [plan/00-README总览.md](plan/00-README总览.md)；
