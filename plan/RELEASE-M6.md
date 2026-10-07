@@ -270,6 +270,21 @@ stdout 重定向写 CRLF。仓库的门槛是对的，错的是脚手架；最�
 （`.tmp_parse/`、`.tmp_verify/`），CI 步骤也已按这条改过。
 
 
+### 流程瑕疵如实留痕（不回填时间线）
+
+`f5f3eaa`（本台账第 11 刀）那次提交，我在提交前用了 `pytest … | tail -2` 的形式跑守门测试：
+**`tail` 的退出码盖住了 pytest 的**，于是一条红测试（`test_ci_workflow::test_matrix_spans…`）
+被带着提交并推送。这正是本文件 §四 第 2 轮刚写下的同一条坑（"退出码不能取自管道"），
+我在同一个会话里第三次踩它。
+
+定性：该测试单独复跑 3 次全部 rc=0，失败形态是 PyYAML scanner 抛 `TypeError`——
+与本机 `SystemError: unknown opcode` / `XXX lineno: N, opcode: 0` 同族（pyc 与帧损坏，
+清 `__pycache__` + `PYTHONDONTWRITEBYTECODE=1` 后恢复），属环境随机而非回归；
+**权威复核交给 CI**（run 5，即本次 push 触发的这一轮），不在本地用"看起来绿"替代退出码。
+
+固化的口径：本仓库里任何"跑测试 → 提交"的链，测试必须**单独跑、直接读 `$?`**，
+或者把输出先落进 `.tmp_parse/`（gitignore + EOL 跳过名单）再 grep。
+
 ## 六、偏差与未做（如实）
 
 1. CI 矩阵**不跑 PyInstaller 构建**：构建红线（`verify_dist.py`）与干净环境验证在发布前于本机
