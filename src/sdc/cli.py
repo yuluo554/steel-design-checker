@@ -14,7 +14,7 @@ import argparse
 import json
 import os
 import sys
-from typing import Optional
+from typing import Any, Optional
 
 from . import __version__, bench as bench_module
 from . import checklist as checklist_module
@@ -123,15 +123,34 @@ def build_parser() -> argparse.ArgumentParser:
                    help="可选校验：与参数卡里的 module 必须一致")
     r.add_argument("--out", required=True, metavar="X.docx", dest="out_path",
                    help="验算书输出路径（blocked 也照样出，逐项写明缺哪条核对）")
+
+    g = sub.add_parser("gui", help="启动 PySide6 桌面界面（五页签，只消费本命令面同一套 API）")
+    g.add_argument("--screenshot", default=None, metavar="X.png", dest="screenshot",
+                   help="截一张主窗口帧后退出（native QPA 才有中文字体，口径见 plan/03 §六）")
     return parser
 
 
-def _emit(text: str) -> None:
+def _utf8_stream(stream) -> None:
     try:
-        sys.stdout.reconfigure(encoding="utf-8")
+        stream.reconfigure(encoding="utf-8")
     except (AttributeError, ValueError):
-        pass  # stdout 被替换成不支持 reconfigure 的对象（测试捕获时）
+        pass  # stdout/stderr 被换成不支持 reconfigure 的对象（测试捕获时）
+
+
+def _emit(text: str) -> None:
+    _utf8_stream(sys.stdout)
     print(text)
+
+
+def _err(text: str) -> None:
+    """错误信息走 stderr，编码口径与 `_emit` 一致。
+
+    实测：冻结 exe 的 stderr 默认跟随系统代码页（本机 GBK），stdout 却是 UTF-8，
+    同一句话在 `python -X utf8 -m sdc` 与 `sdc-cli.exe` 里会落成两种字节 ——
+    干净环境验证抓到的就是这一条（口径 K47）。
+    """
+    _utf8_stream(sys.stderr)
+    sys.stderr.write(text)
 
 
 def _cmd_selfcheck(data_dir: str, as_json: bool) -> int:
@@ -162,57 +181,147 @@ def _cmd_synth(data_dir: str, seed: int, check: bool) -> int:
     return EXIT_OK
 
 
-def _load_or_fail(data_dir: str):
-    """数据有结构/引用问题时拒算（退出码 2），不带着坏数据继续。"""
+def load_kb_or_error(data_dir: str):
+    """加载知识库，返回 (kb 或 None, 错误信息)。数据有结构/引用问题时带着说明拒绝计算。
+
+    错误信息以**字符串**返回而不是直接写 stderr：CLI 写 stderr，GUI 显示在界面上，
+    但两条通路判的是同一件事（口径 D08）。
+    """
     kb = load_kb(data_dir)
     if kb.has_problems():
-        sys.stderr.write("知识库存在 %d 项结构/引用问题，拒绝计算。先跑 `sdc selfcheck` 看明细。\n"
-                         % len(kb.problems))
-        return None
-    return kb
+        return None, ("知识库存在 %d 项结构/引用问题，拒绝计算。先跑 `sdc selfcheck` 看明细。\n"
+                      % len(kb.problems))
+    return kb, ""
 
 
-def _result_from_case(data_dir: str, case_path: str, module: Optional[str]):
-    """参数卡 → Result；返回 (result, 退出码)。result 为 None 时按 rc 走错误分支。
+def run_card_command(data_dir: str, card: Any, module: Optional[str]):
+    """已解析成对象的参数卡 → (Result 或 None, 退出码, 错误信息)。
 
-    `run` 与 `report` 共用这一条通路（口径 D08）：报告不能是第二套计算行为。
+    GUI 的表单与 CLI 的文件输入都汇到这一个函数：同一批异常映射、同一个退出码，
+    界面上不可能算出与命令行不一样的结论（口径 D08）。
     """
-    try:
-        with open(case_path, "r", encoding="utf-8") as handle:
-            card = json.loads(handle.read())
-    except OSError as exc:
-        sys.stderr.write("参数卡读取失败：%s\n" % exc)
-        return None, EXIT_BAD_INPUT
-    except ValueError as exc:
-        sys.stderr.write("参数卡不是合法 JSON：%s（%s）\n" % (case_path, exc))
-        return None, EXIT_BAD_INPUT
-
     if isinstance(card, dict) and module and card.get("module") and module != card.get("module"):
-        sys.stderr.write("--module=%s 与参数卡的 module=%s 不一致\n" % (module, card.get("module")))
-        return None, EXIT_BAD_INPUT
+        return None, EXIT_BAD_INPUT, ("--module=%s 与参数卡的 module=%s 不一致\n"
+                                      % (module, card.get("module")))
     if isinstance(card, dict) and module and not card.get("module"):
         card = dict(card)
         card["module"] = module
 
-    kb = _load_or_fail(data_dir)
+    kb, error = load_kb_or_error(data_dir)
     if kb is None:
-        return None, EXIT_BAD_INPUT
+        return None, EXIT_BAD_INPUT, error
 
     try:
         result = run_case(kb, card)
     except InputError as exc:
-        sys.stderr.write("参数卡不可用：%s\n" % exc)
-        return None, EXIT_BAD_INPUT
+        return None, EXIT_BAD_INPUT, "参数卡不可用：%s\n" % exc
     except (EngineError, ExprError) as exc:
-        sys.stderr.write("计算未完成（数据不自洽）：%s\n" % exc)
-        sys.stderr.write("免责声明：%s\n" % DISCLAIMER)
-        return None, EXIT_DEGRADED
-    return result, result_exit_code(result)
+        return None, EXIT_DEGRADED, ("计算未完成（数据不自洽）：%s\n免责声明：%s\n"
+                                     % (exc, DISCLAIMER))
+    return result, result_exit_code(result), ""
+
+
+def run_case_command(data_dir: str, case_path: str, module: Optional[str]):
+    """参数卡文件 → (Result 或 None, 退出码, 错误信息)，`run` 与 `report` 与 GUI 共用。"""
+    try:
+        with open(case_path, "r", encoding="utf-8") as handle:
+            card = json.loads(handle.read())
+    except OSError as exc:
+        return None, EXIT_BAD_INPUT, "参数卡读取失败：%s\n" % exc
+    except ValueError as exc:
+        return None, EXIT_BAD_INPUT, "参数卡不是合法 JSON：%s（%s）\n" % (case_path, exc)
+    return run_card_command(data_dir, card, module)
+
+
+def check_command(data_dir: str, ir_path: str):
+    """IR → 核查报告（判定层不读文档，口径 K26）。"""
+    kb, error = load_kb_or_error(data_dir)
+    if kb is None:
+        return None, EXIT_BAD_INPUT, error
+    try:
+        ir = load_ir(ir_path)
+        report = run_rules(kb, ir)
+    except (IrError, RuleError) as exc:
+        return None, EXIT_BAD_INPUT, "核查未完成：%s\n" % exc
+    code = EXIT_OK if report["conclusion"] == "pass" else EXIT_DEGRADED
+    return report, code, ""
+
+
+def checklist_command(data_dir: str, ir_path: Optional[str],
+                      answers_path: Optional[str]):
+    """检查单报告；没接 IR 或章节未覆盖齐都算降级完成（口径 K29）。"""
+    kb, error = load_kb_or_error(data_dir)
+    if kb is None:
+        return None, EXIT_BAD_INPUT, error
+    ir = None
+    if ir_path:
+        try:
+            ir = load_ir(ir_path)
+        except IrError as exc:
+            return None, EXIT_BAD_INPUT, "IR 不可用：%s\n" % exc
+    answers = None
+    if answers_path:
+        try:
+            with open(answers_path, "r", encoding="utf-8") as handle:
+                answers = json.loads(handle.read())
+        except OSError as exc:
+            return None, EXIT_BAD_INPUT, "人工答复读取失败：%s\n" % exc
+        except ValueError as exc:
+            return None, EXIT_BAD_INPUT, "人工答复不是合法 JSON：%s（%s）\n" % (answers_path, exc)
+        if not isinstance(answers, dict):
+            return None, EXIT_BAD_INPUT, "人工答复需要 {条目 id: 判定} 对象\n"
+
+    report = checklist_module.build_report(kb, ir, answers)
+    degraded = (not report["ir_used"]) or bool(report["summary"]["chapters_missing"])
+    return report, (EXIT_DEGRADED if degraded else EXIT_OK), ""
+
+
+def bench_suite_command(data_dir: str, workdir: Optional[str], sweep_only: bool):
+    """`bench --all` / `--sweep` 的报告；退出码按 K43 的口径分别取。"""
+    kb, error = load_kb_or_error(data_dir)
+    if kb is None:
+        return None, EXIT_BAD_INPUT, error
+    try:
+        report = suite.build_report(kb, data_dir, workdir)
+    except InputError as exc:
+        return None, EXIT_BAD_INPUT, "套件输入不可用：%s\n" % exc
+    code = suite.sweep_exit_code(report) if sweep_only else report["exit_code"]
+    return report, code, ""
+
+
+def export_command(paragraphs: list, out_path: str):
+    """docx 落盘（自检不过就不写文件，口径 K40/K41）：交付物不可用记退出码 2。"""
+    try:
+        written = export_docx(paragraphs, out_path)
+    except ReportError as exc:
+        return None, EXIT_BAD_INPUT, "%s\n" % exc
+    return written, EXIT_OK, ""
+
+
+def bench_suite_command(data_dir: str, workdir: Optional[str], sweep_only: bool,
+                        as_markdown: bool = False):
+    """`bench --all` / `--sweep` 的报告 → (report 或 None, 退出码, 错误信息)。
+
+    两者的确定性步骤都要把整批语料解析两遍，那一步走子进程（口径 K39/K45）；
+    `--sweep` 的退出码只看确定性回归自己，`--all` 看整张指标表（口径 K43）。
+    """
+    kb, error = load_kb_or_error(data_dir)
+    if kb is None:
+        return None, EXIT_BAD_INPUT, error
+    if as_markdown and sweep_only:
+        return None, EXIT_BAD_INPUT, ("bench --sweep 没有指标表：--markdown 只对 --all 有意义\n")
+    try:
+        report = suite.build_report(kb, data_dir, workdir)
+    except InputError as exc:
+        return None, EXIT_BAD_INPUT, "套件输入不可用：%s\n" % exc
+    code = suite.sweep_exit_code(report) if sweep_only else report["exit_code"]
+    return report, code, ""
 
 
 def _cmd_run(data_dir: str, case_path: str, module: Optional[str], as_json: bool) -> int:
-    result, rc = _result_from_case(data_dir, case_path, module)
+    result, rc, error = run_case_command(data_dir, case_path, module)
     if result is None:
+        _err(error)
         return rc
     if as_json:
         _emit(json.dumps(result, sort_keys=True, ensure_ascii=False, indent=2))
@@ -223,14 +332,14 @@ def _cmd_run(data_dir: str, case_path: str, module: Optional[str], as_json: bool
 
 
 def _cmd_report(data_dir: str, case_path: str, module: Optional[str], out_path: str) -> int:
-    result, rc = _result_from_case(data_dir, case_path, module)
+    result, rc, error = run_case_command(data_dir, case_path, module)
     if result is None:
+        _err(error)
         return rc
-    try:
-        written = export_docx(result_body(result, case_path), out_path)
-    except ReportError as exc:
-        sys.stderr.write("%s\n" % exc)
-        return EXIT_BAD_INPUT
+    written, export_rc, error = export_command(result_body(result, case_path), out_path)
+    if written is None:
+        _err(error)
+        return export_rc
     _emit("验算书已导出：%s" % written)
     _emit("结论：%s；比值：%s；依据条款 %d 条；免责声明已强制写入。" % (
         result["conclusion"],
@@ -240,8 +349,9 @@ def _cmd_report(data_dir: str, case_path: str, module: Optional[str], out_path: 
 
 
 def _cmd_bench(data_dir: str, only_cases: bool, as_json: bool) -> int:
-    kb = _load_or_fail(data_dir)
+    kb, error = load_kb_or_error(data_dir)
     if kb is None:
+        _err(error)
         return EXIT_BAD_INPUT
     report = bench_module.build_report(kb, only_cases=only_cases)
     if as_json:
@@ -255,25 +365,26 @@ def _cmd_bench_text(data_dir: str, kind: str, ir_dir: Optional[str],
                     as_json: bool) -> int:
     """`bench --parse` / `--audit`：只吃落盘 IR，本进程不做任何正则解析（口径 K26）。"""
     if not ir_dir:
-        sys.stderr.write("--%s 需要 --ir-dir（先跑 `sdc parse --dir … --out-dir …`）\n" % kind)
+        _err("--%s 需要 --ir-dir（先跑 `sdc parse --dir … --out-dir …`）\n" % kind)
         return EXIT_BAD_INPUT
     if kind == "parse":
         try:
             report = bench_module.run_parse_eval(data_dir, ir_dir)
         except InputError as exc:
-            sys.stderr.write("评测输入不可用：%s\n" % exc)
+            _err("评测输入不可用：%s\n" % exc)
             return EXIT_BAD_INPUT
         _emit(json.dumps(report, sort_keys=True, ensure_ascii=False, indent=2) if as_json
               else bench_module.render_parse(report))
         return EXIT_OK if report["ok"] else EXIT_DEGRADED
 
-    kb = _load_or_fail(data_dir)
+    kb, error = load_kb_or_error(data_dir)
     if kb is None:
+        _err(error)
         return EXIT_BAD_INPUT
     try:
         report = bench_module.run_audit_eval(kb, data_dir, ir_dir)
     except (InputError, IrError, RuleError) as exc:
-        sys.stderr.write("评测输入不可用：%s\n" % exc)
+        _err("评测输入不可用：%s\n" % exc)
         return EXIT_BAD_INPUT
     _emit(json.dumps(report, sort_keys=True, ensure_ascii=False, indent=2) if as_json
           else bench_module.render_audit(report))
@@ -282,23 +393,10 @@ def _cmd_bench_text(data_dir: str, kind: str, ir_dir: Optional[str],
 
 def _cmd_bench_suite(data_dir: str, workdir: Optional[str], sweep_only: bool,
                      as_json: bool, as_markdown: bool = False) -> int:
-    """`bench --all`（四基准合一 + 指标表）与 `bench --sweep`（只做确定性回归）。
-
-    两者的确定性步骤都要把整批语料解析两遍，那一步走子进程（口径 K39）；
-    `--sweep` 的退出码只看确定性回归自己，`--all` 看整张指标表（口径 K43）。
-    """
-    kb = _load_or_fail(data_dir)
-    if kb is None:
-        return EXIT_BAD_INPUT
-    if as_markdown and sweep_only:
-        sys.stderr.write("bench --sweep 没有指标表：--markdown 只对 --all 有意义\n")
-        return EXIT_BAD_INPUT
-    try:
-        report = suite.build_report(kb, data_dir, workdir)
-    except InputError as exc:
-        sys.stderr.write("套件输入不可用：%s\n" % exc)
-        return EXIT_BAD_INPUT
-    code = suite.sweep_exit_code(report) if sweep_only else report["exit_code"]
+    report, code, error = bench_suite_command(data_dir, workdir, sweep_only, as_markdown)
+    if report is None:
+        _err(error)
+        return code
     if as_markdown:
         _emit(suite.metrics_markdown(report))
         return code
@@ -349,20 +447,20 @@ def _ir_summary(ir: dict, module: Optional[str]) -> str:
 def _cmd_parse(doc: Optional[str], doc_dir: Optional[str], out: Optional[str],
                ir_dir: Optional[str], module: Optional[str], as_json: bool) -> int:
     if bool(doc) == bool(doc_dir):
-        sys.stderr.write("parse 需要 --doc 或 --dir 二者之一（单文档 / 批量）\n")
+        _err("parse 需要 --doc 或 --dir 二者之一（单文档 / 批量）\n")
         return EXIT_BAD_INPUT
 
     if doc:
         targets = [doc]
     elif not os.path.isdir(doc_dir):
-        sys.stderr.write("文档目录不存在：%s\n" % doc_dir)
+        _err("文档目录不存在：%s\n" % doc_dir)
         return EXIT_BAD_INPUT
     else:
         targets = sorted(
             os.path.join(doc_dir, name) for name in os.listdir(doc_dir)
             if os.path.splitext(name)[1].lower() in DOC_SUFFIXES)
         if not targets:
-            sys.stderr.write("目录里没有可解析的文档（支持 %s）：%s\n" % (
+            _err("目录里没有可解析的文档（支持 %s）：%s\n" % (
                 ", ".join(DOC_SUFFIXES), doc_dir))
             return EXIT_BAD_INPUT
 
@@ -371,7 +469,7 @@ def _cmd_parse(doc: Optional[str], doc_dir: Optional[str], out: Optional[str],
         try:
             ir = build_ir(path)
         except ParseError as exc:
-            sys.stderr.write("%s：文档不可读：%s\n" % (path, exc))
+            _err("%s：文档不可读：%s\n" % (path, exc))
             failures += 1
             continue
         if doc:
@@ -398,76 +496,53 @@ def _emit_export(paragraphs: list, out_path: Optional[str]) -> int:
     """把 docx 导出接进 `check`/`checklist`：导出失败＝交付物不可用（rc=2），文本仍照常打印。"""
     if not out_path:
         return EXIT_OK
-    try:
-        written = export_docx(paragraphs, out_path)
-    except ReportError as exc:
-        sys.stderr.write("%s\n" % exc)
-        return EXIT_BAD_INPUT
+    written, code, error = export_command(paragraphs, out_path)
+    if written is None:
+        _err(error)
+        return code
     _emit("docx 已导出：%s" % written)
-    return EXIT_OK
+    return code
 
 
 def _cmd_check(data_dir: str, ir_path: str, as_json: bool,
                out_path: Optional[str] = None) -> int:
-    kb = _load_or_fail(data_dir)
-    if kb is None:
-        return EXIT_BAD_INPUT
-    try:
-        ir = load_ir(ir_path)
-        report = run_rules(kb, ir)
-    except (IrError, RuleError) as exc:
-        sys.stderr.write("核查未完成：%s\n" % exc)
-        return EXIT_BAD_INPUT
+    report, code, error = check_command(data_dir, ir_path)
+    if report is None:
+        _err(error)
+        return code
 
-    if as_json:
-        _emit(json.dumps(report, sort_keys=True, ensure_ascii=False, indent=2))
-    else:
-        _emit(render_report(report))
-    code = EXIT_OK if report["conclusion"] == "pass" else EXIT_DEGRADED
-    if out_path:
-        export_code = _emit_export(check_body(report), out_path)
-        code = max(code, export_code)
-    return code
+    _emit(json.dumps(report, sort_keys=True, ensure_ascii=False, indent=2) if as_json
+          else render_report(report))
+    return max(code, _emit_export(check_body(report), out_path))
 
 
 def _cmd_checklist(data_dir: str, ir_path: Optional[str],
                    answers_path: Optional[str], as_json: bool,
                    out_path: Optional[str] = None) -> int:
-    kb = _load_or_fail(data_dir)
-    if kb is None:
-        return EXIT_BAD_INPUT
-    ir = None
-    if ir_path:
-        try:
-            ir = load_ir(ir_path)
-        except IrError as exc:
-            sys.stderr.write("IR 不可用：%s\n" % exc)
-            return EXIT_BAD_INPUT
-    answers = None
-    if answers_path:
-        try:
-            with open(answers_path, "r", encoding="utf-8") as handle:
-                answers = json.loads(handle.read())
-        except OSError as exc:
-            sys.stderr.write("人工答复读取失败：%s\n" % exc)
-            return EXIT_BAD_INPUT
-        except ValueError as exc:
-            sys.stderr.write("人工答复不是合法 JSON：%s（%s）\n" % (answers_path, exc))
-            return EXIT_BAD_INPUT
-        if not isinstance(answers, dict):
-            sys.stderr.write("人工答复需要 {条目 id: 判定} 对象\n")
-            return EXIT_BAD_INPUT
+    report, code, error = checklist_command(data_dir, ir_path, answers_path)
+    if report is None:
+        _err(error)
+        return code
 
-    report = checklist_module.build_report(kb, ir, answers)
-    if as_json:
-        _emit(json.dumps(report, sort_keys=True, ensure_ascii=False, indent=2))
-    else:
-        _emit(checklist_module.render_text(report))
-    degraded = (not report["ir_used"]) or bool(report["summary"]["chapters_missing"])
-    code = EXIT_DEGRADED if degraded else EXIT_OK
-    if out_path:
-        code = max(code, _emit_export(checklist_body(report, ir_path or ""), out_path))
-    return code
+    _emit(json.dumps(report, sort_keys=True, ensure_ascii=False, indent=2) if as_json
+          else checklist_module.render_text(report))
+    return max(code, _emit_export(checklist_body(report, ir_path or ""), out_path))
+
+
+def _cmd_gui(data_dir: str, screenshot: Optional[str]) -> int:
+    """启动桌面界面（M5）。PySide6 缺席时说明装法并按「输入不可用」退出（口径 K9）。
+
+    界面层是惰性导入的：`sdc` 的其它命令与 CLI exe 都不需要 PySide6。
+    """
+    try:
+        from . import gui
+    except ImportError as exc:
+        _err("桌面界面不可用：%s\n安装 extras：pip install sdc[gui]"
+                         "（Python 3.8 上实测可解析的最高版本是 PySide6 6.6.3.1）\n" % exc)
+        return EXIT_BAD_INPUT
+    if screenshot:
+        return gui.capture(data_dir, screenshot)
+    return gui.run(data_dir)
 
 
 def main(argv=None) -> int:
@@ -481,11 +556,11 @@ def main(argv=None) -> int:
     try:
         data_dir = find_data_dir(args.data_dir)
     except DataDirNotFound as exc:
-        sys.stderr.write("%s\n" % exc)
+        _err("%s\n" % exc)
         return EXIT_BAD_INPUT
 
     if not os.path.isdir(os.path.join(data_dir, "clauses")):
-        sys.stderr.write("数据目录不可用：%s（缺少 clauses/）\n" % data_dir)
+        _err("数据目录不可用：%s（缺少 clauses/）\n" % data_dir)
         return EXIT_BAD_INPUT
 
     if args.command == "selfcheck":
@@ -500,13 +575,13 @@ def main(argv=None) -> int:
             ("audit", args.bench_audit), ("sweep", args.bench_sweep),
             ("all", args.bench_all)) if on]
         if len(chosen) > 1:
-            sys.stderr.write("bench：一次只能选一种基准，同时给了 %s\n"
+            _err("bench：一次只能选一种基准，同时给了 %s\n"
                              % "、".join("--" + name for name in chosen))
             return EXIT_BAD_INPUT
         if chosen in (["sweep"], ["all"]):
             # 这两条自己把整批语料解析两遍（确定性回归的定义就在这里），所以不吃现成 IR
             if args.ir_dir:
-                sys.stderr.write("bench --%s 不接受 --ir-dir：它自己跑两遍解析做字节比对，"
+                _err("bench --%s 不接受 --ir-dir：它自己跑两遍解析做字节比对，"
                                  "复用现成 IR 请用 --parse/--audit\n" % chosen[0])
                 return EXIT_BAD_INPUT
             return _cmd_bench_suite(data_dir, args.workdir, chosen[0] == "sweep",
@@ -514,7 +589,7 @@ def main(argv=None) -> int:
         if chosen in (["parse"], ["audit"]):
             return _cmd_bench_text(data_dir, chosen[0], args.ir_dir, args.as_json)
         if args.ir_dir or args.workdir:
-            sys.stderr.write("bench：--ir-dir/--workdir 只对 --parse/--audit/--sweep/--all 有意义\n")
+            _err("bench：--ir-dir/--workdir 只对 --parse/--audit/--sweep/--all 有意义\n")
             return EXIT_BAD_INPUT
         return _cmd_bench(data_dir, args.only_cases, args.as_json)
     if args.command == "parse":
@@ -527,8 +602,10 @@ def main(argv=None) -> int:
                               args.out_path)
     if args.command == "report":
         return _cmd_report(data_dir, args.case, args.module, args.out_path)
+    if args.command == "gui":
+        return _cmd_gui(data_dir, args.screenshot)
 
-    sys.stderr.write("未知命令：%s\n" % args.command)
+    _err("未知命令：%s\n" % args.command)
     return EXIT_BAD_INPUT
 
 

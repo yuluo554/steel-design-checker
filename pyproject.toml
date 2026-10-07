@@ -13,10 +13,13 @@ dependencies = []
 # dev 之外的 extras 在 M1 均不安装：M1 只用标准库（合成语料的 docx 由 zipfile 直写 OOXML，
 # 以保证产物无时间戳元数据、两次生成逐字节一致）。
 dev = ["pytest>=7.4"]
-gui = ["PySide6>=6.4"]  # 上限交给 pip 按 PySide6 自身 requires-python 解析（6.7+ 要求 ≥3.9）；本机实测值待 M5 spike 复核
-report = ["python-docx>=1.1"]
+# 上限是实测值而不是猜测：Python 3.8.8 上 pip 可解析的最高 PySide6 是 6.6.3.1
+# （6.7+ 元数据 requires-python≥3.9，会被自动回避）。老解释器上的重依赖只写下限等于没 pin
+# ——干净环境会解析到更新的破坏版本，所以这里同时钉住两端。
+gui = ["PySide6>=6.4,<6.7"]
+report = ["python-docx>=1.1"]  # 登记为可选但**不使用**：它会写真实时间与用户名，打挂 K42
 pdf = ["pypdf>=3.9"]
-pkg = ["pyinstaller>=6.0"]
+pkg = ["pyinstaller>=6.0,<7"]  # 本机实测 6.22.3 构建通过（M5）
 
 [project.scripts]
 sdc = "sdc.cli:main"

@@ -12,6 +12,10 @@
 崩溃点，所以这一步**另起子进程**执行 `sdc parse`（口径 K39）：套件进程自己不定义、不编译、
 不执行项目正则，子进程失败只让对应指标记 `unavailable`，不打挂整套基准。落盘的 IR 才是
 判定层与评测之间唯一的交接物（K26）。
+
+打包版（PyInstaller）里没有"当前解释器 + `-m sdc`"这回事，通路改为同侧的 `sdc-cli` exe
+（口径 K45，`cli_channel()`）。两者都拿不到时同样只让对应指标记 `unavailable` 并把原因写进
+说明——桌面形态下"量不了"必须显示成量不了，不能静默变成达标（HANDOFF-M5 §三.4）。
 """
 
 import hashlib
@@ -61,6 +65,34 @@ def _src_dir() -> str:
     return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+# 打包版（PyInstaller）里 `sys.executable -m sdc` 不成立：没有解释器，也没有 `sdc` 包路径。
+# 这时改用与 GUI 同目录（或邻接的 sdc-cli/ 目录）的 CLI exe 当子进程；显式指定走环境变量。
+CLI_ENV_VAR = "SDC_CLI_EXE"
+CLI_EXE_NAMES = ("sdc-cli.exe", "sdc-cli")
+
+
+def cli_channel() -> Tuple[Optional[List[str]], str]:
+    """子进程通路 (argv 前缀, 工作目录)；找不到通路时前缀为 None（口径 K45）。
+
+    找不到**不是**错误：调用方把对应指标记「不可用」并显示这条说明，
+    绝不把「量不了」当成「达标」（HANDOFF-M5 §三.4）。
+    """
+    if not getattr(sys, "frozen", False):
+        src = _src_dir()
+        return [sys.executable, "-X", "utf8", "-m", "sdc"], src
+
+    exe_dir = os.path.dirname(os.path.abspath(sys.executable))
+    explicit = os.environ.get(CLI_ENV_VAR)
+    candidates = [explicit] if explicit else []
+    for directory in (exe_dir, os.path.join(os.path.dirname(exe_dir), "sdc-cli")):
+        for name in CLI_EXE_NAMES:
+            candidates.append(os.path.join(directory, name))
+    for path in candidates:
+        if path and os.path.isfile(path):
+            return [path], os.path.dirname(os.path.abspath(path))
+    return None, exe_dir
+
+
 def run_cli(args: Sequence[str], data_dir: str,
             timeout: int = SUBCOMMAND_TIMEOUT) -> Tuple[Optional[int], str]:
     """在独立进程里跑一条 `sdc` 子命令，返回 (退出码, 合并输出)；起不来时退出码为 None。
@@ -68,15 +100,19 @@ def run_cli(args: Sequence[str], data_dir: str,
     `--data-dir` 一律显式传给子进程：套件的工作目录是 `src/`，让子进程靠
     `find_data_dir` 的 CWD 上溯去猜数据目录，夹具与仓库数据就会各认一处。
     """
-    src = _src_dir()
+    channel, cwd = cli_channel()
+    if channel is None:
+        return None, ("子进程不可用：打包版没有解释器，且未找到 sdc-cli 可执行文件"
+                      "（把 %s 指向它，或用 CLI 版跑确定性回归，口径 K45）" % CLI_ENV_VAR)
     env = dict(os.environ)
-    existing = env.get("PYTHONPATH")
-    env["PYTHONPATH"] = "%s%s%s" % (src, os.pathsep, existing) if existing else src
+    if not getattr(sys, "frozen", False):
+        src = _src_dir()
+        existing = env.get("PYTHONPATH")
+        env["PYTHONPATH"] = "%s%s%s" % (src, os.pathsep, existing) if existing else src
     env["PYTHONIOENCODING"] = "utf-8"
-    argv = [sys.executable, "-X", "utf8", "-m", "sdc",
-            "--data-dir", os.path.abspath(data_dir)] + list(args)
+    argv = channel + ["--data-dir", os.path.abspath(data_dir)] + list(args)
     try:
-        proc = subprocess.run(argv, cwd=src, env=env,
+        proc = subprocess.run(argv, cwd=cwd, env=env,
                               stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                               timeout=timeout)
     except (OSError, subprocess.TimeoutExpired) as exc:

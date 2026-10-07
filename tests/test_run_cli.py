@@ -2,6 +2,7 @@
 
 import json
 import os
+import sys
 
 import pytest
 
@@ -125,3 +126,25 @@ def test_unknown_data_dir_is_exit_2(capsys, tmp_path):
     code = main(["--data-dir", os.path.join(str(tmp_path), "empty"), "bench"])
     assert code == 2
     assert "数据目录不可用" in capsys.readouterr().err
+
+
+def test_error_channel_uses_the_same_encoding_as_stdout(monkeypatch):
+    """stdout 与 stderr 必须落成同一套 UTF-8 字节（口径 K47）。
+
+    干净环境验证实测：冻结 exe 的 stderr 默认跟随系统代码页（本机 GBK），于是同一句
+    拒算说明在 `python -X utf8 -m sdc` 与 `sdc-cli.exe` 里是两种字节。这里用一对
+    GBK 流当诱饵：`_err` 若没把 stderr 钉成 UTF-8，解码出来就是乱码。
+    """
+    import io
+
+    out, err = io.BytesIO(), io.BytesIO()
+    monkeypatch.setattr("sys.stdout", io.TextIOWrapper(out, encoding="gbk", errors="replace"))
+    monkeypatch.setattr("sys.stderr", io.TextIOWrapper(err, encoding="gbk", errors="replace"))
+    assert main(["--data-dir", REPO_DATA_DIR, "run", "--case",
+                 os.path.join("nope", "missing.json")]) == 2
+    sys_stream = sys.stderr
+    sys_stream.flush()
+    text = err.getvalue().decode("utf-8")
+    assert "参数卡读取失败" in text
+    assert "免责声明" not in text          # 输入不可用（2）不该混进计算未完成的说法
+    assert out.getvalue() == b""
