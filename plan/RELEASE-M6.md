@@ -120,10 +120,51 @@ py -3.8 -X utf8 scripts/audit_release.py all      # rc=0
 内网 IP 与邮箱的完整字面，于是扫描器命中自己 ⇒ 样本一律改成**片段拼接**；姊妹词表 base64 存放；
 输出只给 `位置 [类别] xN`。
 
-## 三、干净环境复核
+## 三、干净环境复核（新 clone + 全新 venv，按 README 原文逐字）
 
-待回填：新目录 `git clone` + 全新 venv，按 README **原文逐字**跑；dev 与干净环境收集数对照
-与逐项归因（声明式跳过一条条指认）。
+clone 落在**仓库树外**的 `../sdc-clean-clone`（`find_data_dir` 的 CWD 上溯会命中仓库 `data/`，
+在树内跑等于什么都没验）。步骤与真实退出码：
+
+| 步 | 命令 | 结论 |
+|---|---|---|
+| clone | `git clone <本地仓库> ../sdc-clean-clone` | rc=0，158 份跟踪文件 |
+| EOL 门 | `sdc synth --check`（全新检出后校验冻结语料） | **rc=0「合成语料位级一致（seed=20261006）」** ⇒ 本机 `core.autocrlf=true` + 全新检出没有改写坏字节 |
+| venv | `py -3.8 -m venv .venv` | rc=0（ensurepip 正常，本轮没触发历史坑） |
+| README 前置 | `python -m pip install -U pip` | rc=0 |
+| README 原文 | `python -m pip install -e ".[dev]"` | **首跑 rc=1**：pip 的 build-isolation 子进程 `exit code 3221225477`（0xC0000005）；**同一条命令第二次跑 rc=0** ⇒ 环境级随机崩溃，按方法论定性后 README 原文与门槛都不改 |
+| 收集数 | `pytest --collect-only`（仅 dev extras） | **25 个文件 303 项**（GUI 两个模块被 `importorskip` 声明式跳过 ⇒ 少 31 项） |
+| README 原文 | `python -m pip install -e ".[dev,gui]"` | rc=0，解析到 **PySide6 6.6.3.1** ⇒ 证明 `<6.7` 上限在干净 venv 里落到的就是开发机实测版本（"只写下限等于没 pin" 那条教训的反向验证） |
+| 全量测试 | `pytest -q -rs`（未构建 dist） | rc=0，334 项 / 跳过 1 项（`test_packaging.py:251` 尚未构建） |
+| 命令面 | `sdc selfcheck` / `sdc bench --all` | selfcheck rc=0；bench rc=1（两个不可判，符合 K43）；`bench --all --markdown` 与 clone 里的 README 逐行比对 **README_TABLE_MISMATCH=0** |
+| 材料固化 | `scripts/make_tech_report.py` | rc=0，重生成 docx 与仓内产物 sha256 相同 |
+| 脱敏 | `scripts/audit_release.py tracked` | rc=0 → `DESENSITIZE_AUDIT_OK`（工具不依赖开发机存量包） |
+| 打包 | `pip install -e ".[pkg]"` + `python -m PyInstaller --noconfirm sdc.spec` | 前 3 次尝试全灭（`SystemError: unknown opcode`，命中本机已知的 `sre_parse`/pyc 损坏家族）⇒ 清 `__pycache__`（clone venv 内 164 个目录 + 系统 Python 132 个，全是可再生字节码）并以 `PYTHONDONTWRITEBYTECODE=1` 重跑 → **rc=0**，`dist/sdc-cli` 13 MB、`dist/sdc-gui` 108 MB，与开发机构建一致 |
+| 红线一 | `scripts/verify_dist.py` | **`DIST_AUDIT_OK`**：sdc-cli 55 个文件 / sdc-gui 197 个文件，内嵌数据 40 份逐份 sha256 对账，禁区成分 0 处 |
+| 红线二 | `scripts/clean_env_check.py` | **`CLEAN_ENV_OK`**：10 项全过（CLI 六连 rc 逐条断言、`SDC_DATA_DIR` 覆盖生效、GUI 存活探针 rc=0、`sdc-cli.exe gui` 老实报"桌面界面不可用" rc=2） |
+| 红线三 | `scripts/audit_release.py dist` | **`DESENSITIZE_AUDIT_OK`**：干净构建的产物树同样硬门 0 命中 |
+| 终局 | `pytest -q -rs`（dist 已构建） | **rc=0，334 项、0 跳过** ⇒ 与开发机基线**完全一致** |
+
+### 本轮抓到的两条，定性分开
+
+1. **`test_eol_guard` 在干净 clone 里报红**——原因是**我的验证脚本**把 22 个 scratch 文件
+   （`.pytest_full.txt`、`.bench.txt` 等）撒在 clone 根目录，Windows 写入带 CRLF，而该守门测试
+   扫的是工作树（不只是跟踪面——这是 M5 定下的"提交前就要拦住"口径）。
+   定性：**脚手架口径问题，不是仓库回归**；处置：scratch 全部挪进 clone 内的 gitignore 目录后
+   重跑，rc=0。副作用是这条测试再次被证明不是空转。
+2. **`test_suite.py` 如实报出「两次解析退出码不同：0 / 3221225477」**——确定性回归捕获了一个
+   子进程崩溃。这正是本项目"绝不把量不了当达标"的口径在真实故障上的演练：它没有静默通过，
+   也没有把崩溃算成达标。定性：崩溃属环境随机（同命令重试即恢复），**测试语义不放宽**。
+
+### 计数逐项归因（dev ↔ 干净环境 ↔ CI）
+
+| 环境 | 收集 | 跳过 | 归因 |
+|---|---|---|---|
+| 开发机（装 gui、dist 已构建） | 334 | 0 | 基线 |
+| 干净 clone + `.[dev]` | 303 | 3 | `tests/_gui.py:19` 模块级 importorskip ×2（`test_gui_pages` 19 项 + `test_gui_contract` 12 项 = 31 项不进收集）+ `test_packaging.py:251` 未构建 ×1 |
+| 干净 clone + `.[dev,gui]` + dist | 334 | 0 | 与开发机一致 |
+| CI ubuntu/3.8、ubuntu/3.12、windows/3.12（`dev`） | 303 | 3 | 同"干净 clone + `.[dev]`" |
+| CI windows/3.8（`dev,gui`） | 334 | 1 | GUI 常驻该矩阵；CI 不跑 PyInstaller ⇒ 未构建那条跳过 |
+
 
 ## 四、CI 首跑
 
