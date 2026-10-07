@@ -166,47 +166,105 @@ clone 落在**仓库树外**的 `../sdc-clean-clone`（`find_data_dir` 的 CWD �
 | CI windows/3.8（`dev,gui`） | 334 | 1 | GUI 常驻该矩阵；CI 不跑 PyInstaller ⇒ 未构建那条跳过 |
 
 
-## 四、CI 首跑
+## 四、CI 首跑与三轮对账
 
-| 轮 | run id | push | 结果 |
+| 轮 | run id | 触发 | 结果 |
 |---|---|---|---|
-| 1 | `37570991561` | 第 1 次 push（main，SSH） | 4 个作业：**ubuntu-22.04/3.8 绿、ubuntu-latest/3.12 绿**；**windows-latest/3.12 与 windows-latest/3.8+gui 各 1 条红** |
-| 2 | 见下方回填 | 修复提交 push | 待回填 |
+| 1 | `37570991561` | 第 1 次 branch push（main，SSH） | 4 作业：**ubuntu-22.04/3.8 绿、ubuntu-latest/3.12 绿**；两条 windows 各 1 条红 |
+| 2 | `37571427131` | 第 2 次 branch push | 测试步**四条全绿**（含 windows/3.8+gui 的 334 项），三条作业红在 `Bench gate` |
+| 3 | `37571747456` | 第 3 次 branch push | **四矩阵全绿**（windows/3.8+gui、windows/3.12、ubuntu-22.04/3.8、ubuntu-latest/3.12） |
+| tag | `v0.1.0` push | — | **没有产生 run**：ci.yml 只配 `push: branches [main]` + `pull_request`，tag ref 不匹配。如实记录，不虚构第四轮 |
 
-**push 数 = run 数**：本轮 1 push 触发 1 run（tag push 是否触发取决于 ci.yml 的触发器，本仓库
-只配 `push: branches [main]` 与 `pull_request`，**tag 不触发 CI**，如实记录不虚构第二轮）。
+**push 数 = run 数** 对账：3 次 branch push → 3 个 run ✓；tag push 不触发（上表）。
 
-### 首跑红的唯一原因，是仓库自己的守门测试抓住了 CI 的脚手架
+### 两轮红各是什么，都不是"放宽门槛"能解决的
+
+**第 1 轮：仓库自己的 EOL 守门测试抓住了 CI 的脚手架。**
 
 ```
 AssertionError: 以下文本文件含 CR，会打挂跨平台字节基准：['collect.txt']
 ```
 
 `Collect count` 那一步用 `> collect.txt` 落地收集输出。Windows runner 上 Python 的 stdout 经
-shell 重定向会写成 **CRLF**（`_utf8_stream` 只 reconfigure 编码，不改 newline 翻译），而
-`tests/test_eol_guard.py` 扫的是**工作树**（不只是跟踪面——这是 M5 定下的"提交前就要拦住"口径），
-于是它如实报红。ubuntu 矩阵因为换行本来就是 LF 而看不出来。
+shell 重定向会写成 **CRLF**（`_utf8_stream` 只 reconfigure 编码，不改换行翻译），而
+`tests/test_eol_guard.py` 扫的是**工作树**（不只是跟踪面——M5 定下的"提交前就要拦住"口径）。
+ubuntu 矩阵换行本来就是 LF，看不见。
+处置：收集数改走管道直出（`--collect-only -q | awk ...`），工作树里不留文件。
 
-处置：**不给门槛放水**，改的是产生 scratch 的那一步：
-- 收集数改成管道直出（`pytest --collect-only -q | awk ...`），不再落地文件；
-- 基准门禁的 JSON 输入支持 `-` 从 stdin 读（`bench --all --json | ci_bench_gate.py - ${PIPESTATUS[0]}`），
-  同样不在工作树里留 `bench.json`。
+**第 2 轮：门禁那条"退出码与指标表互相对账"的断言，抓住了 CI 步骤自己写错的退出码。**
 
-两条都是"CI 首跑把只在 CI 才暴露的问题抓出来"的价值实证（方法论阶段 7 的预言在此二次兑现）。
+```
+CI 基准门禁不通过：
+  - 退出码与指标表不一致：bench 返回 0，按 K43 应为 1
+```
 
-### 计数逐项归因（首跑实测，取自 run `37570991561` 的 `collected_files/collected_items` 输出）
+指标表内容与本地实测逐行一致（7 达标 / 2 不可判），说明 `bench` 自己算出的码是 1；传给门禁的却是 0。
+根因是 `${PIPESTATUS[0]}` **在管道执行之前**就展开，拿到的是上一条命令的陈旧状态——
+方法论早就写过"退出码绝不能取自管道"，这次是我在修第 1 轮时换了一种拿法，又踩回同一个坑。
+处置：`bench` 单独跑、`$?` 直接取码；JSON 落地改到 `.tmp_parse/`（`.gitignore` 覆盖，
+且已在 `test_eol_guard` 的跳过名单里，Windows 重定向写 CRLF 也不会打挂 EOL 门）；
+顺手回退 `ci_bench_gate.py` 没人用的 stdin 分支。
+
+### 计数逐项归因（实测，取自 run 日志的 `collected_files/collected_items`）
 
 | 矩阵 | extras | 收集 | 跳过明细 |
 |---|---|---|---|
 | ubuntu-22.04 / 3.8 | dev | 23 个文件 / 303 项 | `SKIPPED [2] tests\_gui.py:19`（GUI 两模块模块级 importorskip，合计 31 项不进收集）+ `SKIPPED [1] tests	est_packaging.py:251`（CI 不跑 PyInstaller） |
 | ubuntu-latest / 3.12 | dev | 23 / 303 | 同上（3.12 无版本差型失败） |
-| windows-latest / 3.8 | dev,gui | **25 / 334** | 仅 `test_packaging.py:251` 一条；**GUI 31 项真跑** |
+| windows-latest / 3.8 | dev,gui | **25 / 334** | 仅 `test_packaging.py:251` 一条；**GUI 31 项真跑**（offscreen） |
 | windows-latest / 3.12 | dev | 23 / 303 | 同 ubuntu 两条 GUI 跳过 + 一条未构建 |
 
+第三轮起每个矩阵还打印 `BENCH_GATE_OK（未达标 0 / 不可用 0；不可判 2 项如实留档：
+算例通过率、可硬判 abnormal 的规则分母）`——**门禁没有为了让 CI 绿而放行，也没有把不可判说成达标**。
 
-## 五、发布执行记录
+## 五、发布执行记录（2026-10-07）
 
-待回填：建仓、push、tag、Release（两个 zip + sha256）、topics。
+| 动作 | 命令 | 结果 |
+|---|---|---|
+| 建仓 | `gh repo create yuluo554/steel-design-checker --public --description "…" --source . --remote origin`（**不带 `--push`**） | 建成，避开"`--push` 被 `refusing to allow an OAuth App to create or update workflow` 拒 → 仓库已建出的半失败态"（token scopes 无 `workflow`） |
+| 通道切换 | `git remote set-url origin git@github.com:…`（先 `ssh -T git@github.com` 验 key） | SSH 一次 push 成，`.github/workflows/ci.yml` 得以进 main |
+| push ×3 | `git push -u origin main` → 修复 ×2 | 每次都单独跑并读**真实退出码**（不接管道）；三次对应三个 run |
+| tag | `git tag -a v0.1.0 -m "…" && git push origin v0.1.0` | annotated tag 指向 `570a0a3`＝**CI 四矩阵全绿的那个提交**；tag 不触发 CI（见 §四） |
+| Release | `gh release create v0.1.0 --notes-file …（两个 zip）` | https://github.com/yuluo554/steel-design-checker/releases/tag/v0.1.0 ，`draft=false`，`targetCommitish=main` |
+| topics | `gh repo edit --add-topic …`（13 个）+ `gh api` 回读 | 回读 14 个 topic 生效（含 GitHub 归一的 `chinese`） |
+| 仓库元信息复核 | `gh api repos/…` | `private=false`、`license.spdx_id=MIT`（GitHub 自动识别）、`default_branch=main` |
+
+### Release 资产与据链
+
+| 资产 | 字节 | sha256 |
+|---|---|---|
+| `sdc-cli-windows-x64.zip` | 5,883,297（解压后 13 MB / 55 个文件） | `4bde9847da444d2def537a37514aed287a04cc20c4a839ef2d08590871c18b3f` |
+| `sdc-gui-windows-x64.zip` | 44,239,244（解压后 108 MB / 197 个文件） | `0ab39ae4577f2ff606b35cb9d7a96a3bfd03b82605c13a115e9087770f98db83` |
+
+- 两个包由**仓库树外的全新 clone + 全新 venv** 构建（§三），并在同一环境通过
+  `DIST_AUDIT_OK` + `CLEAN_ENV_OK` + `audit_release.py dist` 三条红线；
+- **产物与发布基线同运行时面**的证明：
+  `git diff 81af503..HEAD -- src/ data/ sdc.spec scripts/bundle_rules.py scripts/verify_dist.py
+  scripts/clean_env_check.py scripts/entry_cli.py scripts/entry_gui.py pyproject.toml` **为空**
+  （81af503 = 构建时的 clone HEAD）。其间变化的只有 `.github/workflows/ci.yml`、`plan/*` 与
+  `scripts/ci_bench_gate.py`，而 `scripts/` 属打包禁区成分，不进 exe；
+- Release 正文在发布前也过了审计（`scan_text` 硬门 0、复核项 0），发布面不含个人字面。
+
+### 发布后复核（复核对象＝远端最终提交）
+
+HTTPS 全新 clone `github.com/yuluo554/steel-design-checker` 到仓库树外目录：
+
+| 检查 | 结果 |
+|---|---|
+| 远端 HEAD / tree | `570a0a3…` 与本地 HEAD **同一提交**；`refs/heads/main` + `refs/tags/v0.1.0` 两条 ref，无多余分支 |
+| 跟踪清单 | 与本地 `git ls-files` **逐行一致**（159 条） |
+| 冻结语料字节保真 | `sdc synth --check` rc=0「合成语料位级一致」——经 HTTPS 传输后仍位级一致 |
+| 命令面 | `sdc selfcheck` rc=0；`sdc bench --all --json` rc=1（两个不可判，与本地一致） |
+| 快测组（62 项） | `test_eol_guard` + `test_release_audit` + `test_ci_workflow` + `test_fingerprint` + `test_paths` + `test_kb_schema` + `test_tech_report` 全绿 |
+| 脱敏三扫在**远端历史**上 | `metadata` / `messages` / `history` 三个模式全部 rc=0、硬门 0；远端提交邮箱只有 noreply 一个值 |
+| 产物审计 | 干净 clone 内 `audit_release.py tracked` → `DESENSITIZE_AUDIT_OK` |
+
+**一条重复三次的自我纪律**：这三轮复核里 EOL 守门测试红过两次，两次都是**我自己**把 scratch
+文件（`collect.txt`、`.tmp_selfcheck.txt`、`bench_out.json`）撒在被扫描的工作树里——Windows 的
+stdout 重定向写 CRLF。仓库的门槛是对的，错的是脚手架；最终口径固化为
+**"任何 scratch 一律写进 `.gitignore` 覆盖且在 `test_eol_guard.SKIP_DIRS` 名单里的目录"**
+（`.tmp_parse/`、`.tmp_verify/`），CI 步骤也已按这条改过。
+
 
 ## 六、偏差与未做（如实）
 

@@ -2,6 +2,11 @@
 
 [![CI](https://github.com/yuluo554/steel-design-checker/actions/workflows/ci.yml/badge.svg)](https://github.com/yuluo554/steel-design-checker/actions/workflows/ci.yml)
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Release v0.1.0](https://img.shields.io/badge/Release-v0.1.0-green)](https://github.com/yuluo554/steel-design-checker/releases/tag/v0.1.0)
+
+**v0.1.0 已发布**：[Releases](https://github.com/yuluo554/steel-design-checker/releases) 里有
+Windows 桌面版（`sdc-gui`）与命令行版（`sdc-cli`）两个 onedir 包的 zip 与 sha256；
+**两个包要一起下载**（理由见下方「桌面版」一节）。
 
 钢结构连接与构件验算计算器 —— 规范驱动的离线桌面工具：5 个验算模块 + 设计说明文本核查 +
 GB 55006-2021 符合性检查单 + 内置基准与 docx 交付物。

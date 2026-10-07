@@ -1,7 +1,13 @@
 # HANDOFF-M6（M5 桌面交付 → M6 脱敏发布 + 收尾固化 交接快照）
 
-> 用法（新对话）：`读取 plan/HANDOFF-M6.md，继续完成任务`（本文件内一律相对路径）
-> 落盘时间：2026-10-07　落盘者：M5 桌面交付对话
+> 用法（新对话）：项目已收官，**不要再从本文件"继续完成任务"**；复跑与发布事实看
+> [RELEASE-M6.md](RELEASE-M6.md)（§四 CI 对账、§五 发布记录、§七 复跑手册）
+> 落盘时间：2026-10-07　落盘者：M5 桌面交付对话；终态标注：M6 发布对话
+>
+> **终版收官 2026-10-07**：M6 已执行完毕并发布——公开仓库 `yuluo554/steel-design-checker`、
+> annotated tag `v0.1.0`（指向 CI 四矩阵全绿的提交）、Release 附两个 onedir 包的 zip 与 sha256、
+> 14 个 topics。本文件的 §五 已改成**执行后状态**（逐项对应原编号），§七 的提交状态同步为终态；
+> **续接与复跑一律看 [RELEASE-M6.md](RELEASE-M6.md)**，不要再把本文件当开工任务书。
 > 上一棒：[HANDOFF-M5.md](HANDOFF-M5.md)（M4 内置基准 → M5；其 §五 待办 1~4 与 6 已完成，
 > §五.0「引擎支持分段选式」**未开工**，§三.4「冻结环境 suite 通路」**已解决**）
 
@@ -105,6 +111,18 @@ K37/K38 见 HANDOFF-M4 §四（M3 定档轮），K39~K44 见 HANDOFF-M5 §四，
 
 ## 五、M6 待办（按顺序，每步可单独演示）
 
+**执行后状态（2026-10-07，逐项对应下方原编号）**
+
+| # | 待办 | 状态 |
+|---|---|---|
+| 1 | CI workflow 从零建 | ✅ 完成。四矩阵 + `defaults.run.shell: bash` + step 名加引号 + `ci_bench_gate.py` 门禁 + `test_ci_workflow.py` 8 项（含"dev 必须声明 pyyaml"防静默少跑）。**第 3 轮全绿**；前两轮各抓到一处（CI 自己的 scratch 触发 EOL 门；`${PIPESTATUS[0]}` 在管道前展开）。§三.4 的三条注意事项全部兑现：GUI 矩阵只有一个（windows/3.8 装 `.[dev,gui]`），其余矩阵收集数 303/23 文件并按声明式跳过逐项归因 |
+| 2 | 脱敏四步 + 第 5 步产物本体扫描 | ✅ 完成并**固化成入仓工具** `scripts/audit_release.py`（七模式 + 掩码输出 + 硬门/复核分级 + selftest 阳性对照）+ 9 项守门测试。提交邮箱按授权全历史改写为 noreply（tree 哈希未变、三扫 0）。dist 252 个文件字节读法 0 命中——构建机路径没跟进 exe。命令与结论逐条在 RELEASE-M6 §二 |
+| 3 | 干净环境复核 | ✅ 完成。仓库树外新 clone + 全新 venv 按 README 原文逐字跑：终局 **334 项 0 跳过**与开发机一致；`DIST_AUDIT_OK` + `CLEAN_ENV_OK` + 产物审计三条红线在同一环境通过；README 的 venv/`python -m pip install -U pip` 前置即由此补出。细目与两条定性（EOL 门抓我自己的 scratch；确定性回归抓住子进程 0xC0000005）在 RELEASE-M6 §三 |
+| 4 | 对外动作 | ✅ 已获用户一次授权并全部执行：公开建仓 → SSH push（token 无 `workflow` scope，HTTPS `--push` 必被拒）→ CI 全绿 → annotated tag **v0.1.0** → Release 附两个 zip + sha256 → 14 个 topics。发布记录与发布后复核在 RELEASE-M6 §五 |
+| 5 | 材料固化 | ✅ 完成。`docs/技术报告.md`（三大主题 + 已知限制诚实清单）+ `scripts/make_tech_report.py` 程序化生成 docx（走交付物四条硬断言），`tests/test_tech_report.py` 7 项钉住"重生成逐字节一致"与"报告 §2.1 计数 == selfcheck 实测" |
+| 6 | 回写与清零 | ✅ 完成。plan/00 进度表与文档索引、plan/05 §七 M6 行 DoD、plan/06 D26 + K49~K51 日志、README 状态行转正 + CI/license/Release 徽章、待定表清零（连 plan/02 的 T4「⬜ 未拍板」一并回写）、§三.7 的 `pipeline.py` 文档漂移按"改文档承认现状"闭合（plan/03 §二 图与 §四 目录树） |
+
+
 1. **CI workflow 从零建**（§三.4）：`.github/workflows/ci.yml`，windows/3.8 + ubuntu/3.8 +
    ubuntu/3.12 矩阵；GUI 矩阵装 `.[dev,gui]`，非 GUI 矩阵按声明式跳过对账收集数；
    加一条"workflow 可被 YAML 解析且每个 job 有 runs-on/steps"的守门测试（dev 装 pyyaml）。
@@ -166,8 +184,7 @@ K37/K38 见 HANDOFF-M4 §四（M3 定档轮），K39~K44 见 HANDOFF-M5 §四，
   改了 `data/` 或白名单还要重跑 `scripts/verify_dist.py`（内嵌数据对账会跟着变）
 - 对外动作（push / 建仓 / tag / Release / 历史重写 / 可见性）未获用户确认不得执行；
   提交前先 `git status` 逐文件审读改动
-- ⚠️ **本工作树的提交状态**：M5 的全部改动（`src/sdc/cli.py`、`src/sdc/suite.py`、
-  `src/sdc/gui/`、`scripts/`、`sdc.spec`、`tests/{_gui,test_gui_pages,test_gui_contract,test_packaging,test_run_cli}.py`、
+- ✅ **本工作树的提交状态（终版）**：M5 与 M6 的全部改动均已提交并推送到 `origin/main`（SSH）。M5 两刀（GUI+契约 / 打包+文档回写），M6 九刀（CI 矩阵、脱敏工具+LICENSE、技术报告、文档回写+拍板留档、脱敏终局+邮箱改写留档、待定表清零、干净环境结论、CI 首跑诊断、CI 第二轮诊断），tag `v0.1.0` 指向 CI 四矩阵全绿的提交。`dist/`、`build/`、`.tmp_verify/`、`.tmp_parse/` 均在 gitignore 内，产物未入仓（Release 用 zip 资产分发 + sha256 留档）。  `src/sdc/gui/`、`scripts/`、`sdc.spec`、`tests/{_gui,test_gui_pages,test_gui_contract,test_packaging,test_run_cli}.py`、
   `pyproject.toml`、`.gitignore`、README 与 plan/00/03/05/06 + 本文件）**尚未提交**。
   接手第一件事：确认切分方案（建议两刀：①GUI+契约+cli/suite 口径 ②打包+干净环境+文档回写），
   默认只本地 commit，不 push。`dist/`、`build/` 已在 gitignore 内，不要提交产物。
