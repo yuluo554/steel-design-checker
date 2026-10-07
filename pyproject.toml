@@ -12,7 +12,7 @@ dependencies = []
 [project.optional-dependencies]
 # dev 之外的 extras 在 M1 均不安装：M1 只用标准库（合成语料的 docx 由 zipfile 直写 OOXML，
 # 以保证产物无时间戳元数据、两次生成逐字节一致）。
-dev = ["pytest>=7.4"]
+dev = ["pytest>=7.4", "pyyaml>=6.0,<7"]  # pyyaml 只给 CI workflow 的 YAML 守门测试用（M6）
 # 上限是实测值而不是猜测：Python 3.8.8 上 pip 可解析的最高 PySide6 是 6.6.3.1
 # （6.7+ 元数据 requires-python≥3.9，会被自动回避）。老解释器上的重依赖只写下限等于没 pin
 # ——干净环境会解析到更新的破坏版本，所以这里同时钉住两端。

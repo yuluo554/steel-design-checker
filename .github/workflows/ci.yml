@@ -1,0 +1,64 @@
+name: CI
+
+# 发布门（plan/05 §七 M6 行 / 决策 D12）：3.8 是开发基线，3.12 防"dev 绿 CI 红"的版本差。
+# ubuntu-24.04 的 runner 不再提供 3.8，所以 3.8 矩阵锁 22.04。
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+defaults:
+  run:
+    # 显式固定 bash：Windows runner 默认 pwsh，`$?` 与 `set -e` 的语义会和 ubuntu 不一致
+    shell: bash
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # gui extras 只加在一个矩阵：其余矩阵不装 PySide6，
+          # tests/_gui.py 的 importorskip 会把 GUI 两个模块声明式跳过（-rs 逐项可见）
+          - { os: ubuntu-22.04, python-version: "3.8", extras: dev }
+          - { os: ubuntu-latest, python-version: "3.12", extras: dev }
+          - { os: windows-latest, python-version: "3.8", extras: "dev,gui" }
+          - { os: windows-latest, python-version: "3.12", extras: dev }
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install with extras
+        run: |
+          python -m pip install -U pip
+          python -m pip install -e ".[${{ matrix.extras }}]"
+
+      # 收集数对账：GUI 模块的声明式跳过会让不同矩阵数出不同的 passed，
+      # 所以把收集数与跳过原因都打印出来，逐项归因写进 RELEASE-M6 留档
+      - name: Collect count and skip reasons
+        run: |
+          set +e
+          python -X utf8 -m pytest --collect-only -q > collect.txt
+          echo "collect_rc=$?"
+          tail -n 2 collect.txt
+          python -X utf8 -m sdc --version
+
+      - name: Run the test suite
+        run: python -X utf8 -m pytest -q -rs
+
+      - name: Selfcheck (data schema and gating board)
+        run: python -X utf8 -m sdc selfcheck
+
+      - name: "Bench gate (未达标或不可用即红，两个不可判如实留档)"
+        run: |
+          set +e
+          python -X utf8 -m sdc bench --all --json > bench.json
+          bench_rc=$?
+          set -e
+          python -X utf8 scripts/ci_bench_gate.py bench.json "$bench_rc"
+
+      - name: Synth corpus is byte-reproducible
+        run: python -X utf8 -m sdc synth --check
