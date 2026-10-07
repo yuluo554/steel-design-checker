@@ -1,61 +1,8880 @@
 [
-  {"id": "T-steel-design-value", "clause": "GB50017-2017:4.4.1", "title": "钢材强度设计值",
-   "source_table_no": "表 4.4.1", "axes": ["steel_grade", "thickness_group"], "values": [],
-   "interpolation": "group", "status": "located", "unit": "MPa",
-   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（表体在渠道页面未渲染，本地转储缓存已丢失）", "date": "2026-10-06", "note": "表号与轴向维度定位；表体数值未取到（plan/07 §四 V1）"},
-   "notes": "牌号体系存在 Q345/Q355 争议（V5），厚度分组边界未核对，二者都未确认前禁止填值。"},
-
-  {"id": "T-weld-design-value", "clause": "GB50017-2017:4.4.5", "title": "对接焊缝强度设计值",
-   "source_table_no": "表 4.4.5", "axes": ["weld_quality_class", "force_direction", "has_notch"],
-   "values": [], "interpolation": "group", "status": "located", "unit": "MPa",
-   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）", "date": "2026-10-06", "note": "表号与三级维度定位；数值未取到（V1）"},
-   "notes": "A1 模块抗拉/抗压/抗剪三值都来自本表，一级二级与三级分列；未核对即 blocked（D04）。"},
-
-  {"id": "T-fillet-weld-value", "clause": "GB50017-2017:4.4.5", "title": "角焊缝强度设计值 f_f^w",
-   "source_table_no": "表 4.4.5", "axes": ["steel_grade", "weld_process"], "values": [],
-   "interpolation": "group", "status": "located", "unit": "MPa",
-   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）", "date": "2026-10-06", "note": "表号定位；数值未取到（V1）"},
-   "notes": "A2 模块抗力侧唯一数据来源；与 beta_f（11.2.2）配对使用，两者都待核。"},
-
-  {"id": "T-bolt-design-value", "clause": "GB50017-2017:4.4.6", "title": "普通螺栓强度设计值",
-   "source_table_no": "表 4.4.6", "axes": ["bolt_grade", "force_type"], "values": [],
-   "interpolation": "group", "status": "located", "unit": "MPa",
-   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）", "date": "2026-10-06", "note": "表号定位；数值未取到（V1）"},
-   "notes": "含锚栓与承压型高强螺栓行，首期只取普通螺栓抗拉/抗剪/承压。"},
-
-  {"id": "T-hbolt-preload", "clause": "GB50017-2017:11.4.2", "title": "高强度螺栓预拉力 P",
-   "source_table_no": "表 11.4.2-2", "axes": ["bolt_grade", "nominal_diameter"], "values": [],
-   "interpolation": "group", "status": "located", "unit": "kN",
-   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）", "date": "2026-10-06", "note": "表号定位；数值未取到（V1）"},
-   "notes": "A4 模块的两个数据源之一；温度折减适用条件另挂条款，待核。"},
-
-  {"id": "T-slip-factor", "clause": "GB50017-2017:11.4.2", "title": "抗滑移系数 μ",
-   "source_table_no": "表 11.4.2-1", "axes": ["surface_treatment", "steel_grade_group"], "values": [],
-   "interpolation": "group", "status": "located", "unit": "无量纲",
-   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）", "date": "2026-10-06", "note": "表号定位；表面处理类别词表与数值均未取到（V1）"},
-   "notes": "参数卡的 surface_treatment 枚举必须来自本表行名，未核对前不得自造取值集合。"},
-
-  {"id": "T-buckling-curve", "clause": "GB50017-2017:D.0.1", "title": "轴心受压构件稳定系数 φ（a/b/c/d 类）",
-   "source_table_no": "附录 D 表 D.0.1~D.0.4 与表 D.0.5", "axes": ["section_class", "lambda"],
-   "values": [], "interpolation": "linear", "status": "located", "unit": "无量纲",
-   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（附录页表体未渲染，本地转储缓存已丢失）", "date": "2026-10-06", "note": "附录分档与双源位置定位；表值与拟合公式系数均未取到（V3）"},
-   "notes": "D11 双源＝离散表 + D.0.5 拟合公式同点同值才升 verified；插值口径（linear）是本项目假设，须与来源一致后才成立，两源皆无则 A5 blocked（禁止记忆值或自行拟合）。"},
-
-  {"id": "T-section-class", "clause": "GB50017-2017:7.2.1-表1", "title": "受压构件截面 a/b/c/d 分类",
-   "source_table_no": "表 7.2.1-1 / 表 7.2.1-2", "axes": ["section_form", "manufacture", "edge_condition", "thickness"],
-   "values": [], "interpolation": "group", "status": "located", "unit": "无量纲",
-   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）", "date": "2026-10-06", "note": "两张表号与 t=40mm 分界定位；归属未取到（V4）"},
-   "notes": "A5 的 section_class 输入必须先由本表判定，未核对前只接受人工给定分类并显式标注依据待核。"},
-
-  {"id": "T-slenderness-limit", "clause": "GB50017-2017:7.4.6", "title": "容许长细比 [λ]",
-   "source_table_no": "表 7.4.6（受压）/ 表 7.4.7（受拉）", "axes": ["member_type"], "values": [],
-   "interpolation": "group", "status": "located", "unit": "无量纲",
-   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）", "date": "2026-10-06", "note": "两张表号定位；限值未取到（V1）"},
-   "notes": "A5 构造检查项；构件类型词表也待核。"},
-
-  {"id": "T-construct-limit", "clause": "GB50017-2017:11.5.2", "title": "连接构造限值（焊脚、螺栓间距与边距）",
-   "source_table_no": "表 11.5.2（并见 11.5.1、11.3.5、11.3.6）", "axes": ["param", "condition"],
-   "values": [], "interpolation": "group", "status": "located", "unit": "mm",
-   "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）", "date": "2026-10-06", "note": "表号与所在条定位；限值未取到（V8）"},
-   "notes": "A1~A4 的构造检查（最小/最大焊脚、l_w 与 h_f 倍数、螺栓最小间距与边距）统一挂本表；数值缺失时 limits 项 value 保持 null 且启用即 blocked。"}
+  {
+    "axes": [
+      "steel_grade",
+      "thickness_group"
+    ],
+    "clause": "GB50017-2017:4.4.1",
+    "id": "T-steel-design-value",
+    "interpolation": "group",
+    "notes": "牌号体系存在 Q345/Q355 争议（V5），厚度分组边界未核对，二者都未确认前禁止填值。",
+    "source_table_no": "表 4.4.1",
+    "status": "located",
+    "title": "钢材强度设计值",
+    "unit": "MPa",
+    "values": [],
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "表号与轴向维度定位；表体数值未取到（plan/07 §四 V1）",
+      "url": "jianbiaoku.com/webarbs/book/198（表体在渠道页面未渲染，本地转储缓存已丢失）"
+    }
+  },
+  {
+    "axes": [
+      "weld_quality_class",
+      "force_direction",
+      "has_notch"
+    ],
+    "clause": "GB50017-2017:4.4.5",
+    "id": "T-weld-design-value",
+    "interpolation": "group",
+    "notes": "A1 模块抗拉/抗压/抗剪三值都来自本表，一级二级与三级分列；未核对即 blocked（D04）。",
+    "source_table_no": "表 4.4.5",
+    "status": "located",
+    "title": "对接焊缝强度设计值",
+    "unit": "MPa",
+    "values": [],
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "表号与三级维度定位；数值未取到（V1）",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）"
+    }
+  },
+  {
+    "axes": [
+      "steel_grade",
+      "weld_process"
+    ],
+    "clause": "GB50017-2017:4.4.5",
+    "id": "T-fillet-weld-value",
+    "interpolation": "group",
+    "notes": "A2 模块抗力侧唯一数据来源；与 beta_f（11.2.2）配对使用，两者都待核。",
+    "source_table_no": "表 4.4.5",
+    "status": "located",
+    "title": "角焊缝强度设计值 f_f^w",
+    "unit": "MPa",
+    "values": [],
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "表号定位；数值未取到（V1）",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）"
+    }
+  },
+  {
+    "axes": [
+      "bolt_grade",
+      "force_type"
+    ],
+    "clause": "GB50017-2017:4.4.6",
+    "id": "T-bolt-design-value",
+    "interpolation": "group",
+    "notes": "含锚栓与承压型高强螺栓行，首期只取普通螺栓抗拉/抗剪/承压。",
+    "source_table_no": "表 4.4.6",
+    "status": "located",
+    "title": "普通螺栓强度设计值",
+    "unit": "MPa",
+    "values": [],
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "表号定位；数值未取到（V1）",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）"
+    }
+  },
+  {
+    "axes": [
+      "bolt_grade",
+      "nominal_diameter"
+    ],
+    "clause": "GB50017-2017:11.4.2",
+    "id": "T-hbolt-preload",
+    "interpolation": "group",
+    "notes": "A4 模块的两个数据源之一；温度折减适用条件另挂条款，待核。",
+    "source_table_no": "表 11.4.2-2",
+    "status": "located",
+    "title": "高强度螺栓预拉力 P",
+    "unit": "kN",
+    "values": [],
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "表号定位；数值未取到（V1）",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）"
+    }
+  },
+  {
+    "axes": [
+      "surface_treatment",
+      "steel_grade_group"
+    ],
+    "clause": "GB50017-2017:11.4.2",
+    "id": "T-slip-factor",
+    "interpolation": "group",
+    "notes": "参数卡的 surface_treatment 枚举必须来自本表行名，未核对前不得自造取值集合。",
+    "source_table_no": "表 11.4.2-1",
+    "status": "located",
+    "title": "抗滑移系数 μ",
+    "unit": "无量纲",
+    "values": [],
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "表号定位；表面处理类别词表与数值均未取到（V1）",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）"
+    }
+  },
+  {
+    "axes": [
+      "section_class",
+      "lambda_over_eps_k"
+    ],
+    "clause": "GB50017-2017:D.0.1",
+    "id": "T-buckling-curve",
+    "interpolation": "linear",
+    "notes": "数值轴 lambda_over_eps_k = λ/εk（εk=√(235/fy)，符号定义见 50017 第 2 章符号表，电子版 PDF 文字层逐字）；分组轴 section_class 取 a/b/c/d。插值口径是**本项目约定**（离散点线性内插，超表界拒绝而不外推），规范未规定非整数 λ/εk 的取法；禁多项式拟合（D11/K14/K18 扩展）。±0.001 容差口径（06 D22，用户拍板）：表体与 D.0.5 公式反算 953/953 落在 ±0.001 内（最大偏差 0.00086，中位 0.00026，单向系统偏移）；若改用 3 位小数取整一致作判据则只有 792/953，成因已定位到**表体的生成 λₙ 标度比官方 k=(1/π)√(235/206000) 大约 0.05%**，官方生成常数未取到（V3b 永久留痕，禁止把拟合常数 k≈0.0107563 当规范事实使用，D11/K14）。",
+    "source_table_no": "附录 D 表 D.0.1~D.0.4 与表 D.0.5",
+    "status": "verified",
+    "title": "轴心受压构件稳定系数 φ（a/b/c/d 类）",
+    "unit": "无量纲",
+    "values": [
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 1.0
+        },
+        "x": 0.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 1.0
+        },
+        "x": 1.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 1.0
+        },
+        "x": 2.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 1.0
+        },
+        "x": 3.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.999
+        },
+        "x": 4.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.999
+        },
+        "x": 5.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.998
+        },
+        "x": 6.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.998
+        },
+        "x": 7.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.997
+        },
+        "x": 8.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.996
+        },
+        "x": 9.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.995
+        },
+        "x": 10.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.994
+        },
+        "x": 11.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.993
+        },
+        "x": 12.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.992
+        },
+        "x": 13.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.991
+        },
+        "x": 14.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.989
+        },
+        "x": 15.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.988
+        },
+        "x": 16.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.986
+        },
+        "x": 17.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.985
+        },
+        "x": 18.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.983
+        },
+        "x": 19.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.981
+        },
+        "x": 20.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.979
+        },
+        "x": 21.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.977
+        },
+        "x": 22.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.976
+        },
+        "x": 23.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.974
+        },
+        "x": 24.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.972
+        },
+        "x": 25.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.97
+        },
+        "x": 26.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.968
+        },
+        "x": 27.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.966
+        },
+        "x": 28.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.964
+        },
+        "x": 29.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.963
+        },
+        "x": 30.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.961
+        },
+        "x": 31.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.959
+        },
+        "x": 32.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.957
+        },
+        "x": 33.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.954
+        },
+        "x": 34.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.952
+        },
+        "x": 35.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.95
+        },
+        "x": 36.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.948
+        },
+        "x": 37.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.946
+        },
+        "x": 38.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.944
+        },
+        "x": 39.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.941
+        },
+        "x": 40.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.939
+        },
+        "x": 41.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.937
+        },
+        "x": 42.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.934
+        },
+        "x": 43.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.932
+        },
+        "x": 44.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.929
+        },
+        "x": 45.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.927
+        },
+        "x": 46.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.924
+        },
+        "x": 47.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.921
+        },
+        "x": 48.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.918
+        },
+        "x": 49.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.916
+        },
+        "x": 50.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.913
+        },
+        "x": 51.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.91
+        },
+        "x": 52.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.907
+        },
+        "x": 53.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.903
+        },
+        "x": 54.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.9
+        },
+        "x": 55.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.897
+        },
+        "x": 56.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.893
+        },
+        "x": 57.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.89
+        },
+        "x": 58.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.886
+        },
+        "x": 59.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.883
+        },
+        "x": 60.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.879
+        },
+        "x": 61.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.875
+        },
+        "x": 62.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.871
+        },
+        "x": 63.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.867
+        },
+        "x": 64.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.862
+        },
+        "x": 65.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.858
+        },
+        "x": 66.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.854
+        },
+        "x": 67.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.849
+        },
+        "x": 68.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.844
+        },
+        "x": 69.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.839
+        },
+        "x": 70.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.834
+        },
+        "x": 71.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.829
+        },
+        "x": 72.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.824
+        },
+        "x": 73.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.818
+        },
+        "x": 74.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.813
+        },
+        "x": 75.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.807
+        },
+        "x": 76.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.801
+        },
+        "x": 77.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.795
+        },
+        "x": 78.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.789
+        },
+        "x": 79.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.783
+        },
+        "x": 80.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.776
+        },
+        "x": 81.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.77
+        },
+        "x": 82.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.763
+        },
+        "x": 83.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.756
+        },
+        "x": 84.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.749
+        },
+        "x": 85.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.742
+        },
+        "x": 86.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.735
+        },
+        "x": 87.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.728
+        },
+        "x": 88.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.721
+        },
+        "x": 89.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.713
+        },
+        "x": 90.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.706
+        },
+        "x": 91.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.698
+        },
+        "x": 92.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.691
+        },
+        "x": 93.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.683
+        },
+        "x": 94.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.676
+        },
+        "x": 95.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.668
+        },
+        "x": 96.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.66
+        },
+        "x": 97.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.653
+        },
+        "x": 98.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.645
+        },
+        "x": 99.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.637
+        },
+        "x": 100.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.63
+        },
+        "x": 101.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.622
+        },
+        "x": 102.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.614
+        },
+        "x": 103.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.607
+        },
+        "x": 104.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.599
+        },
+        "x": 105.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.592
+        },
+        "x": 106.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.584
+        },
+        "x": 107.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.577
+        },
+        "x": 108.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.569
+        },
+        "x": 109.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.562
+        },
+        "x": 110.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.555
+        },
+        "x": 111.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.548
+        },
+        "x": 112.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.541
+        },
+        "x": 113.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.534
+        },
+        "x": 114.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.527
+        },
+        "x": 115.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.52
+        },
+        "x": 116.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.513
+        },
+        "x": 117.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.507
+        },
+        "x": 118.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.5
+        },
+        "x": 119.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.494
+        },
+        "x": 120.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.487
+        },
+        "x": 121.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.481
+        },
+        "x": 122.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.475
+        },
+        "x": 123.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.469
+        },
+        "x": 124.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.463
+        },
+        "x": 125.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.457
+        },
+        "x": 126.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.451
+        },
+        "x": 127.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.445
+        },
+        "x": 128.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.439
+        },
+        "x": 129.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.434
+        },
+        "x": 130.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.428
+        },
+        "x": 131.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.423
+        },
+        "x": 132.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.417
+        },
+        "x": 133.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.412
+        },
+        "x": 134.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.407
+        },
+        "x": 135.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.402
+        },
+        "x": 136.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.397
+        },
+        "x": 137.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.392
+        },
+        "x": 138.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.387
+        },
+        "x": 139.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.382
+        },
+        "x": 140.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.378
+        },
+        "x": 141.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.373
+        },
+        "x": 142.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.368
+        },
+        "x": 143.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.364
+        },
+        "x": 144.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.36
+        },
+        "x": 145.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.355
+        },
+        "x": 146.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.351
+        },
+        "x": 147.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.347
+        },
+        "x": 148.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.343
+        },
+        "x": 149.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.339
+        },
+        "x": 150.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.335
+        },
+        "x": 151.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.331
+        },
+        "x": 152.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.327
+        },
+        "x": 153.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.323
+        },
+        "x": 154.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.319
+        },
+        "x": 155.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.316
+        },
+        "x": 156.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.312
+        },
+        "x": 157.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.308
+        },
+        "x": 158.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.305
+        },
+        "x": 159.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.302
+        },
+        "x": 160.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.298
+        },
+        "x": 161.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.295
+        },
+        "x": 162.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.292
+        },
+        "x": 163.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.288
+        },
+        "x": 164.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.285
+        },
+        "x": 165.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.282
+        },
+        "x": 166.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.279
+        },
+        "x": 167.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.276
+        },
+        "x": 168.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.273
+        },
+        "x": 169.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.27
+        },
+        "x": 170.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.267
+        },
+        "x": 171.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.264
+        },
+        "x": 172.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.261
+        },
+        "x": 173.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.259
+        },
+        "x": 174.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.256
+        },
+        "x": 175.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.253
+        },
+        "x": 176.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.25
+        },
+        "x": 177.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.248
+        },
+        "x": 178.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.245
+        },
+        "x": 179.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.243
+        },
+        "x": 180.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.24
+        },
+        "x": 181.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.238
+        },
+        "x": 182.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.235
+        },
+        "x": 183.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.233
+        },
+        "x": 184.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.231
+        },
+        "x": 185.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.228
+        },
+        "x": 186.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.226
+        },
+        "x": 187.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.224
+        },
+        "x": 188.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.222
+        },
+        "x": 189.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.219
+        },
+        "x": 190.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.217
+        },
+        "x": 191.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.215
+        },
+        "x": 192.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.213
+        },
+        "x": 193.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.211
+        },
+        "x": 194.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.209
+        },
+        "x": 195.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.207
+        },
+        "x": 196.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.205
+        },
+        "x": 197.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.203
+        },
+        "x": 198.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.201
+        },
+        "x": 199.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.199
+        },
+        "x": 200.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.197
+        },
+        "x": 201.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.196
+        },
+        "x": 202.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.194
+        },
+        "x": 203.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.192
+        },
+        "x": 204.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.19
+        },
+        "x": 205.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.188
+        },
+        "x": 206.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.187
+        },
+        "x": 207.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.185
+        },
+        "x": 208.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.183
+        },
+        "x": 209.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.182
+        },
+        "x": 210.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.18
+        },
+        "x": 211.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.178
+        },
+        "x": 212.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.177
+        },
+        "x": 213.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.175
+        },
+        "x": 214.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.174
+        },
+        "x": 215.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.172
+        },
+        "x": 216.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.171
+        },
+        "x": 217.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.169
+        },
+        "x": 218.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.168
+        },
+        "x": 219.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.166
+        },
+        "x": 220.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.165
+        },
+        "x": 221.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.163
+        },
+        "x": 222.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.162
+        },
+        "x": 223.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.161
+        },
+        "x": 224.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.159
+        },
+        "x": 225.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.158
+        },
+        "x": 226.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.157
+        },
+        "x": 227.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.155
+        },
+        "x": 228.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.154
+        },
+        "x": 229.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.153
+        },
+        "x": 230.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.151
+        },
+        "x": 231.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.15
+        },
+        "x": 232.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.149
+        },
+        "x": 233.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.148
+        },
+        "x": 234.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.147
+        },
+        "x": 235.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.145
+        },
+        "x": 236.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.144
+        },
+        "x": 237.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.143
+        },
+        "x": 238.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.142
+        },
+        "x": 239.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.141
+        },
+        "x": 240.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.14
+        },
+        "x": 241.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.139
+        },
+        "x": 242.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.137
+        },
+        "x": 243.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.136
+        },
+        "x": 244.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.135
+        },
+        "x": 245.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.134
+        },
+        "x": 246.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.133
+        },
+        "x": 247.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.132
+        },
+        "x": 248.0
+      },
+      {
+        "axes": {
+          "section_class": "a"
+        },
+        "outputs": {
+          "phi": 0.131
+        },
+        "x": 249.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 1.0
+        },
+        "x": 0.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 1.0
+        },
+        "x": 1.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 1.0
+        },
+        "x": 2.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.999
+        },
+        "x": 3.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.999
+        },
+        "x": 4.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.998
+        },
+        "x": 5.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.997
+        },
+        "x": 6.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.996
+        },
+        "x": 7.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.995
+        },
+        "x": 8.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.994
+        },
+        "x": 9.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.992
+        },
+        "x": 10.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.991
+        },
+        "x": 11.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.989
+        },
+        "x": 12.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.987
+        },
+        "x": 13.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.985
+        },
+        "x": 14.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.983
+        },
+        "x": 15.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.981
+        },
+        "x": 16.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.978
+        },
+        "x": 17.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.976
+        },
+        "x": 18.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.973
+        },
+        "x": 19.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.97
+        },
+        "x": 20.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.967
+        },
+        "x": 21.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.963
+        },
+        "x": 22.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.96
+        },
+        "x": 23.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.957
+        },
+        "x": 24.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.953
+        },
+        "x": 25.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.95
+        },
+        "x": 26.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.946
+        },
+        "x": 27.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.943
+        },
+        "x": 28.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.939
+        },
+        "x": 29.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.936
+        },
+        "x": 30.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.932
+        },
+        "x": 31.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.929
+        },
+        "x": 32.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.925
+        },
+        "x": 33.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.921
+        },
+        "x": 34.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.918
+        },
+        "x": 35.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.914
+        },
+        "x": 36.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.91
+        },
+        "x": 37.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.906
+        },
+        "x": 38.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.903
+        },
+        "x": 39.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.899
+        },
+        "x": 40.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.895
+        },
+        "x": 41.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.891
+        },
+        "x": 42.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.886
+        },
+        "x": 43.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.882
+        },
+        "x": 44.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.878
+        },
+        "x": 45.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.874
+        },
+        "x": 46.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.87
+        },
+        "x": 47.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.865
+        },
+        "x": 48.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.861
+        },
+        "x": 49.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.856
+        },
+        "x": 50.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.852
+        },
+        "x": 51.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.847
+        },
+        "x": 52.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.842
+        },
+        "x": 53.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.837
+        },
+        "x": 54.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.833
+        },
+        "x": 55.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.828
+        },
+        "x": 56.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.823
+        },
+        "x": 57.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.818
+        },
+        "x": 58.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.812
+        },
+        "x": 59.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.807
+        },
+        "x": 60.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.802
+        },
+        "x": 61.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.796
+        },
+        "x": 62.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.791
+        },
+        "x": 63.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.785
+        },
+        "x": 64.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.78
+        },
+        "x": 65.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.774
+        },
+        "x": 66.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.768
+        },
+        "x": 67.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.762
+        },
+        "x": 68.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.757
+        },
+        "x": 69.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.751
+        },
+        "x": 70.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.745
+        },
+        "x": 71.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.738
+        },
+        "x": 72.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.732
+        },
+        "x": 73.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.726
+        },
+        "x": 74.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.72
+        },
+        "x": 75.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.713
+        },
+        "x": 76.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.707
+        },
+        "x": 77.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.701
+        },
+        "x": 78.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.694
+        },
+        "x": 79.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.687
+        },
+        "x": 80.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.681
+        },
+        "x": 81.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.674
+        },
+        "x": 82.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.668
+        },
+        "x": 83.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.661
+        },
+        "x": 84.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.654
+        },
+        "x": 85.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.648
+        },
+        "x": 86.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.641
+        },
+        "x": 87.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.634
+        },
+        "x": 88.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.628
+        },
+        "x": 89.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.621
+        },
+        "x": 90.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.614
+        },
+        "x": 91.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.607
+        },
+        "x": 92.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.601
+        },
+        "x": 93.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.594
+        },
+        "x": 94.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.587
+        },
+        "x": 95.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.581
+        },
+        "x": 96.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.574
+        },
+        "x": 97.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.568
+        },
+        "x": 98.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.561
+        },
+        "x": 99.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.555
+        },
+        "x": 100.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.548
+        },
+        "x": 101.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.542
+        },
+        "x": 102.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.535
+        },
+        "x": 103.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.529
+        },
+        "x": 104.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.523
+        },
+        "x": 105.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.517
+        },
+        "x": 106.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.511
+        },
+        "x": 107.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.504
+        },
+        "x": 108.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.498
+        },
+        "x": 109.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.492
+        },
+        "x": 110.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.487
+        },
+        "x": 111.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.481
+        },
+        "x": 112.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.475
+        },
+        "x": 113.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.469
+        },
+        "x": 114.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.464
+        },
+        "x": 115.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.458
+        },
+        "x": 116.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.453
+        },
+        "x": 117.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.447
+        },
+        "x": 118.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.442
+        },
+        "x": 119.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.436
+        },
+        "x": 120.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.431
+        },
+        "x": 121.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.426
+        },
+        "x": 122.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.421
+        },
+        "x": 123.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.416
+        },
+        "x": 124.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.411
+        },
+        "x": 125.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.406
+        },
+        "x": 126.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.401
+        },
+        "x": 127.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.396
+        },
+        "x": 128.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.392
+        },
+        "x": 129.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.387
+        },
+        "x": 130.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.383
+        },
+        "x": 131.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.378
+        },
+        "x": 132.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.374
+        },
+        "x": 133.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.369
+        },
+        "x": 134.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.365
+        },
+        "x": 135.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.361
+        },
+        "x": 136.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.357
+        },
+        "x": 137.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.352
+        },
+        "x": 138.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.348
+        },
+        "x": 139.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.344
+        },
+        "x": 140.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.34
+        },
+        "x": 141.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.337
+        },
+        "x": 142.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.333
+        },
+        "x": 143.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.329
+        },
+        "x": 144.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.325
+        },
+        "x": 145.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.322
+        },
+        "x": 146.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.318
+        },
+        "x": 147.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.314
+        },
+        "x": 148.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.311
+        },
+        "x": 149.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.308
+        },
+        "x": 150.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.304
+        },
+        "x": 151.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.301
+        },
+        "x": 152.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.297
+        },
+        "x": 153.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.294
+        },
+        "x": 154.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.291
+        },
+        "x": 155.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.288
+        },
+        "x": 156.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.285
+        },
+        "x": 157.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.282
+        },
+        "x": 158.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.279
+        },
+        "x": 159.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.276
+        },
+        "x": 160.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.273
+        },
+        "x": 161.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.27
+        },
+        "x": 162.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.267
+        },
+        "x": 163.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.264
+        },
+        "x": 164.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.262
+        },
+        "x": 165.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.259
+        },
+        "x": 166.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.256
+        },
+        "x": 167.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.253
+        },
+        "x": 168.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.251
+        },
+        "x": 169.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.248
+        },
+        "x": 170.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.246
+        },
+        "x": 171.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.243
+        },
+        "x": 172.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.241
+        },
+        "x": 173.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.238
+        },
+        "x": 174.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.236
+        },
+        "x": 175.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.234
+        },
+        "x": 176.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.231
+        },
+        "x": 177.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.229
+        },
+        "x": 178.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.227
+        },
+        "x": 179.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.225
+        },
+        "x": 180.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.222
+        },
+        "x": 181.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.22
+        },
+        "x": 182.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.218
+        },
+        "x": 183.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.216
+        },
+        "x": 184.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.214
+        },
+        "x": 185.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.212
+        },
+        "x": 186.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.21
+        },
+        "x": 187.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.208
+        },
+        "x": 188.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.206
+        },
+        "x": 189.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.204
+        },
+        "x": 190.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.202
+        },
+        "x": 191.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.2
+        },
+        "x": 192.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.198
+        },
+        "x": 193.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.196
+        },
+        "x": 194.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.195
+        },
+        "x": 195.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.193
+        },
+        "x": 196.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.191
+        },
+        "x": 197.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.189
+        },
+        "x": 198.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.188
+        },
+        "x": 199.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.186
+        },
+        "x": 200.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.184
+        },
+        "x": 201.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.183
+        },
+        "x": 202.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.181
+        },
+        "x": 203.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.179
+        },
+        "x": 204.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.178
+        },
+        "x": 205.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.176
+        },
+        "x": 206.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.175
+        },
+        "x": 207.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.173
+        },
+        "x": 208.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.172
+        },
+        "x": 209.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.17
+        },
+        "x": 210.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.169
+        },
+        "x": 211.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.167
+        },
+        "x": 212.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.166
+        },
+        "x": 213.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.164
+        },
+        "x": 214.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.163
+        },
+        "x": 215.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.162
+        },
+        "x": 216.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.16
+        },
+        "x": 217.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.159
+        },
+        "x": 218.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.158
+        },
+        "x": 219.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.156
+        },
+        "x": 220.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.155
+        },
+        "x": 221.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.154
+        },
+        "x": 222.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.152
+        },
+        "x": 223.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.151
+        },
+        "x": 224.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.15
+        },
+        "x": 225.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.149
+        },
+        "x": 226.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.147
+        },
+        "x": 227.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.146
+        },
+        "x": 228.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.145
+        },
+        "x": 229.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.144
+        },
+        "x": 230.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.143
+        },
+        "x": 231.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.142
+        },
+        "x": 232.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.141
+        },
+        "x": 233.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.139
+        },
+        "x": 234.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.138
+        },
+        "x": 235.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.137
+        },
+        "x": 236.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.136
+        },
+        "x": 237.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.135
+        },
+        "x": 238.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.134
+        },
+        "x": 239.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.133
+        },
+        "x": 240.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.132
+        },
+        "x": 241.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.131
+        },
+        "x": 242.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.13
+        },
+        "x": 243.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.129
+        },
+        "x": 244.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.128
+        },
+        "x": 245.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.127
+        },
+        "x": 246.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.126
+        },
+        "x": 247.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.125
+        },
+        "x": 248.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.124
+        },
+        "x": 249.0
+      },
+      {
+        "axes": {
+          "section_class": "b"
+        },
+        "outputs": {
+          "phi": 0.123
+        },
+        "x": 250.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 1.0
+        },
+        "x": 0.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 1.0
+        },
+        "x": 1.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 1.0
+        },
+        "x": 2.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.999
+        },
+        "x": 3.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.999
+        },
+        "x": 4.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.998
+        },
+        "x": 5.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.997
+        },
+        "x": 6.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.996
+        },
+        "x": 7.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.995
+        },
+        "x": 8.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.993
+        },
+        "x": 9.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.992
+        },
+        "x": 10.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.99
+        },
+        "x": 11.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.988
+        },
+        "x": 12.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.986
+        },
+        "x": 13.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.983
+        },
+        "x": 14.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.981
+        },
+        "x": 15.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.978
+        },
+        "x": 16.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.976
+        },
+        "x": 17.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.973
+        },
+        "x": 18.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.97
+        },
+        "x": 19.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.966
+        },
+        "x": 20.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.959
+        },
+        "x": 21.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.953
+        },
+        "x": 22.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.947
+        },
+        "x": 23.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.94
+        },
+        "x": 24.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.934
+        },
+        "x": 25.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.928
+        },
+        "x": 26.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.921
+        },
+        "x": 27.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.915
+        },
+        "x": 28.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.909
+        },
+        "x": 29.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.902
+        },
+        "x": 30.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.896
+        },
+        "x": 31.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.89
+        },
+        "x": 32.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.883
+        },
+        "x": 33.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.877
+        },
+        "x": 34.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.871
+        },
+        "x": 35.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.865
+        },
+        "x": 36.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.858
+        },
+        "x": 37.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.852
+        },
+        "x": 38.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.845
+        },
+        "x": 39.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.839
+        },
+        "x": 40.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.833
+        },
+        "x": 41.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.826
+        },
+        "x": 42.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.82
+        },
+        "x": 43.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.813
+        },
+        "x": 44.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.807
+        },
+        "x": 45.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.8
+        },
+        "x": 46.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.794
+        },
+        "x": 47.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.787
+        },
+        "x": 48.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.781
+        },
+        "x": 49.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.774
+        },
+        "x": 50.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.768
+        },
+        "x": 51.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.761
+        },
+        "x": 52.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.755
+        },
+        "x": 53.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.748
+        },
+        "x": 54.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.742
+        },
+        "x": 55.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.735
+        },
+        "x": 56.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.728
+        },
+        "x": 57.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.722
+        },
+        "x": 58.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.715
+        },
+        "x": 59.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.709
+        },
+        "x": 60.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.702
+        },
+        "x": 61.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.695
+        },
+        "x": 62.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.689
+        },
+        "x": 63.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.682
+        },
+        "x": 64.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.675
+        },
+        "x": 65.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.669
+        },
+        "x": 66.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.662
+        },
+        "x": 67.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.656
+        },
+        "x": 68.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.649
+        },
+        "x": 69.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.642
+        },
+        "x": 70.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.636
+        },
+        "x": 71.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.629
+        },
+        "x": 72.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.623
+        },
+        "x": 73.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.616
+        },
+        "x": 74.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.61
+        },
+        "x": 75.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.603
+        },
+        "x": 76.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.597
+        },
+        "x": 77.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.591
+        },
+        "x": 78.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.584
+        },
+        "x": 79.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.578
+        },
+        "x": 80.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.572
+        },
+        "x": 81.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.565
+        },
+        "x": 82.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.559
+        },
+        "x": 83.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.553
+        },
+        "x": 84.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.547
+        },
+        "x": 85.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.541
+        },
+        "x": 86.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.535
+        },
+        "x": 87.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.529
+        },
+        "x": 88.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.523
+        },
+        "x": 89.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.517
+        },
+        "x": 90.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.511
+        },
+        "x": 91.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.505
+        },
+        "x": 92.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.499
+        },
+        "x": 93.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.494
+        },
+        "x": 94.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.488
+        },
+        "x": 95.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.483
+        },
+        "x": 96.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.477
+        },
+        "x": 97.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.471
+        },
+        "x": 98.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.467
+        },
+        "x": 99.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.462
+        },
+        "x": 100.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.458
+        },
+        "x": 101.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.453
+        },
+        "x": 102.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.449
+        },
+        "x": 103.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.445
+        },
+        "x": 104.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.44
+        },
+        "x": 105.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.436
+        },
+        "x": 106.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.432
+        },
+        "x": 107.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.427
+        },
+        "x": 108.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.423
+        },
+        "x": 109.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.419
+        },
+        "x": 110.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.415
+        },
+        "x": 111.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.411
+        },
+        "x": 112.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.407
+        },
+        "x": 113.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.402
+        },
+        "x": 114.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.398
+        },
+        "x": 115.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.394
+        },
+        "x": 116.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.39
+        },
+        "x": 117.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.386
+        },
+        "x": 118.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.383
+        },
+        "x": 119.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.379
+        },
+        "x": 120.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.375
+        },
+        "x": 121.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.371
+        },
+        "x": 122.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.367
+        },
+        "x": 123.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.363
+        },
+        "x": 124.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.36
+        },
+        "x": 125.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.356
+        },
+        "x": 126.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.352
+        },
+        "x": 127.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.349
+        },
+        "x": 128.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.345
+        },
+        "x": 129.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.342
+        },
+        "x": 130.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.338
+        },
+        "x": 131.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.335
+        },
+        "x": 132.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.332
+        },
+        "x": 133.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.328
+        },
+        "x": 134.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.325
+        },
+        "x": 135.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.322
+        },
+        "x": 136.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.318
+        },
+        "x": 137.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.315
+        },
+        "x": 138.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.312
+        },
+        "x": 139.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.309
+        },
+        "x": 140.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.306
+        },
+        "x": 141.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.303
+        },
+        "x": 142.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.3
+        },
+        "x": 143.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.297
+        },
+        "x": 144.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.294
+        },
+        "x": 145.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.291
+        },
+        "x": 146.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.288
+        },
+        "x": 147.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.285
+        },
+        "x": 148.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.282
+        },
+        "x": 149.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.279
+        },
+        "x": 150.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.277
+        },
+        "x": 151.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.274
+        },
+        "x": 152.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.271
+        },
+        "x": 153.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.269
+        },
+        "x": 154.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.266
+        },
+        "x": 155.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.263
+        },
+        "x": 156.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.261
+        },
+        "x": 157.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.258
+        },
+        "x": 158.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.256
+        },
+        "x": 159.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.253
+        },
+        "x": 160.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.251
+        },
+        "x": 161.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.248
+        },
+        "x": 162.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.246
+        },
+        "x": 163.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.244
+        },
+        "x": 164.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.241
+        },
+        "x": 165.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.239
+        },
+        "x": 166.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.237
+        },
+        "x": 167.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.235
+        },
+        "x": 168.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.232
+        },
+        "x": 169.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.23
+        },
+        "x": 170.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.228
+        },
+        "x": 171.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.226
+        },
+        "x": 172.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.224
+        },
+        "x": 173.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.222
+        },
+        "x": 174.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.22
+        },
+        "x": 175.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.218
+        },
+        "x": 176.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.216
+        },
+        "x": 177.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.214
+        },
+        "x": 178.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.212
+        },
+        "x": 179.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.21
+        },
+        "x": 180.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.208
+        },
+        "x": 181.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.206
+        },
+        "x": 182.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.204
+        },
+        "x": 183.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.203
+        },
+        "x": 184.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.201
+        },
+        "x": 185.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.199
+        },
+        "x": 186.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.197
+        },
+        "x": 187.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.195
+        },
+        "x": 188.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.194
+        },
+        "x": 189.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.192
+        },
+        "x": 190.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.19
+        },
+        "x": 191.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.189
+        },
+        "x": 192.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.187
+        },
+        "x": 193.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.185
+        },
+        "x": 194.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.184
+        },
+        "x": 195.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.182
+        },
+        "x": 196.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.181
+        },
+        "x": 197.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.179
+        },
+        "x": 198.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.178
+        },
+        "x": 199.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.176
+        },
+        "x": 200.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.175
+        },
+        "x": 201.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.173
+        },
+        "x": 202.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.172
+        },
+        "x": 203.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.17
+        },
+        "x": 204.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.169
+        },
+        "x": 205.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.167
+        },
+        "x": 206.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.166
+        },
+        "x": 207.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.165
+        },
+        "x": 208.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.163
+        },
+        "x": 209.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.162
+        },
+        "x": 210.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.161
+        },
+        "x": 211.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.159
+        },
+        "x": 212.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.158
+        },
+        "x": 213.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.157
+        },
+        "x": 214.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.155
+        },
+        "x": 215.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.154
+        },
+        "x": 216.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.153
+        },
+        "x": 217.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.152
+        },
+        "x": 218.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.151
+        },
+        "x": 219.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.149
+        },
+        "x": 220.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.148
+        },
+        "x": 221.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.147
+        },
+        "x": 222.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.146
+        },
+        "x": 223.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.145
+        },
+        "x": 224.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.144
+        },
+        "x": 225.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.142
+        },
+        "x": 226.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.141
+        },
+        "x": 227.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.14
+        },
+        "x": 228.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.139
+        },
+        "x": 229.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.138
+        },
+        "x": 230.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.137
+        },
+        "x": 231.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.136
+        },
+        "x": 232.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.135
+        },
+        "x": 233.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.134
+        },
+        "x": 234.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.133
+        },
+        "x": 235.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.132
+        },
+        "x": 236.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.131
+        },
+        "x": 237.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.13
+        },
+        "x": 238.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.129
+        },
+        "x": 239.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.128
+        },
+        "x": 240.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.127
+        },
+        "x": 241.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.126
+        },
+        "x": 242.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.125
+        },
+        "x": 243.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.124
+        },
+        "x": 244.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.123
+        },
+        "x": 245.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.123
+        },
+        "x": 246.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.122
+        },
+        "x": 247.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.121
+        },
+        "x": 248.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.12
+        },
+        "x": 249.0
+      },
+      {
+        "axes": {
+          "section_class": "c"
+        },
+        "outputs": {
+          "phi": 0.119
+        },
+        "x": 250.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 1.0
+        },
+        "x": 0.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 1.0
+        },
+        "x": 1.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.999
+        },
+        "x": 2.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.999
+        },
+        "x": 3.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.998
+        },
+        "x": 4.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.996
+        },
+        "x": 5.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.994
+        },
+        "x": 6.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.992
+        },
+        "x": 7.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.99
+        },
+        "x": 8.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.987
+        },
+        "x": 9.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.984
+        },
+        "x": 10.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.981
+        },
+        "x": 11.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.978
+        },
+        "x": 12.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.974
+        },
+        "x": 13.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.969
+        },
+        "x": 14.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.965
+        },
+        "x": 15.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.96
+        },
+        "x": 16.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.955
+        },
+        "x": 17.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.949
+        },
+        "x": 18.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.944
+        },
+        "x": 19.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.937
+        },
+        "x": 20.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.927
+        },
+        "x": 21.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.918
+        },
+        "x": 22.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.909
+        },
+        "x": 23.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.9
+        },
+        "x": 24.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.891
+        },
+        "x": 25.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.883
+        },
+        "x": 26.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.874
+        },
+        "x": 27.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.865
+        },
+        "x": 28.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.857
+        },
+        "x": 29.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.848
+        },
+        "x": 30.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.84
+        },
+        "x": 31.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.831
+        },
+        "x": 32.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.823
+        },
+        "x": 33.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.815
+        },
+        "x": 34.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.807
+        },
+        "x": 35.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.798
+        },
+        "x": 36.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.79
+        },
+        "x": 37.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.782
+        },
+        "x": 38.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.774
+        },
+        "x": 39.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.766
+        },
+        "x": 40.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.758
+        },
+        "x": 41.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.751
+        },
+        "x": 42.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.743
+        },
+        "x": 43.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.735
+        },
+        "x": 44.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.727
+        },
+        "x": 45.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.72
+        },
+        "x": 46.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.712
+        },
+        "x": 47.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.705
+        },
+        "x": 48.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.697
+        },
+        "x": 49.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.69
+        },
+        "x": 50.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.682
+        },
+        "x": 51.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.675
+        },
+        "x": 52.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.668
+        },
+        "x": 53.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.66
+        },
+        "x": 54.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.653
+        },
+        "x": 55.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.646
+        },
+        "x": 56.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.639
+        },
+        "x": 57.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.632
+        },
+        "x": 58.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.625
+        },
+        "x": 59.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.618
+        },
+        "x": 60.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.611
+        },
+        "x": 61.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.605
+        },
+        "x": 62.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.598
+        },
+        "x": 63.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.591
+        },
+        "x": 64.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.585
+        },
+        "x": 65.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.578
+        },
+        "x": 66.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.571
+        },
+        "x": 67.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.565
+        },
+        "x": 68.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.559
+        },
+        "x": 69.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.552
+        },
+        "x": 70.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.546
+        },
+        "x": 71.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.54
+        },
+        "x": 72.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.534
+        },
+        "x": 73.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.528
+        },
+        "x": 74.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.521
+        },
+        "x": 75.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.516
+        },
+        "x": 76.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.51
+        },
+        "x": 77.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.504
+        },
+        "x": 78.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.498
+        },
+        "x": 79.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.492
+        },
+        "x": 80.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.487
+        },
+        "x": 81.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.481
+        },
+        "x": 82.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.476
+        },
+        "x": 83.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.47
+        },
+        "x": 84.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.465
+        },
+        "x": 85.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.459
+        },
+        "x": 86.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.454
+        },
+        "x": 87.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.449
+        },
+        "x": 88.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.444
+        },
+        "x": 89.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.439
+        },
+        "x": 90.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.434
+        },
+        "x": 91.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.429
+        },
+        "x": 92.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.424
+        },
+        "x": 93.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.419
+        },
+        "x": 94.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.414
+        },
+        "x": 95.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.409
+        },
+        "x": 96.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.405
+        },
+        "x": 97.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.401
+        },
+        "x": 98.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.397
+        },
+        "x": 99.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.393
+        },
+        "x": 100.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.39
+        },
+        "x": 101.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.386
+        },
+        "x": 102.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.383
+        },
+        "x": 103.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.38
+        },
+        "x": 104.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.376
+        },
+        "x": 105.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.373
+        },
+        "x": 106.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.369
+        },
+        "x": 107.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.366
+        },
+        "x": 108.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.363
+        },
+        "x": 109.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.359
+        },
+        "x": 110.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.356
+        },
+        "x": 111.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.353
+        },
+        "x": 112.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.35
+        },
+        "x": 113.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.346
+        },
+        "x": 114.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.343
+        },
+        "x": 115.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.34
+        },
+        "x": 116.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.337
+        },
+        "x": 117.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.334
+        },
+        "x": 118.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.331
+        },
+        "x": 119.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.328
+        },
+        "x": 120.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.325
+        },
+        "x": 121.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.322
+        },
+        "x": 122.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.319
+        },
+        "x": 123.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.316
+        },
+        "x": 124.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.313
+        },
+        "x": 125.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.31
+        },
+        "x": 126.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.307
+        },
+        "x": 127.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.304
+        },
+        "x": 128.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.301
+        },
+        "x": 129.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.298
+        },
+        "x": 130.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.296
+        },
+        "x": 131.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.293
+        },
+        "x": 132.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.29
+        },
+        "x": 133.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.288
+        },
+        "x": 134.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.285
+        },
+        "x": 135.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.282
+        },
+        "x": 136.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.28
+        },
+        "x": 137.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.277
+        },
+        "x": 138.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.275
+        },
+        "x": 139.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.272
+        },
+        "x": 140.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.27
+        },
+        "x": 141.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.267
+        },
+        "x": 142.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.265
+        },
+        "x": 143.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.262
+        },
+        "x": 144.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.26
+        },
+        "x": 145.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.257
+        },
+        "x": 146.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.255
+        },
+        "x": 147.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.253
+        },
+        "x": 148.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.25
+        },
+        "x": 149.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.248
+        },
+        "x": 150.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.246
+        },
+        "x": 151.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.244
+        },
+        "x": 152.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.242
+        },
+        "x": 153.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.239
+        },
+        "x": 154.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.237
+        },
+        "x": 155.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.235
+        },
+        "x": 156.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.233
+        },
+        "x": 157.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.231
+        },
+        "x": 158.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.229
+        },
+        "x": 159.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.227
+        },
+        "x": 160.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.225
+        },
+        "x": 161.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.223
+        },
+        "x": 162.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.221
+        },
+        "x": 163.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.219
+        },
+        "x": 164.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.217
+        },
+        "x": 165.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.215
+        },
+        "x": 166.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.213
+        },
+        "x": 167.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.211
+        },
+        "x": 168.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.21
+        },
+        "x": 169.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.208
+        },
+        "x": 170.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.206
+        },
+        "x": 171.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.204
+        },
+        "x": 172.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.202
+        },
+        "x": 173.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.201
+        },
+        "x": 174.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.199
+        },
+        "x": 175.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.197
+        },
+        "x": 176.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.196
+        },
+        "x": 177.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.194
+        },
+        "x": 178.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.192
+        },
+        "x": 179.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.191
+        },
+        "x": 180.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.189
+        },
+        "x": 181.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.187
+        },
+        "x": 182.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.186
+        },
+        "x": 183.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.184
+        },
+        "x": 184.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.183
+        },
+        "x": 185.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.181
+        },
+        "x": 186.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.18
+        },
+        "x": 187.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.178
+        },
+        "x": 188.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.177
+        },
+        "x": 189.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.175
+        },
+        "x": 190.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.174
+        },
+        "x": 191.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.173
+        },
+        "x": 192.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.171
+        },
+        "x": 193.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.17
+        },
+        "x": 194.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.168
+        },
+        "x": 195.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.167
+        },
+        "x": 196.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.166
+        },
+        "x": 197.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.164
+        },
+        "x": 198.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.163
+        },
+        "x": 199.0
+      },
+      {
+        "axes": {
+          "section_class": "d"
+        },
+        "outputs": {
+          "phi": 0.162
+        },
+        "x": 200.0
+      }
+    ],
+    "verified_by": {
+      "channel": "电子版PDF文字层",
+      "date": "2026-10-07",
+      "note": "三路证据：①出版社电子版 PDF 矢量文字层逐格 952 格；②镜像站图片逐格转录 953 格（两路可比对 951 格中仅 a 类 λ/εk=15 不同，按 PDF+原书 OCR+放大重读原图三处一致裁定 0.989）；③D.0.5 公式反算（式体取 PDF 矢量还原，三源一致）。±0.001 容差口径（06 D22，用户拍板）：表体与 D.0.5 公式反算 953/953 落在 ±0.001 内（最大偏差 0.00086，中位 0.00026，单向系统偏移）；若改用 3 位小数取整一致作判据则只有 792/953，成因已定位到**表体的生成 λₙ 标度比官方 k=(1/π)√(235/206000) 大约 0.05%**，官方生成常数未取到（V3b 永久留痕，禁止把拟合常数 k≈0.0107563 当规范事实使用，D11/K14）。 单源未入库：PDF 文字层含 a 类 λ/εk=250=0.130，但页面渲染图上该格被底线覆盖不可见，属该电子版 PDF 的隐藏/串版内容。",
+      "url": "https://cdn.jsdelivr.net/gh/youtian95/Books_OCR@master/Data/钢结构设计标准 GB50017-2017 PDF文件/附录D 轴心受压构件的稳定系数.pdf | 镜像图片 gf.cabr-fire.com/article-34713.htm | 原书 OCR gh_ocr_appD.md"
+    }
+  },
+  {
+    "axes": [
+      "section_form",
+      "manufacture",
+      "edge_condition",
+      "thickness"
+    ],
+    "clause": "GB50017-2017:7.2.1-表1",
+    "id": "T-section-class",
+    "interpolation": "group",
+    "notes": "A5 的 section_class 输入必须先由本表判定，未核对前只接受人工给定分类并显式标注依据待核。",
+    "source_table_no": "表 7.2.1-1 / 表 7.2.1-2",
+    "status": "located",
+    "title": "受压构件截面 a/b/c/d 分类",
+    "unit": "无量纲",
+    "values": [],
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "两张表号与 t=40mm 分界定位；归属未取到（V4）",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）"
+    }
+  },
+  {
+    "axes": [
+      "member_type"
+    ],
+    "clause": "GB50017-2017:7.4.6",
+    "id": "T-slenderness-limit",
+    "interpolation": "group",
+    "notes": "A5 构造检查项；构件类型词表也待核。",
+    "source_table_no": "表 7.4.6（受压）/ 表 7.4.7（受拉）",
+    "status": "located",
+    "title": "容许长细比 [λ]",
+    "unit": "无量纲",
+    "values": [],
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "两张表号定位；限值未取到（V1）",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）"
+    }
+  },
+  {
+    "axes": [
+      "param",
+      "condition"
+    ],
+    "clause": "GB50017-2017:11.5.2",
+    "id": "T-construct-limit",
+    "interpolation": "group",
+    "notes": "A1~A4 的构造检查（最小/最大焊脚、l_w 与 h_f 倍数、螺栓最小间距与边距）统一挂本表；数值缺失时 limits 项 value 保持 null 且启用即 blocked。",
+    "source_table_no": "表 11.5.2（并见 11.5.1、11.3.5、11.3.6）",
+    "status": "located",
+    "title": "连接构造限值（焊脚、螺栓间距与边距）",
+    "unit": "mm",
+    "values": [],
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "表号与所在条定位；限值未取到（V8）",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，表体未取到）"
+    }
+  },
+  {
+    "axes": [
+      "section_class",
+      "lambda_n_regime"
+    ],
+    "clause": "GB50017-2017:D.0.5",
+    "id": "T-buckling-alpha",
+    "interpolation": "group",
+    "notes": "α 六组值四源一致（电子版 PDF 文字层、镜像图片转录、原书 OCR、2003 版附录 C 公式图）。本表只登记系数；D.0.5 的**分段式体**不在这里执行——现行 AST 白名单没有条件分支，两支公式都指向 phi，落进计算路径会在依赖闭合时抛 EngineError，故 `F-D.0.5-1` 仍 pending（式体文字已核实，见其 notes；引擎需先支持分段/按条件选式，列 M4~M5 待办）。",
+    "source_table_no": "附录 D 表 D.0.5",
+    "status": "verified",
+    "title": "稳定系数拟合公式系数 α1~α3（表 D.0.5）",
+    "unit": "无量纲",
+    "values": [
+      {
+        "axes": {
+          "lambda_n_regime": "any",
+          "section_class": "a"
+        },
+        "outputs": {
+          "alpha1": 0.41,
+          "alpha2": 0.986,
+          "alpha3": 0.152
+        }
+      },
+      {
+        "axes": {
+          "lambda_n_regime": "any",
+          "section_class": "b"
+        },
+        "outputs": {
+          "alpha1": 0.65,
+          "alpha2": 0.965,
+          "alpha3": 0.3
+        }
+      },
+      {
+        "axes": {
+          "lambda_n_regime": "<=1.05",
+          "section_class": "c"
+        },
+        "outputs": {
+          "alpha1": 0.73,
+          "alpha2": 0.906,
+          "alpha3": 0.595
+        }
+      },
+      {
+        "axes": {
+          "lambda_n_regime": ">1.05",
+          "section_class": "c"
+        },
+        "outputs": {
+          "alpha1": 0.73,
+          "alpha2": 1.216,
+          "alpha3": 0.302
+        }
+      },
+      {
+        "axes": {
+          "lambda_n_regime": "<=1.05",
+          "section_class": "d"
+        },
+        "outputs": {
+          "alpha1": 1.35,
+          "alpha2": 0.868,
+          "alpha3": 0.915
+        }
+      },
+      {
+        "axes": {
+          "lambda_n_regime": ">1.05",
+          "section_class": "d"
+        },
+        "outputs": {
+          "alpha1": 1.35,
+          "alpha2": 1.375,
+          "alpha3": 0.432
+        }
+      }
+    ],
+    "verified_by": {
+      "channel": "电子版PDF文字层",
+      "date": "2026-10-07",
+      "note": "三路证据：①出版社电子版 PDF 矢量文字层逐格 952 格；②镜像站图片逐格转录 953 格（两路可比对 951 格中仅 a 类 λ/εk=15 不同，按 PDF+原书 OCR+放大重读原图三处一致裁定 0.989）；③D.0.5 公式反算（式体取 PDF 矢量还原，三源一致）。±0.001 容差口径（06 D22，用户拍板）：表体与 D.0.5 公式反算 953/953 落在 ±0.001 内（最大偏差 0.00086，中位 0.00026，单向系统偏移）；若改用 3 位小数取整一致作判据则只有 792/953，成因已定位到**表体的生成 λₙ 标度比官方 k=(1/π)√(235/206000) 大约 0.05%**，官方生成常数未取到（V3b 永久留痕，禁止把拟合常数 k≈0.0107563 当规范事实使用，D11/K14）。 单源未入库：PDF 文字层含 a 类 λ/εk=250=0.130，但页面渲染图上该格被底线覆盖不可见，属该电子版 PDF 的隐藏/串版内容。",
+      "url": "https://cdn.jsdelivr.net/gh/youtian95/Books_OCR@master/Data/钢结构设计标准 GB50017-2017 PDF文件/附录D 轴心受压构件的稳定系数.pdf | 镜像图片 gf.cabr-fire.com/article-34713.htm | 原书 OCR gh_ocr_appD.md"
+    }
+  }
 ]

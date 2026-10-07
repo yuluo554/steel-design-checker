@@ -1,0 +1,38 @@
+[
+  {
+    "id": "T-jgj-slip-factor",
+    "clause": "JGJ82-2011:3.2.4",
+    "title": "摩擦面抗滑移系数 μ（JGJ 82-2011）",
+    "source_table_no": "表 3.2.4-1 / 表 3.2.4-2",
+    "axes": ["surface_treatment", "steel_grade"],
+    "values": [],
+    "interpolation": "group",
+    "status": "located",
+    "unit": "无量纲",
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html（表体在三个渠道均无数值）",
+      "date": "2026-10-07",
+      "note": "表号与轴向定位；表体数值未取到（V1）"
+    },
+    "notes": "与 GB 50017-2017 表 11.4.2-1 是两张不同的表，处理状态行名可能不一致；主来源选择属口径决策（plan/07 §四）。"
+  },
+  {
+    "id": "T-jgj-preload",
+    "clause": "JGJ82-2011:3.2.5",
+    "title": "高强度螺栓预拉力 P（JGJ 82-2011）",
+    "source_table_no": "表 3.2.5",
+    "axes": ["bolt_grade", "d"],
+    "values": [],
+    "interpolation": "group",
+    "status": "located",
+    "unit": "kN",
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html（表体无值）",
+      "date": "2026-10-07",
+      "note": "表号定位；表体数值未取到（V1）。单位 kN 由 4.1.1 符号说明逐字给出（「P——每个高强度螺栓的预拉力(kN)」）"
+    },
+    "notes": "与 GB 50017-2017 表 11.4.2-2 同源异表。"
+  }
+]

@@ -1,34 +1,291 @@
 [
-  {"symbol": "h_e", "name_zh": "角焊缝有效厚度", "unit": "mm", "clause_id": "GB50017-2017:11.2.2", "status": "located", "derivation": "TBD（渠道转述为 0.7*h_f，式体待核 V2）", "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（本地转储缓存已丢失，待重定位）", "date": "2026-10-06", "note": "符号与该条的对应关系由 plan/07 §二.4 定位；数值形式未核对"}, "notes": "厚度较大时是否有附加形式未核对，未核对前不启用分支。"},
-  {"symbol": "l_w", "name_zh": "焊缝计算长度", "unit": "mm", "clause_id": "GB50017-2017:11.2.2", "status": "located", "derivation": "TBD（渠道转述：实长减去 2*h_f，引弧板影响待核）", "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）", "date": "2026-10-06", "note": "对应关系定位；式体待核 V2"}, "notes": "A1/A2 共用符号，构造最小值见 11.3.5。"},
-  {"symbol": "beta_f", "name_zh": "正面角焊缝强度增大系数", "unit": "无量纲", "clause_id": "GB50017-2017:11.2.2", "status": "located", "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）", "date": "2026-10-06", "note": "符号定位；渠道转述值 1.22/1.0 未经正式文本核对，不作已知系数"}, "notes": "plan/04 A2 要求取值必须来自原文 → 当前只能 pending 使用（blocked）。"},
-  {"symbol": "n_f", "name_zh": "传力摩擦面数目", "unit": "无量纲", "clause_id": "GB50017-2017:11.4.2", "status": "located", "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）", "date": "2026-10-06", "note": "符号在本条中定义，对应关系已定位"}, "notes": "整数字段，属计算长度/数目，允许直接加和。"},
-  {"symbol": "mu", "name_zh": "抗滑移系数", "unit": "无量纲", "clause_id": "GB50017-2017:11.4.2", "status": "located", "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）", "date": "2026-10-06", "note": "符号与表 11.4.2-1 的对应关系定位；表值未取到 V1"}, "notes": "取值只能来自 T-slip-factor；现场试验值覆盖必须记 source。"},
-  {"symbol": "P", "name_zh": "高强度螺栓预拉力", "unit": "kN", "clause_id": "GB50017-2017:11.4.2", "status": "located", "verified_by": {"channel": "建标库", "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）", "date": "2026-10-06", "note": "符号与表 11.4.2-2 的对应关系定位；表值未取到 V1"}, "notes": "入口单位换算：kN → N 只在适配层做（口径 K1）。"},
-  {"symbol": "k", "name_zh": "连接承载力调整系数", "unit": "无量纲", "clause_id": "GB50017-2017:11.4.4", "status": "pending", "notes": "调整项形式（数目增加、单面搭接、短角钢）见 11.4.4，数值待核 V1。"},
-  {"symbol": "N_v_b", "name_zh": "单个螺栓抗剪承载力设计值", "unit": "N", "clause_id": "GB50017-2017:11.4.1", "status": "pending", "notes": "A3 与 A4 共用符号名，计算式来源不同（11.4.1 与 11.4.2），实现时须按模块区分。"},
-  {"symbol": "N_c_b", "name_zh": "单个螺栓承压承载力设计值", "unit": "N", "clause_id": "GB50017-2017:11.4.1", "status": "pending"},
-  {"symbol": "N_t_b", "name_zh": "单个螺栓抗拉承载力设计值", "unit": "N", "clause_id": "GB50017-2017:11.4.1", "status": "pending", "notes": "摩擦型单栓抗拉（条文说明转述 0.8P）待核，不并入本符号定义。"},
-  {"symbol": "A_e", "name_zh": "螺栓有效截面面积", "unit": "mm²", "clause_id": "GB50017-2017:11.4.1", "status": "pending", "notes": "螺纹处有效直径/有效截面系数取法待核 V1。"},
-  {"symbol": "f_v_b", "name_zh": "螺栓抗剪强度设计值", "unit": "MPa", "clause_id": "GB50017-2017:4.4.6", "status": "pending"},
-  {"symbol": "f_c_b", "name_zh": "螺栓承压强度设计值", "unit": "MPa", "clause_id": "GB50017-2017:4.4.6", "status": "pending"},
-  {"symbol": "f_t_b", "name_zh": "螺栓抗拉强度设计值", "unit": "MPa", "clause_id": "GB50017-2017:4.4.6", "status": "pending"},
-  {"symbol": "f_f_w", "name_zh": "角焊缝强度设计值", "unit": "MPa", "clause_id": "GB50017-2017:4.4.5", "status": "pending"},
-  {"symbol": "f_t_w", "name_zh": "对接焊缝抗拉强度设计值", "unit": "MPa", "clause_id": "GB50017-2017:4.4.5", "status": "pending", "notes": "一级二级与三级分列，取用条件见 11.1.6。"},
-  {"symbol": "f_v_w", "name_zh": "对接焊缝抗剪强度设计值", "unit": "MPa", "clause_id": "GB50017-2017:4.4.5", "status": "pending"},
-  {"symbol": "sigma", "name_zh": "对接焊缝正应力", "unit": "MPa", "clause_id": "GB50017-2017:11.2.1", "status": "pending"},
-  {"symbol": "tau", "name_zh": "对接焊缝剪应力", "unit": "MPa", "clause_id": "GB50017-2017:11.2.1", "status": "pending"},
-  {"symbol": "sigma_f", "name_zh": "角焊缝正面方向应力", "unit": "MPa", "clause_id": "GB50017-2017:11.2.2", "status": "pending"},
-  {"symbol": "tau_f", "name_zh": "角焊缝侧面方向剪应力", "unit": "MPa", "clause_id": "GB50017-2017:11.2.2", "status": "pending"},
-  {"symbol": "theta", "name_zh": "斜角焊缝夹角", "unit": "度", "clause_id": "GB50017-2017:11.2.3", "status": "pending", "notes": "适用夹角范围待核，首期不实现斜角焊缝。"},
-  {"symbol": "alpha_f", "name_zh": "长搭接焊缝承载力折减系数", "unit": "无量纲", "clause_id": "GB50017-2017:11.2.6", "status": "pending", "notes": "折减门槛（60h_f 形式）与系数取值式待核 V2。"},
-  {"symbol": "l_1", "name_zh": "螺栓连接端距或外力沿轴向长度", "unit": "mm", "clause_id": "GB50017-2017:11.4.5", "status": "pending", "notes": "符号确切几何含义需按 11.4.5 原文确认，当前命名属暂定。"},
-  {"symbol": "d_0", "name_zh": "螺栓孔直径", "unit": "mm", "clause_id": "GB50017-2017:11.4.5", "status": "pending", "notes": "与孔径 d、公称直径 d 的关系及大孔/标准孔取值待核。"},
-  {"symbol": "phi", "name_zh": "轴心受压构件稳定系数", "unit": "无量纲", "clause_id": "GB50017-2017:D.0.1", "status": "pending", "notes": "取值双源纪律见 D11；两源皆无 → A5 blocked。"},
-  {"symbol": "lambda", "name_zh": "长细比", "unit": "无量纲", "clause_id": "GB50017-2017:7.2.2", "status": "pending", "notes": "绕轴取舍（取较大者）与弯扭换算长细比形式待核。"},
-  {"symbol": "i", "name_zh": "截面回转半径", "unit": "mm", "clause_id": "GB50017-2017:7.2.2", "status": "pending"},
-  {"symbol": "A", "name_zh": "构件毛截面面积", "unit": "mm²", "clause_id": "GB50017-2017:7.2.1", "status": "pending", "notes": "受压稳定计算取毛截面（转述），扣除规则待核。"},
-  {"symbol": "f", "name_zh": "钢材强度设计值", "unit": "MPa", "clause_id": "GB50017-2017:4.4.1", "status": "pending", "notes": "按牌号 × 厚度分组查 T-steel-design-value，表值未取到 V1。"},
-  {"symbol": "l_0", "name_zh": "构件计算长度", "unit": "mm", "clause_id": "GB50017-2017:7.2.2", "status": "pending", "notes": "由表 7.4.1-1/7.4.1-2 的系数乘实际长度，或直接输入；系数未取到 V1。"},
-  {"symbol": "mu_len", "name_zh": "计算长度系数", "unit": "无量纲", "clause_id": "GB50017-2017:7.4.1", "status": "pending", "notes": "符号名与抗滑移系数 mu 区分，避免同名字典冲突（M2 落地时按上下文命名）。"}
+  {
+    "clause_id": "GB50017-2017:11.2.2",
+    "derivation": "TBD（渠道转述为 0.7*h_f，式体待核 V2）",
+    "name_zh": "角焊缝有效厚度",
+    "notes": "厚度较大时是否有附加形式未核对，未核对前不启用分支。",
+    "status": "located",
+    "symbol": "h_e",
+    "unit": "mm",
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "符号与该条的对应关系由 plan/07 §二.4 定位；数值形式未核对",
+      "url": "jianbiaoku.com/webarbs/book/198（本地转储缓存已丢失，待重定位）"
+    }
+  },
+  {
+    "clause_id": "GB50017-2017:11.2.2",
+    "derivation": "TBD（渠道转述：实长减去 2*h_f，引弧板影响待核）",
+    "name_zh": "焊缝计算长度",
+    "notes": "A1/A2 共用符号，构造最小值见 11.3.5。",
+    "status": "located",
+    "symbol": "l_w",
+    "unit": "mm",
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "对应关系定位；式体待核 V2",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）"
+    }
+  },
+  {
+    "clause_id": "GB50017-2017:11.2.2",
+    "name_zh": "正面角焊缝强度增大系数",
+    "notes": "plan/04 A2 要求取值必须来自原文 → 当前只能 pending 使用（blocked）。",
+    "status": "located",
+    "symbol": "beta_f",
+    "unit": "无量纲",
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "符号定位；渠道转述值 1.22/1.0 未经正式文本核对，不作已知系数",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）"
+    }
+  },
+  {
+    "clause_id": "GB50017-2017:11.4.2",
+    "name_zh": "传力摩擦面数目",
+    "notes": "整数字段，属计算长度/数目，允许直接加和。",
+    "status": "located",
+    "symbol": "n_f",
+    "unit": "无量纲",
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "符号在本条中定义，对应关系已定位",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）"
+    }
+  },
+  {
+    "clause_id": "GB50017-2017:11.4.2",
+    "name_zh": "抗滑移系数",
+    "notes": "取值只能来自 T-slip-factor；现场试验值覆盖必须记 source。",
+    "status": "located",
+    "symbol": "mu",
+    "unit": "无量纲",
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "符号与表 11.4.2-1 的对应关系定位；表值未取到 V1",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）"
+    }
+  },
+  {
+    "clause_id": "GB50017-2017:11.4.2",
+    "name_zh": "高强度螺栓预拉力",
+    "notes": "入口单位换算：kN → N 只在适配层做（口径 K1）。",
+    "status": "located",
+    "symbol": "P",
+    "unit": "kN",
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "符号与表 11.4.2-2 的对应关系定位；表值未取到 V1",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）"
+    }
+  },
+  {
+    "clause_id": "GB50017-2017:11.4.4",
+    "name_zh": "连接承载力调整系数",
+    "notes": "调整项形式（数目增加、单面搭接、短角钢）见 11.4.4，数值待核 V1。",
+    "status": "pending",
+    "symbol": "k",
+    "unit": "无量纲"
+  },
+  {
+    "clause_id": "GB50017-2017:11.4.1",
+    "name_zh": "单个螺栓抗剪承载力设计值",
+    "notes": "A3 与 A4 共用符号名，计算式来源不同（11.4.1 与 11.4.2），实现时须按模块区分。",
+    "status": "pending",
+    "symbol": "N_v_b",
+    "unit": "N"
+  },
+  {
+    "clause_id": "GB50017-2017:11.4.1",
+    "name_zh": "单个螺栓承压承载力设计值",
+    "status": "pending",
+    "symbol": "N_c_b",
+    "unit": "N"
+  },
+  {
+    "clause_id": "GB50017-2017:11.4.1",
+    "name_zh": "单个螺栓抗拉承载力设计值",
+    "notes": "摩擦型单栓抗拉（条文说明转述 0.8P）待核，不并入本符号定义。",
+    "status": "pending",
+    "symbol": "N_t_b",
+    "unit": "N"
+  },
+  {
+    "clause_id": "GB50017-2017:11.4.1",
+    "name_zh": "螺栓有效截面面积",
+    "notes": "螺纹处有效直径/有效截面系数取法待核 V1。",
+    "status": "pending",
+    "symbol": "A_e",
+    "unit": "mm²"
+  },
+  {
+    "clause_id": "GB50017-2017:4.4.6",
+    "name_zh": "螺栓抗剪强度设计值",
+    "status": "pending",
+    "symbol": "f_v_b",
+    "unit": "MPa"
+  },
+  {
+    "clause_id": "GB50017-2017:4.4.6",
+    "name_zh": "螺栓承压强度设计值",
+    "status": "pending",
+    "symbol": "f_c_b",
+    "unit": "MPa"
+  },
+  {
+    "clause_id": "GB50017-2017:4.4.6",
+    "name_zh": "螺栓抗拉强度设计值",
+    "status": "pending",
+    "symbol": "f_t_b",
+    "unit": "MPa"
+  },
+  {
+    "clause_id": "GB50017-2017:4.4.5",
+    "name_zh": "角焊缝强度设计值",
+    "status": "pending",
+    "symbol": "f_f_w",
+    "unit": "MPa"
+  },
+  {
+    "clause_id": "GB50017-2017:4.4.5",
+    "name_zh": "对接焊缝抗拉强度设计值",
+    "notes": "一级二级与三级分列，取用条件见 11.1.6。",
+    "status": "pending",
+    "symbol": "f_t_w",
+    "unit": "MPa"
+  },
+  {
+    "clause_id": "GB50017-2017:4.4.5",
+    "name_zh": "对接焊缝抗剪强度设计值",
+    "status": "pending",
+    "symbol": "f_v_w",
+    "unit": "MPa"
+  },
+  {
+    "clause_id": "GB50017-2017:11.2.1",
+    "name_zh": "对接焊缝正应力",
+    "status": "pending",
+    "symbol": "sigma",
+    "unit": "MPa"
+  },
+  {
+    "clause_id": "GB50017-2017:11.2.1",
+    "name_zh": "对接焊缝剪应力",
+    "status": "pending",
+    "symbol": "tau",
+    "unit": "MPa"
+  },
+  {
+    "clause_id": "GB50017-2017:11.2.2",
+    "name_zh": "角焊缝正面方向应力",
+    "status": "pending",
+    "symbol": "sigma_f",
+    "unit": "MPa"
+  },
+  {
+    "clause_id": "GB50017-2017:11.2.2",
+    "name_zh": "角焊缝侧面方向剪应力",
+    "status": "pending",
+    "symbol": "tau_f",
+    "unit": "MPa"
+  },
+  {
+    "clause_id": "GB50017-2017:11.2.3",
+    "name_zh": "斜角焊缝夹角",
+    "notes": "适用夹角范围待核，首期不实现斜角焊缝。",
+    "status": "pending",
+    "symbol": "theta",
+    "unit": "度"
+  },
+  {
+    "clause_id": "GB50017-2017:11.2.6",
+    "name_zh": "长搭接焊缝承载力折减系数",
+    "notes": "折减门槛（60h_f 形式）与系数取值式待核 V2。",
+    "status": "pending",
+    "symbol": "alpha_f",
+    "unit": "无量纲"
+  },
+  {
+    "clause_id": "GB50017-2017:11.4.5",
+    "name_zh": "螺栓连接端距或外力沿轴向长度",
+    "notes": "符号确切几何含义需按 11.4.5 原文确认，当前命名属暂定。",
+    "status": "pending",
+    "symbol": "l_1",
+    "unit": "mm"
+  },
+  {
+    "clause_id": "GB50017-2017:11.4.5",
+    "name_zh": "螺栓孔直径",
+    "notes": "与孔径 d、公称直径 d 的关系及大孔/标准孔取值待核。",
+    "status": "pending",
+    "symbol": "d_0",
+    "unit": "mm"
+  },
+  {
+    "clause_id": "GB50017-2017:D.0.1",
+    "name_zh": "轴心受压构件稳定系数",
+    "notes": "稳定系数 φ：附录 D 表 D.0.1~D.0.4 取值，超表界按 D.0.5 公式。定义与单位由电子版 PDF 文字层逐字核对（07 §七.6）。",
+    "status": "verified",
+    "symbol": "phi",
+    "unit": "无量纲",
+    "verified_by": {
+      "channel": "电子版PDF文字层",
+      "date": "2026-10-07",
+      "note": "三路证据：①出版社电子版 PDF 矢量文字层逐格 952 格；②镜像站图片逐格转录 953 格（两路可比对 951 格中仅 a 类 λ/εk=15 不同，按 PDF+原书 OCR+放大重读原图三处一致裁定 0.989）；③D.0.5 公式反算（式体取 PDF 矢量还原，三源一致）。±0.001 容差口径（06 D22，用户拍板）：表体与 D.0.5 公式反算 953/953 落在 ±0.001 内（最大偏差 0.00086，中位 0.00026，单向系统偏移）；若改用 3 位小数取整一致作判据则只有 792/953，成因已定位到**表体的生成 λₙ 标度比官方 k=(1/π)√(235/206000) 大约 0.05%**，官方生成常数未取到（V3b 永久留痕，禁止把拟合常数 k≈0.0107563 当规范事实使用，D11/K14）。 单源未入库：PDF 文字层含 a 类 λ/εk=250=0.130，但页面渲染图上该格被底线覆盖不可见，属该电子版 PDF 的隐藏/串版内容。",
+      "url": "https://cdn.jsdelivr.net/gh/youtian95/Books_OCR@master/Data/钢结构设计标准 GB50017-2017 PDF文件/附录D 轴心受压构件的稳定系数.pdf | 镜像图片 gf.cabr-fire.com/article-34713.htm | 原书 OCR gh_ocr_appD.md"
+    }
+  },
+  {
+    "clause_id": "GB50017-2017:7.2.2",
+    "name_zh": "长细比",
+    "notes": "绕轴取舍（取较大者）与弯扭换算长细比形式待核。",
+    "status": "pending",
+    "symbol": "lambda",
+    "unit": "无量纲"
+  },
+  {
+    "clause_id": "GB50017-2017:7.2.2",
+    "name_zh": "截面回转半径",
+    "status": "pending",
+    "symbol": "i",
+    "unit": "mm"
+  },
+  {
+    "clause_id": "GB50017-2017:7.2.1",
+    "name_zh": "构件毛截面面积",
+    "notes": "受压稳定计算取毛截面（转述），扣除规则待核。",
+    "status": "pending",
+    "symbol": "A",
+    "unit": "mm²"
+  },
+  {
+    "clause_id": "GB50017-2017:4.4.1",
+    "name_zh": "钢材强度设计值",
+    "notes": "按牌号 × 厚度分组查 T-steel-design-value，表值未取到 V1。",
+    "status": "pending",
+    "symbol": "f",
+    "unit": "MPa"
+  },
+  {
+    "clause_id": "GB50017-2017:7.2.2",
+    "name_zh": "构件计算长度",
+    "notes": "由表 7.4.1-1/7.4.1-2 的系数乘实际长度，或直接输入；系数未取到 V1。",
+    "status": "pending",
+    "symbol": "l_0",
+    "unit": "mm"
+  },
+  {
+    "clause_id": "GB50017-2017:7.4.1",
+    "name_zh": "计算长度系数",
+    "notes": "符号名与抗滑移系数 mu 区分，避免同名字典冲突（M2 落地时按上下文命名）。",
+    "status": "pending",
+    "symbol": "mu_len",
+    "unit": "无量纲"
+  }
 ]
