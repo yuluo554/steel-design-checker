@@ -1,0 +1,101 @@
+[
+  {
+    "case_id": "FX-CASE-A2-OK", "module": "fillet_weld", "status": "verified",
+    "source": {"title": "合成夹具算例（非规范、非教材）", "example_no": "FX-1", "edition": "n/a", "page": "n/a"},
+    "inputs": {
+      "steel_grade": "Q235", "thickness_group": "t<=16", "load_direction": "侧面",
+      "h_f": 10.0, "l_w": 100.0, "n_welds": 2, "t_min": 10.0,
+      "forces": {"N": 100000.0}, "units": {"force": "N", "length": "mm"}
+    },
+    "tolerance": {"ratio": 1e-09},
+    "expected": {"ratio": 0.7142857142857143, "conclusion": "satisfied"},
+    "notes": "手算：h_e=0.7*10=7；l_w_total=2*100=200；σ=100000/(7*200)=71.42857142857143；71.42857142857143/100=0.7142857142857143。期望值由人工独立算出，不是引擎回填。"
+  },
+  {
+    "case_id": "FX-CASE-A2-ADJUST", "module": "fillet_weld", "status": "verified",
+    "source": {"title": "合成夹具算例（非规范、非教材）", "example_no": "FX-2", "edition": "n/a", "page": "n/a"},
+    "inputs": {
+      "steel_grade": "Q235", "thickness_group": "t<=16", "load_direction": "侧面",
+      "h_f": 10.0, "l_w": 100.0, "n_welds": 2, "t_min": 10.0,
+      "forces": {"N": 135800.0}, "units": {"force": "N", "length": "mm"}
+    },
+    "tolerance": {"ratio": 1e-09},
+    "expected": {"ratio": 0.97, "conclusion": "need_adjust"},
+    "notes": "边界档：135800/1400=97 → 97/100=0.97 落在 0.95<ratio<=1.0（口径 K2）。"
+  },
+  {
+    "case_id": "FX-CASE-A2-OVER", "module": "fillet_weld", "status": "verified",
+    "source": {"title": "合成夹具算例（非规范、非教材）", "example_no": "FX-3", "edition": "n/a", "page": "n/a"},
+    "inputs": {
+      "steel_grade": "Q235", "thickness_group": "t<=16", "load_direction": "侧面",
+      "h_f": 10.0, "l_w": 100.0, "n_welds": 2, "t_min": 10.0,
+      "forces": {"N": 200000.0}, "units": {"force": "N", "length": "mm"}
+    },
+    "tolerance": {"ratio": 1e-09},
+    "expected": {"ratio": 1.4285714285714286, "conclusion": "unsatisfied"},
+    "notes": "反例：200000/1400=142.85714285714286 → /100=1.4285714285714286 > 1.0。"
+  },
+  {
+    "case_id": "FX-CASE-A1-OK", "module": "butt_weld", "status": "verified",
+    "source": {"title": "合成夹具算例（非规范、非教材）", "example_no": "FX-4", "edition": "n/a", "page": "n/a"},
+    "inputs": {
+      "steel_grade": "Q235", "thickness_group": "t<=16", "weld_quality_class": "二级",
+      "weld_type": "直缝", "groove_form": "全熔透", "has_opening_gap": true,
+      "b": 100.0, "t": 10.0, "l_w": 100.0,
+      "forces": {"N": 100000.0, "V": 0.0}, "units": {"force": "N", "length": "mm"}
+    },
+    "tolerance": {"ratio": 1e-09},
+    "expected": {"ratio": 0.625, "conclusion": "satisfied"},
+    "notes": "A_w=100*10=1000；100000/1000=100 → 100/160=0.625（二级 f_t_w 夹具值 160）。"
+  },
+  {
+    "case_id": "FX-CASE-A3-OK", "module": "bolt_normal", "status": "verified",
+    "source": {"title": "合成夹具算例（非规范、非教材）", "example_no": "FX-5", "edition": "n/a", "page": "n/a"},
+    "inputs": {
+      "steel_grade": "Q235", "thickness_group": "t<=16", "bolt_grade": "4.6",
+      "bolt_type": "C级", "load_state": "受剪", "d": 20.0, "d_0": 21.5, "sum_t": 10.0,
+      "bolt_count": 5, "group": {"n_x": 1, "n_y": 5, "pitch": 80.0},
+      "forces": {"V": 100000.0}, "units": {"force": "N", "length": "mm"}
+    },
+    "tolerance": {"ratio": 1e-09},
+    "expected": {"ratio": 0.707355302630646, "conclusion": "satisfied"},
+    "notes": "N_v_bolt=100000/5=20000；A_s=pi*20*20/4=314.1592653589793；20000/A_s=63.66197723675814 → /90；承压 20000/(20*10)=100 → /200=0.5。取两者较大者。"
+  },
+  {
+    "case_id": "FX-CASE-A4-OK", "module": "bolt_hsb_friction", "status": "verified",
+    "source": {"title": "合成夹具算例（非规范、非教材）", "example_no": "FX-6", "edition": "n/a", "page": "n/a"},
+    "inputs": {
+      "steel_grade": "Q235", "thickness_group": "t<=16", "bolt_grade": "10.9",
+      "surface_treatment": "喷砂", "hole_type": "标准孔", "load_state": "受剪",
+      "connection_type": "摩擦型", "n_f": 2, "bolt_count": 4,
+      "group": {"n_x": 2, "n_y": 2, "pitch": 80.0},
+      "forces": {"V": 80000.0}, "units": {"force": "N", "length": "mm"}
+    },
+    "tolerance": {"ratio": 1e-09},
+    "expected": {"ratio": 0.4166666666666667, "conclusion": "satisfied"},
+    "notes": "抗力端 k*n_f*mu*P=1.0*2*0.4*60000=48000（P 表单位 kN，入口层换算成 N）；作用 80000/4=20000 → 20000/48000。式体写 >= 形式，专门验证比值方向翻转。"
+  },
+  {
+    "case_id": "FX-CASE-A5-OK", "module": "column_buckling", "status": "verified",
+    "source": {"title": "合成夹具算例（非规范、非教材）", "example_no": "FX-7", "edition": "n/a", "page": "n/a"},
+    "inputs": {
+      "steel_grade": "Q345", "thickness_group": "t<=16", "section": "双轴对称工字形（夹具）",
+      "section_class": "b", "l_0x": 1000.0, "l_0y": 800.0, "A": 1000.0,
+      "i_x": 50.0, "i_y": 40.0,
+      "forces": {"N": 97000.0}, "units": {"force": "N", "length": "mm", "area": "mm2"}
+    },
+    "tolerance": {"ratio": 1e-09},
+    "expected": {"ratio": 0.5, "conclusion": "satisfied"},
+    "notes": "λ=max(1000/50, 800/40)=20 → φ(20)=0.97（夹具表节点）；97000/(0.97*1000)=100 → 100/200=0.5。"
+  },
+  {
+    "case_id": "FX-CASE-PENDING-001", "module": "fillet_weld", "status": "pending",
+    "inputs": {
+      "steel_grade": "Q235", "thickness_group": "t<=16", "load_direction": "侧面",
+      "h_f": 10.0, "l_w": 100.0, "n_welds": 2, "t_min": 10.0,
+      "forces": {"N": 100000.0}, "units": {"force": "N", "length": "mm"}
+    },
+    "expected": {"ratio": 0.7142857142857143},
+    "notes": "来源三要素不齐（等正式文本或可确证教材），按 D07/K7 留在 pending，不进通过率分母。"
+  }
+]

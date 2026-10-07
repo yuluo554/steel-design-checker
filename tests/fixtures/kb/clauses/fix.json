@@ -1,0 +1,72 @@
+[
+  {
+    "id": "FX-C-A1", "standard": "合成夹具（非规范）", "standard_title": "Fixture Standard",
+    "clause_no": "FX-11.2.1", "chapter": "11 连接（夹具）", "kind": "formula",
+    "title": "对接焊缝验算式（夹具形式）", "status": "verified", "mandatory": true,
+    "gist": "夹具条款：只为驱动 A1 数值通路，式体与限值均为虚构，不对应 GB 50017-2017:11.2.1。",
+    "tables": ["FX-T-WELD"],
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "mandatory=true 用来验证强条联动提示；夹具值禁止外传为规范依据。"
+  },
+  {
+    "id": "FX-C-A2", "standard": "合成夹具（非规范）", "standard_title": "Fixture Standard",
+    "clause_no": "FX-11.2.2", "chapter": "11 连接（夹具）", "kind": "formula",
+    "title": "角焊缝验算式（夹具形式）", "status": "verified",
+    "gist": "夹具条款：h_e、l_w_total、β_f 的形式与取值都是虚构。",
+    "tables": ["FX-T-FILLET"],
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "id": "FX-C-A2-CONSTRUCT", "standard": "合成夹具（非规范）", "standard_title": "Fixture Standard",
+    "clause_no": "FX-11.3.5", "chapter": "11 连接（夹具）", "kind": "construct",
+    "title": "角焊缝构造限值（夹具）", "status": "verified",
+    "gist": "夹具构造条款：通过 formulas 反向挂到 A2 的计算式上，验证「构造条款也进门控」。",
+    "formulas": ["F-FX-A2-SIDE", "F-FX-A2-FRONT"],
+    "limits": [
+      {"param": "h_f", "op": ">=", "bound_expr": "1.5*sqrt(t_min)",
+       "desc": "最小焊脚（夹具形式 1.5*sqrt(t_min)，真实式体属 V8 待核）"}
+    ],
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "id": "FX-C-A3", "standard": "合成夹具（非规范）", "standard_title": "Fixture Standard",
+    "clause_no": "FX-11.4.1", "chapter": "11 连接（夹具）", "kind": "formula",
+    "title": "普通螺栓受剪与承压（夹具）", "status": "verified",
+    "gist": "夹具条款：A_s 用公称直径形式，真实式体应用螺纹处有效截面（V2 待核）。",
+    "tables": ["FX-T-BOLT"],
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "群栓分配在本夹具里是「各栓平均受力」，其规范依据是 V6 真空项。"
+  },
+  {
+    "id": "FX-C-A4", "standard": "合成夹具（非规范）", "standard_title": "Fixture Standard",
+    "clause_no": "FX-11.4.2", "chapter": "11 连接（夹具）", "kind": "formula",
+    "title": "高强螺栓摩擦型抗剪（夹具）", "status": "verified",
+    "gist": "夹具条款：抗力端写成 k*n_f*mu*P 的乘积形式，只为测试查表与单位换算，不代表原文形式。",
+    "tables": ["FX-T-MU", "FX-T-PRELOAD", "FX-T-K"],
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "真实式端是 0.9 还是除以 1.111 属 V2/plan-07-§三.4 待核项。"
+  },
+  {
+    "id": "FX-C-A5", "standard": "合成夹具（非规范）", "standard_title": "Fixture Standard",
+    "clause_no": "FX-7.2.1", "chapter": "7 轴心受力构件（夹具）", "kind": "formula",
+    "title": "轴心受压整体稳定（夹具）", "status": "verified",
+    "gist": "夹具条款：φ 由夹具线性表给出，与附录 D 无任何数值关系（V3 双源另议）。",
+    "tables": ["FX-T-STEEL", "FX-T-PHI"],
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "id": "FX-C-A5-CONSTRUCT", "standard": "合成夹具（非规范）", "standard_title": "Fixture Standard",
+    "clause_no": "FX-7.4.6", "chapter": "7 轴心受力构件（夹具）", "kind": "construct",
+    "title": "容许长细比（夹具 150）", "status": "verified",
+    "gist": "夹具构造条款：λ ≤ 150 是为测试 limits 通路虚构的界限，真实值属表 7.4.6。",
+    "formulas": ["F-FX-A5-CHECK"],
+    "limits": [
+      {"param": "lambda", "op": "<=", "bound": 150.0, "desc": "受压构件容许长细比（夹具值）"}
+    ],
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  }
+]

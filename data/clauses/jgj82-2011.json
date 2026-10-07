@@ -1,0 +1,361 @@
+[
+  {
+    "id": "JGJ82-2011:3.1.7",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "3 基本规定 · 3.1 一般规定",
+    "clause_no": "3.1.7",
+    "title": "高强度螺栓不得与普通螺栓混用",
+    "kind": "mandatory",
+    "mandatory": true,
+    "status": "located",
+    "supersedes": "本条强制性自 2022-01-01 起由 GB 55006-2021 取代（公告 2021年第69号 附件《废止的现行工程建设标准相关强制性条文》第15项）",
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html（正文+条文说明全文，可逐字 grep；官方电子书书页图 ebook.chinabuilding.com.cn bookID=60380）",
+      "date": "2026-10-07",
+      "note": "缓存 .tmp_verify/m2/v6v7/yuanlin8-jgj82.html（sha1 见 manifest.md）；强条身份双渠道一致"
+    },
+    "gist": "「在同一连接接头中，高强度螺栓连接不应与普通螺栓连接混用。承压型高强度螺栓连接不应与焊接连接并用。」",
+    "notes": "核查侧规则的锚点：设计说明若在同一接头里混写高强螺栓与普通螺栓，属强条联动项。"
+  },
+  {
+    "id": "JGJ82-2011:3.2.4",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "3 基本规定 · 3.2 材料与设计指标",
+    "clause_no": "3.2.4",
+    "title": "摩擦面抗滑移系数（表 3.2.4-1/3.2.4-2）",
+    "kind": "table",
+    "status": "located",
+    "tables": ["T-jgj-slip-factor"],
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html",
+      "date": "2026-10-07",
+      "note": "条号与表号定位；表体数值三渠道均缺失（V1 同类阻塞）"
+    },
+    "gist": "摩擦面的抗滑移系数 μ 按本规程表 3.2.4-1 和表 3.2.4-2 采用（4.1.1 的符号说明逐字指向这两张表）。",
+    "notes": "A4 的 μ 有两个候选来源：GB 50017-2017 表 11.4.2-1 与 JGJ 82-2011 表 3.2.4-1/2。两处都未核对到数值，且行名字法可能不同，取哪一处作主来源属口径决策。"
+  },
+  {
+    "id": "JGJ82-2011:3.2.5",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "3 基本规定 · 3.2 材料与设计指标",
+    "clause_no": "3.2.5",
+    "title": "高强度螺栓预拉力 P（表 3.2.5）",
+    "kind": "table",
+    "status": "located",
+    "tables": ["T-jgj-preload"],
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html",
+      "date": "2026-10-07",
+      "note": "条号与表号定位；表体数值未取到（V1）"
+    },
+    "gist": "每个高强度螺栓的预拉力 P（kN）按本规程表 3.2.5 采用（4.1.1 符号说明逐字）。",
+    "notes": "与 GB 50017-2017 表 11.4.2-2 同源异表，两处都要核对到数值才能给 A4 出结论。"
+  },
+  {
+    "id": "JGJ82-2011:4.1.1",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "4 连接设计 · 4.1 摩擦型连接",
+    "clause_no": "4.1.1",
+    "title": "摩擦型连接单栓受剪承载力",
+    "kind": "formula",
+    "status": "located",
+    "formulas": ["F-JGJ4.1.1"],
+    "symbols": ["mu", "n_f", "P"],
+    "tables": ["T-jgj-slip-factor", "T-jgj-preload"],
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html（式体所在页另见官方书页图 cb-bg14.jpg）",
+      "date": "2026-10-07",
+      "note": "式体记法 Nbv＝k1k2nfμP 在两处文本渠道逐字出现，系数取值亦逐字；落库形式仍待 V2 二次核验"
+    },
+    "gist": "「摩擦型连接中，每个高强度螺栓的受剪承载力设计值应按下式计算」，式 4.1.1：Nbv＝k1k2nfμP。k1 对冷弯薄壁型钢结构（板厚 t≤6mm）取 0.8、其他情况取 0.9；k2 为孔型系数，标准孔取 1.0、大圆孔取 0.85、荷载与槽孔长方向垂直取 0.7、平行取 0.6。",
+    "notes": "这条解掉 plan/07 §三.4 的形式之争：0.9 确实存在，但它是 k1 的「其他情况」取值，完整形式是 k1·k2·n_f·μ·P，不是 0.9·n_f·μ·P。条文说明亦逐字：「与 GB50017 规定的基本公式相同，仅将原系数 0.9 替换为 k1，并增加系数 k2」。数值仍未经正式文本核对，故本条只到 located，F-JGJ4.1.1 保持 pending。"
+  },
+  {
+    "id": "JGJ82-2011:4.1.2",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "4 连接设计 · 4.1 摩擦型连接",
+    "clause_no": "4.1.2",
+    "title": "杆轴方向受拉单栓承载力",
+    "kind": "formula",
+    "status": "located",
+    "formulas": ["F-JGJ4.1.2"],
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html",
+      "date": "2026-10-07",
+      "note": "式体 Nbt＝0.8P 在第二文本渠道逐字出现；正式文本未核"
+    },
+    "gist": "「在螺栓杆轴方向受拉的连接中，每个高强度螺栓的受拉承载力设计值应按下式计算」，式 4.1.2：Nbt＝0.8P。",
+    "notes": "plan/07 §二.4 里 0.8P 只有条文说明（二手级）支撑；本条把它落到正文条号 4.1.2，但仍属二手渠道，未升 verified。"
+  },
+  {
+    "id": "JGJ82-2011:4.1.3",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "4 连接设计 · 4.1 摩擦型连接",
+    "clause_no": "4.1.3",
+    "title": "剪拉共同作用下的承载力",
+    "kind": "formula",
+    "status": "located",
+    "formulas": ["F-JGJ4.1.3"],
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html（式体仅官方书页图 cb-bg14.jpg 可见）",
+      "date": "2026-10-07",
+      "note": "式体由图片读得，图片渠道不可 grep，待正式文本复核"
+    },
+    "gist": "「高强度螺栓连接同时承受剪力和螺栓杆轴方向的外拉力时，其承载力应按下式计算」，式 4.1.3：Nv/Nbv + Nt/Nbt ≤ 1。",
+    "notes": "与 GB 50017-2017:11.4.1 的剪拉联合式（平方和形式）记法不同，两处式体都未核对前不得混用。"
+  },
+  {
+    "id": "JGJ82-2011:4.1.4",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "4 连接设计 · 4.1 摩擦型连接",
+    "clause_no": "4.1.4",
+    "title": "摩擦型连接处构件强度计算",
+    "kind": "formula",
+    "status": "located",
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html",
+      "date": "2026-10-07",
+      "note": "条号与主题定位；式体未取文本层"
+    },
+    "gist": "「轴心受力构件在摩擦型高强度螺栓连接处的强度应按下列公式计算」，符号含 n（节点或拼接处构件一端连接的螺栓数）与 n1（计算截面最外列螺栓处螺栓数）。",
+    "notes": "净截面与毛截面强度验算是首期 5 模块之外的内容，登记条号供 M3 检查单引用。"
+  },
+  {
+    "id": "JGJ82-2011:4.1.5",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "4 连接设计 · 4.1 摩擦型连接",
+    "clause_no": "4.1.5",
+    "title": "连接长度过大时的承载力折减",
+    "kind": "limit",
+    "status": "located",
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html",
+      "date": "2026-10-07",
+      "note": "条号与文字定位；与 GB 50017-2017:11.4.5 的关系待核"
+    },
+    "gist": "「在构件节点或拼接接头的一端，当螺栓沿受力方向连接长度 l1 大于 15d0 时，螺栓承载力设计值应乘以折减系数；当 l1 大于 60d0 时，折减系数为 0.7，d0 为相应的标准孔孔径。」",
+    "notes": "plan/07 §二.4 已把同类规则挂在 50017:11.4.5；两条并存时以哪条为准属 V2 待核。"
+  },
+  {
+    "id": "JGJ82-2011:4.3.1",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "4 连接设计 · 4.3 连接构造",
+    "clause_no": "4.3.1",
+    "title": "每一杆件端部螺栓数量不少于 2 个",
+    "kind": "mandatory",
+    "mandatory": true,
+    "status": "located",
+    "supersedes": "强制性自 2022-01-01 起由 GB 55006-2021 取代（公告 2021年第69号 附件第15项）",
+    "verified_by": {
+      "channel": "住建部公告",
+      "url": "https://www.zimaoqu.org.cn/bz/10144.html（公告 2021年第69号 全文转载；条号串另见 m.sohu.com/a/736538483_121123910、m.co188.com、m.strong-sys.com/news/296.html）",
+      "date": "2026-10-07",
+      "note": "6 条强条清单四渠道逐字一致；正文文字取自 yuanlin8 渠道"
+    },
+    "gist": "「每一杆件在高强度螺栓连接节点及拼接接头的一端，其连接的高强度螺栓数量不应少于2个。」",
+    "notes": "核查侧强约束：参数卡 bolt_count<2 时应判异常（限值核对须先解决渠道口径）。"
+  },
+  {
+    "id": "JGJ82-2011:5.1.2",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "5 连接接头设计 · 5.1 螺栓拼接接头",
+    "clause_no": "5.1.2",
+    "title": "H 型钢梁螺栓拼接接头的计算原则（群栓分配所在条）",
+    "kind": "formula",
+    "status": "located",
+    "formulas": ["F-JGJ5.1.4-1"],
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html（副渠道 renrendoc.com/paper/282283970.html 同文字）",
+      "date": "2026-10-07",
+      "note": "V6 结论：第 4 章无群栓分配通用假定，正文用词是「栓群中心」而非「形心」（两渠道全文检索「形心」「中和轴」均 0 命中）"
+    },
+    "gist": "款2「腹板拼接板及拼接缝每侧的高强度螺栓，应能承受拼接截面的全部剪力及按刚度分配到腹板上的弯矩」；款3「高强度螺栓在弯矩作用下的内力分布应符合平截面假定，即腹板角点上的螺栓水平剪力值与翼缘螺栓水平剪力值成线性关系」；款5「翼缘单侧拼接或夹垫板时螺栓数量按计算增加 10%」。",
+    "notes": "V6 的诚实答案：可引的最接近条文是本条 + 5.1.4，且**限定于 H 型钢梁截面螺栓拼接接头**。通用情形（任意螺栓群）在两部标准里都没有「按形心一致」的条文可引，A3/A4 的分配依据仍是真空项，不得当作已核对依据。"
+  },
+  {
+    "id": "JGJ82-2011:5.1.3",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "5 连接接头设计 · 5.1 螺栓拼接接头",
+    "clause_no": "5.1.3",
+    "title": "翼缘螺栓计算（式 5.1.3-1～5.1.3-4）",
+    "kind": "formula",
+    "status": "located",
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html（式体仅官方书页图 cb-bg1a.jpg 可见）",
+      "date": "2026-10-07",
+      "note": "条号与主题双渠道一致；式体图片渠道不可 grep"
+    },
+    "gist": "等强拼接时按式 5.1.3-1/5.1.3-2 计算并取较大者（Nf＝A_nf·f(1−0.5n1/n) 与 Nf＝A_f·f）；最大内力法时按式 5.1.3-3；翼缘拼接缝一侧螺栓数量满足 n ≥ Nf/Nbv（式 5.1.3-4）。",
+    "notes": "原书印法注意：条文说明里那段「可仅对受力较大的角点栓1处进行验算」标号印作 5.1.3，但内容讲的是腹板拼接螺栓（正文 5.1.4 的主题）。三渠道一致如此，按原样记录，不擅自改号。"
+  },
+  {
+    "id": "JGJ82-2011:5.1.4",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "5 连接接头设计 · 5.1 螺栓拼接接头",
+    "clause_no": "5.1.4",
+    "title": "腹板螺栓群在弯矩与剪力下的分配式（式 5.1.4-1～5.1.4-4）",
+    "kind": "formula",
+    "status": "located",
+    "formulas": ["F-JGJ5.1.4-1"],
+    "symbols": ["e"],
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html（式体仅官方书页图 cb-bg1b.jpg 可见）",
+      "date": "2026-10-07",
+      "note": "符号说明逐字可 grep；式体本身只存在于图片渠道"
+    },
+    "gist": "角点栓 1 的水平/竖向剪力按式 5.1.4-1、5.1.4-2 分配：N^M_1x＝(M·Iwx/Ix＋V·e)·y1/Σ(xi²＋yi²)，N^M_1y＝(M·Iwx/Ix＋V·e)·x1/Σ(xi²＋yi²)。符号逐字：「χi——所计算螺栓至栓群中心的横标距(mm)」「yi——所计算螺栓至栓群中心的纵标距(mm)」；式 5.1.4-3、5.1.4-4 给轴力与剪力分量 N^V_1y＝V/n_w。",
+    "notes": "这就是 V6 要找的「群栓分配计算式」本体，但适用面写死在 H 型钢梁拼接接头。把它当通用分配律使用属超范围，M2 不启用。"
+  },
+  {
+    "id": "JGJ82-2011:5.3.3",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "5 连接接头设计 · 5.3 外伸式端板连接接头",
+    "clause_no": "5.3.3",
+    "title": "外伸端板受拉螺栓的两排均匀受拉假定",
+    "kind": "formula",
+    "status": "located",
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html",
+      "date": "2026-10-07",
+      "note": "条文说明逐字：「主要假定是对称于受拉翼缘的两排螺栓均匀受拉，以及转动中心在受压翼缘中心」"
+    },
+    "gist": "款2「受拉螺栓按 T 形件对称于受拉翼缘的两排螺栓均匀受拉计算」；款4「除抗拉螺栓外，端板上其余螺栓按承受全部剪力计算」（式 5.3.3-3：Nv＝V/nv）。",
+    "notes": "端板接头属首期 5 模块之外的节点计算，登记条号备用。"
+  },
+  {
+    "id": "JGJ82-2011:5.3.4",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "5 连接接头设计 · 5.3 外伸式端板连接接头",
+    "clause_no": "5.3.4",
+    "title": "端板接头螺栓拉力与剪力组合验算",
+    "kind": "formula",
+    "status": "located",
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html（式体见官方书页图 cb-bg20.jpg）",
+      "date": "2026-10-07",
+      "note": "式体图片渠道，不可 grep"
+    },
+    "gist": "式 5.3.4：M/(n1h1)＋N/n＋Q ≤ 1.25N^b_t，并规定「当轴力沿螺栓轴向为压力时，取 N＝0」。",
+    "notes": "1.25 这种系数在正式文本核对前一律不入库、不进计算（V1/V2 同类）。"
+  },
+  {
+    "id": "JGJ82-2011:6.1.2",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "6 施工 · 6.1 储运和保管",
+    "clause_no": "6.1.2",
+    "title": "连接副按批配套进场并附质量保证书",
+    "kind": "mandatory",
+    "mandatory": true,
+    "status": "located",
+    "supersedes": "强制性自 2022-01-01 起由 GB 55006-2021 取代（公告 2021年第69号 附件第15项）",
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html",
+      "date": "2026-10-07",
+      "note": "逐字正文；强条身份见 4.3.1 的同一条公告链"
+    },
+    "gist": "「高强度螺栓连接副应按批配套进场，并附有出厂质量保证书。高强度螺栓连接副应在同批内配套使用。」",
+    "notes": "施工验收侧，M3 检查单可引用；不参与验算模块。"
+  },
+  {
+    "id": "JGJ82-2011:6.2.6",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "6 施工 · 6.2 连接构件的制作",
+    "clause_no": "6.2.6",
+    "title": "摩擦面处理方法与抗滑移系数应符合设计要求",
+    "kind": "mandatory",
+    "mandatory": true,
+    "status": "located",
+    "supersedes": "强制性自 2022-01-01 起由 GB 55006-2021 取代（公告 2021年第69号 附件第15项）",
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html",
+      "date": "2026-10-07",
+      "note": "逐字正文"
+    },
+    "gist": "「高强度螺栓连接处的钢板表面处理方法及除锈等级应符合设计要求。连接处钢板表面应平整、无焊接飞溅、无毛刺、无油污。经处理后的摩擦型高强度螺栓连接的摩擦面抗滑移系数应符合设计要求。」",
+    "notes": "这条是合成语料「摩擦面处理与抗滑移系数缺失」注入项最硬的核查依据（M3 规则引擎用）。"
+  },
+  {
+    "id": "JGJ82-2011:6.4.5",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "6 施工 · 6.4 安装",
+    "clause_no": "6.4.5",
+    "title": "不得使用损伤螺栓，不得兼作临时螺栓",
+    "kind": "mandatory",
+    "mandatory": true,
+    "status": "located",
+    "supersedes": "强制性自 2022-01-01 起由 GB 55006-2021 取代（公告 2021年第69号 附件第15项）",
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html",
+      "date": "2026-10-07",
+      "note": "逐字正文"
+    },
+    "gist": "「在安装过程中，不得使用螺纹损伤及沾染脏物的高强度螺栓连接副，不得用高强度螺栓兼作临时螺栓。」",
+    "notes": "不参与验算模块，登记供检查单。"
+  },
+  {
+    "id": "JGJ82-2011:6.4.8",
+    "standard": "JGJ 82-2011",
+    "standard_title": "钢结构高强度螺栓连接技术规程",
+    "chapter": "6 施工 · 6.4 安装",
+    "clause_no": "6.4.8",
+    "title": "严禁强行穿入与气割扩孔，修孔限值",
+    "kind": "mandatory",
+    "mandatory": true,
+    "status": "located",
+    "supersedes": "强制性自 2022-01-01 起由 GB 55006-2021 取代（公告 2021年第69号 附件第15项）",
+    "verified_by": {
+      "channel": "官方",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html",
+      "date": "2026-10-07",
+      "note": "逐字正文"
+    },
+    "gist": "「安装高强度螺栓时，严禁强行穿入。当不能自由穿入时，该孔应用铰刀进行修整，修整后孔的最大直径不应大于1.2倍螺栓直径，且修孔数量不应超过该节点螺栓数量的25％。修孔前应将四周螺栓全部拧紧，使板迭密贴后再进行铰孔。严禁气割扩孔。」",
+    "notes": "1.2 倍与 25% 是正文逐字值，但渠道未与正式文本核对，数值不落 data/tables，只留 gist 供人工核对时对照。"
+  },
+  {
+    "id": "GB50017-2017:GROUP-SHARING-TBD",
+    "standard": "GB 50017-2017",
+    "standard_title": "钢结构设计标准",
+    "chapter": "11 连接 · 11.4 紧固件连接计算（止于 11.4.5）",
+    "clause_no": "待核",
+    "title": "普通螺栓群内力分配依据（真空项）",
+    "kind": "formula",
+    "status": "pending",
+    "formulas": ["F-GROUP-NORMAL"],
+    "gist": "待核：普通螺栓（C 级与 A、B 级）连接中，螺栓群内力如何分配到各栓——GB 50017-2017 §11.4 正文止于 11.4.5，未检索到对应条文。",
+    "notes": "plan/07 §三.5：§11.4 正文止于 11.4.5，没有群栓分配假定条款；最接近的是 11.5.2 与 11.4.5。JGJ 82-2011 的分配条文（5.1.2/5.1.4）只管高强度螺栓且限定 H 型钢梁拼接接头，覆盖不到普通螺栓。故本项保持 pending，A3 的分配依据在数据里显式为空缺，而不是被代码悄悄假定掉。"
+  }
+]

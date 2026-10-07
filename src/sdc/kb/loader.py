@@ -9,7 +9,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 from .schema import SPEC, validate_record
 
-KINDS = ("clause", "table", "formula", "symbol", "case", "selfcheck")
+KINDS = ("clause", "table", "formula", "symbol", "rule", "checklist", "case", "selfcheck")
 
 # (kind, 相对文件路径, 记录)
 Parsed = Tuple[str, str, Dict[str, Any]]
@@ -60,7 +60,9 @@ def load_kb(data_dir: str) -> KB:
     records = dict((kind, []) for kind in KINDS)  # type: Dict[str, List[Dict[str, Any]]]
     problems = []  # type: List[Dict[str, str]]
     parsed = []  # type: List[Parsed]
-    origin = {}  # type: Dict[str, str]
+    # id 唯一性按 kind 分别成立：检查单条目的 id 就应当等于它对应的条款 id（04 §五），
+    # 跨 kind 同 id 不是冲突，`by_id(kind)` 本来也分 kind 查。
+    origin = {}  # type: Dict[Tuple[str, str], str]
 
     for kind in KINDS:
         spec = SPEC[kind]
@@ -84,14 +86,17 @@ def load_kb(data_dir: str) -> KB:
                 if isinstance(rec, dict):
                     item_id = str(rec.get(spec["id_field"], ""))
                     if item_id:
-                        if item_id in origin:
+                        # 只在同一 kind 内查重：检查单条目的 id 天然等于其条款 id（04 §五），
+                        # 跨 kind 同 id 不是冲突（`by_id(kind)` 本来就分 kind 取）。
+                        key = (kind, item_id)
+                        if key in origin:
                             problems.append({
                                 "file": where, "kind": kind, "id": item_id,
                                 "field": spec["id_field"], "type": "duplicate",
-                                "problem": "id 重复（已见于 %s）" % origin[item_id],
+                                "problem": "同类记录 id 重复（已见于 %s）" % origin[key],
                             })
                         else:
-                            origin[item_id] = where
+                            origin[key] = where
 
     known_ids = dict(
         (kind, set(r.get(SPEC[kind]["id_field"], "") for r in recs if isinstance(r, dict)))

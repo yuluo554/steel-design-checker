@@ -1,0 +1,108 @@
+[
+  {
+    "id": "F-FX-A1-GEOM", "clause_id": "FX-C-A1", "applies_to": "butt_weld",
+    "expr": "A_w = l_w*t", "symbols": ["A_w", "l_w", "t"], "unit_system": "N,mm,MPa",
+    "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "夹具派生式。"
+  },
+  {
+    "id": "F-FX-A1-TENSION", "clause_id": "FX-C-A1", "applies_to": "butt_weld",
+    "expr": "N/A_w <= f_t_w", "symbols": ["N", "A_w", "f_t_w"], "unit_system": "N,mm,MPa",
+    "direction": "perpendicular", "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "夹具验算式。"
+  },
+  {
+    "id": "F-FX-A1-SHEAR", "clause_id": "FX-C-A1", "applies_to": "butt_weld",
+    "expr": "V/A_w <= f_v_w", "symbols": ["V", "A_w", "f_v_w"], "unit_system": "N,mm,MPa",
+    "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "夹具验算式；卡里必须给 V（可为 0），否则符号不闭合直接报错而不是跳过。"
+  },
+  {
+    "id": "F-FX-A2-HE", "clause_id": "FX-C-A2", "applies_to": "fillet_weld",
+    "expr": "h_e = 0.7*h_f", "symbols": ["h_e", "h_f"], "unit_system": "N,mm,MPa",
+    "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "夹具形式；真实 11.2.2 的 h_e 形式属 V2。"
+  },
+  {
+    "id": "F-FX-A2-LW", "clause_id": "FX-C-A2", "applies_to": "fillet_weld",
+    "expr": "l_w_total = n_welds*l_w", "symbols": ["l_w_total", "n_welds", "l_w"],
+    "unit_system": "N,mm,MPa", "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "id": "F-FX-A2-SIDE", "clause_id": "FX-C-A2", "applies_to": "fillet_weld",
+    "expr": "N/(h_e*l_w_total) <= f_f_w", "symbols": ["N", "h_e", "l_w_total", "f_f_w"],
+    "unit_system": "N,mm,MPa", "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "id": "F-FX-A2-FRONT", "clause_id": "FX-C-A2", "applies_to": "fillet_weld",
+    "expr": "N/(h_e*l_w_total) <= beta_f*f_f_w",
+    "symbols": ["N", "h_e", "l_w_total", "beta_f", "f_f_w"], "unit_system": "N,mm,MPa",
+    "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "β_f 来自查表而非参数卡：卡里出现 beta_f 会被判输入不可用。"
+  },
+  {
+    "id": "F-FX-A3-AS", "clause_id": "FX-C-A3", "applies_to": "bolt_normal",
+    "expr": "A_s = pi*d*d/4", "symbols": ["A_s", "d"], "unit_system": "N,mm,MPa",
+    "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "夹具用公称直径；真实式用螺纹处有效截面 A_e（V2）。"
+  },
+  {
+    "id": "F-FX-A3-NVB", "clause_id": "FX-C-A3", "applies_to": "bolt_normal",
+    "expr": "N_v_bolt = V/bolt_count", "symbols": ["N_v_bolt", "V", "bolt_count"],
+    "unit_system": "N,mm,MPa", "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "群栓平均分配 = V6 真空项的夹具替身，绝不进 data/。"
+  },
+  {
+    "id": "F-FX-A3-SHEAR", "clause_id": "FX-C-A3", "applies_to": "bolt_normal",
+    "expr": "N_v_bolt/A_s <= f_v_b", "symbols": ["N_v_bolt", "A_s", "f_v_b"],
+    "unit_system": "N,mm,MPa", "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "id": "F-FX-A3-BEARING", "clause_id": "FX-C-A3", "applies_to": "bolt_normal",
+    "expr": "N_v_bolt/(d*sum_t) <= f_c_b", "symbols": ["N_v_bolt", "d", "sum_t", "f_c_b"],
+    "unit_system": "N,mm,MPa", "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "id": "F-FX-A4-NVB", "clause_id": "FX-C-A4", "applies_to": "bolt_hsb_friction",
+    "expr": "N_v_bolt = V/bolt_count", "symbols": ["N_v_bolt", "V", "bolt_count"],
+    "unit_system": "N,mm,MPa", "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "id": "F-FX-A4-CAPACITY", "clause_id": "FX-C-A4", "applies_to": "bolt_hsb_friction",
+    "expr": "k*n_f*mu*P >= N_v_bolt", "symbols": ["k", "n_f", "mu", "P", "N_v_bolt"],
+    "unit_system": "N,mm,MPa", "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "用 >= 形式，专门验证「比值恒为作用效应/抗力」的方向翻转逻辑。"
+  },
+  {
+    "id": "F-FX-A5-LAMBDA", "clause_id": "FX-C-A5", "applies_to": "column_buckling",
+    "expr": "lambda = max(l_0x/i_x, l_0y/i_y)", "symbols": ["lambda", "l_0x", "i_x", "l_0y", "i_y"],
+    "unit_system": "N,mm,MPa", "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "λ 是 φ 表的查表轴：验证「派生式先产出轴值、查表随后」的不动点顺序。"
+  },
+  {
+    "id": "F-FX-A5-CHECK", "clause_id": "FX-C-A5", "applies_to": "column_buckling",
+    "expr": "N/(phi*A) <= f", "symbols": ["N", "phi", "A", "f"], "unit_system": "N,mm,MPa",
+    "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  }
+]

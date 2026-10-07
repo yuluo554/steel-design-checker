@@ -1,0 +1,55 @@
+[
+  {
+    "id": "FX-C-WELD",
+    "standard": "合成夹具标准",
+    "standard_title": "夹具：焊缝要求（虚构，不对应任何规范条文）",
+    "chapter": "夹具",
+    "clause_no": "FX.1",
+    "title": "对接焊缝质量等级要求（夹具）",
+    "kind": "limit",
+    "mandatory": true,
+    "status": "verified",
+    "verified_by": {
+      "channel": "合成夹具",
+      "date": "2026-10-07",
+      "url": "fixture://synthetic",
+      "note": "夹具：用于验证 verified 档规则能出 abnormal；真实规则的依据只到 located"
+    },
+    "gist": "夹具虚构要求：受动力荷载的对接焊缝质量等级不得低于二级（数值与措辞均为虚构）",
+    "notes": "本条目是**虚构**夹具，不得当作规范知识引用。"
+  },
+  {
+    "id": "FX-C-MU",
+    "standard": "合成夹具标准",
+    "standard_title": "夹具：摩擦面要求（虚构）",
+    "chapter": "夹具",
+    "clause_no": "FX.2",
+    "title": "摩擦面处理与抗滑移系数标注（夹具）",
+    "kind": "construct",
+    "status": "verified",
+    "verified_by": {
+      "channel": "合成夹具",
+      "date": "2026-10-07",
+      "url": "fixture://synthetic",
+      "note": "夹具：验证 presence 在 verified 档出 abnormal"
+    },
+    "gist": "夹具虚构要求：摩擦型连接必须写明摩擦面处理与抗滑移系数"
+  },
+  {
+    "id": "FX-C-LOC",
+    "standard": "合成夹具标准",
+    "standard_title": "夹具：只到 located 的依据（虚构）",
+    "chapter": "夹具",
+    "clause_no": "FX.3",
+    "title": "只定位到条号的依据（夹具）",
+    "kind": "limit",
+    "status": "located",
+    "verified_by": {
+      "channel": "合成夹具",
+      "date": "2026-10-07",
+      "url": "fixture://synthetic",
+      "note": "夹具：用来验证「规则自称 verified 但依据只 located」时有效档位取 min"
+    },
+    "gist": "夹具虚构要求：焊脚尺寸下限（数值未核对）"
+  }
+]

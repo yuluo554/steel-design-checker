@@ -1,0 +1,196 @@
+[
+  {
+    "symbol": "A_w", "name_zh": "对接焊缝计算截面面积（夹具）", "unit": "mm2", "status": "verified",
+    "clause_id": "FX-C-A1", "derivation": "A_w = l_w*t",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "夹具量，不对应任何规范符号，禁止用于工程结论。"
+  },
+  {
+    "symbol": "h_e", "name_zh": "角焊缝有效厚度（夹具形式 0.7h_f）", "unit": "mm", "status": "verified",
+    "clause_id": "FX-C-A2", "derivation": "h_e = 0.7*h_f",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "真实 11.2.2 的 h_e 形式属 V2 待核项；这里的形式只为驱动引擎通路而虚构。"
+  },
+  {
+    "symbol": "h_f", "name_zh": "焊脚尺寸", "unit": "mm", "status": "verified",
+    "clause_id": "FX-C-A2",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "l_w", "name_zh": "焊缝计算长度", "unit": "mm", "status": "verified",
+    "clause_id": "FX-C-A2",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "夹具直接用输入值，不模拟「实长减 2h_f」（该形式属 V2 待核）。"
+  },
+  {
+    "symbol": "l_w_total", "name_zh": "全部焊缝计算长度之和（夹具）", "unit": "mm", "status": "verified",
+    "clause_id": "FX-C-A2", "derivation": "l_w_total = n_welds*l_w",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "n_welds", "name_zh": "焊缝条数", "unit": "无量纲", "status": "verified",
+    "clause_id": "FX-C-A2",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "t_min", "name_zh": "被连接件较小厚度", "unit": "mm", "status": "verified",
+    "clause_id": "FX-C-A2-CONSTRUCT",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "N", "name_zh": "轴心力", "unit": "N", "status": "verified", "clause_id": "FX-C-A2",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "V", "name_zh": "剪力", "unit": "N", "status": "verified", "clause_id": "FX-C-A3",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "b", "name_zh": "焊缝计算宽度", "unit": "mm", "status": "verified", "clause_id": "FX-C-A1",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "t", "name_zh": "被连接件厚度", "unit": "mm", "status": "verified", "clause_id": "FX-C-A1",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "f_t_w", "name_zh": "对接焊缝抗拉强度设计值（夹具 160）", "unit": "MPa", "status": "verified",
+    "clause_id": "FX-C-A1",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "夹具值 160.0 MPa，与表 4.4.5 的任何真实取值无关。"
+  },
+  {
+    "symbol": "f_v_w", "name_zh": "对接焊缝抗剪强度设计值（夹具 100）", "unit": "MPa", "status": "verified",
+    "clause_id": "FX-C-A1",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "f_f_w", "name_zh": "角焊缝强度设计值（夹具 100）", "unit": "MPa", "status": "verified",
+    "clause_id": "FX-C-A2",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "beta_f", "name_zh": "正面角焊缝强度增大系数（夹具 1.20）", "unit": "无量纲", "status": "verified",
+    "clause_id": "FX-C-A2",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "故意用 1.20 而不是渠道转述的 1.22，避免任何「看起来像已核对值」的误读。"
+  },
+  {
+    "symbol": "A_s", "name_zh": "螺栓杆截面面积（夹具，按公称直径）", "unit": "mm2", "status": "verified",
+    "clause_id": "FX-C-A3", "derivation": "A_s = pi*d*d/4",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "真实式体用螺纹处有效截面 A_e（属 V2 待核），夹具故意用公称直径形式以显明其虚构。"
+  },
+  {
+    "symbol": "d", "name_zh": "螺栓公称直径", "unit": "mm", "status": "verified", "clause_id": "FX-C-A3",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "sum_t", "name_zh": "承压方向板件厚度之和", "unit": "mm", "status": "verified",
+    "clause_id": "FX-C-A3",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "bolt_count", "name_zh": "螺栓总数", "unit": "无量纲", "status": "verified",
+    "clause_id": "FX-C-A3",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "夹具按「各栓平均受力」分配（群栓分配律依据待核 V6）。"
+  },
+  {
+    "symbol": "N_v_bolt", "name_zh": "单栓剪力（夹具平均分配）", "unit": "N", "status": "verified",
+    "clause_id": "FX-C-A3", "derivation": "N_v_bolt = V/bolt_count",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "f_v_b", "name_zh": "螺栓抗剪强度设计值（夹具 90）", "unit": "MPa", "status": "verified",
+    "clause_id": "FX-C-A3",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "f_c_b", "name_zh": "螺栓承压强度设计值（夹具 200）", "unit": "MPa", "status": "verified",
+    "clause_id": "FX-C-A3",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "n_f", "name_zh": "传力摩擦面数目", "unit": "无量纲", "status": "verified",
+    "clause_id": "FX-C-A4",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "mu", "name_zh": "抗滑移系数（夹具 0.40）", "unit": "无量纲", "status": "verified",
+    "clause_id": "FX-C-A4",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "真实 μ 属表 11.4.2-1（V1 待核），夹具值与任何处理状态组合都无对应关系。"
+  },
+  {
+    "symbol": "P", "name_zh": "高强螺栓预拉力（夹具 60 kN）", "unit": "kN", "status": "verified",
+    "clause_id": "FX-C-A4",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "表记录 unit=kN，入口层换算成 N，用于验证查表换算只发生在 units 层。"
+  },
+  {
+    "symbol": "k", "name_zh": "孔径影响系数（夹具 1.0）", "unit": "无量纲", "status": "verified",
+    "clause_id": "FX-C-A4",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "lambda", "name_zh": "长细比（夹具按两轴较大者）", "unit": "无量纲", "status": "verified",
+    "clause_id": "FX-C-A5", "derivation": "lambda = max(l_0x/i_x, l_0y/i_y)",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "真实换算长细比（虚轴、弯扭）属 V2 待核，夹具只做最简单的 max 取舍。"
+  },
+  {
+    "symbol": "l_0x", "name_zh": "平面内计算长度", "unit": "mm", "status": "verified", "clause_id": "FX-C-A5",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "l_0y", "name_zh": "平面外计算长度", "unit": "mm", "status": "verified", "clause_id": "FX-C-A5",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "i_x", "name_zh": "绕 x 轴回转半径", "unit": "mm", "status": "verified", "clause_id": "FX-C-A5",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "i_y", "name_zh": "绕 y 轴回转半径", "unit": "mm", "status": "verified", "clause_id": "FX-C-A5",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "A", "name_zh": "构件毛截面面积", "unit": "mm2", "status": "verified", "clause_id": "FX-C-A5",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "symbol": "phi", "name_zh": "稳定系数（夹具线性表）", "unit": "无量纲", "status": "verified",
+    "clause_id": "FX-C-A5",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "真实 φ 属附录 D（V3 双源），夹具表值与附录 D 无任何数值关系。"
+  },
+  {
+    "symbol": "f", "name_zh": "钢材强度设计值（夹具 200）", "unit": "MPa", "status": "verified",
+    "clause_id": "FX-C-A5",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  }
+]

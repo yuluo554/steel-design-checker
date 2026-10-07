@@ -34,6 +34,18 @@ def module_requirements(module: str, kb) -> Dict[str, List[str]]:
             if isinstance(symbol, str):
                 symbols.append(symbol)
 
+    # 反向索引：构造/限值条款通过 `clause.formulas` 挂到本模块的计算式上。
+    # 少了这一步，「构造依据只是 located」就不会挡住计算，04 §四 的档位收紧落不了地。
+    formula_ids = set(formulas)
+    for rec in kb.records.get("clause", []):
+        if not isinstance(rec, dict):
+            continue
+        refs = rec.get("formulas") or []
+        if any(isinstance(ref, str) and ref in formula_ids for ref in refs):
+            clause_id = rec.get("id")
+            if isinstance(clause_id, str) and clause_id:
+                clauses.append(clause_id)
+
     for clause_id in list(clauses):
         clause = clause_index.get(clause_id)
         if not isinstance(clause, dict):

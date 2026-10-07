@@ -1,0 +1,95 @@
+[
+  {
+    "id": "FX-T-WELD", "clause": "FX-C-A1", "title": "对接焊缝强度设计值（夹具）",
+    "axes": ["weld_quality_class"], "interpolation": "group", "status": "verified", "unit": "MPa",
+    "values": [
+      {"axes": {"weld_quality_class": "一级"}, "outputs": {"f_t_w": 180.0, "f_v_w": 110.0}},
+      {"axes": {"weld_quality_class": "二级"}, "outputs": {"f_t_w": 160.0, "f_v_w": 100.0}},
+      {"axes": {"weld_quality_class": "三级"}, "outputs": {"f_t_w": 115.0, "f_v_w": 80.0}}
+    ],
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "夹具值，与表 4.4.5 的任何真实取值无关；写三级 115 是为了让三级比二级小，测试分组查表选对行。"
+  },
+  {
+    "id": "FX-T-FILLET", "clause": "FX-C-A2", "title": "角焊缝强度设计值与 β_f（夹具）",
+    "axes": ["steel_grade", "thickness_group"], "interpolation": "group", "status": "verified",
+    "unit": "MPa",
+    "values": [
+      {"axes": {"steel_grade": "Q235", "thickness_group": "t<=16"},
+       "outputs": {"f_f_w": 100.0, "beta_f": 1.2}},
+      {"axes": {"steel_grade": "Q345", "thickness_group": "t<=16"},
+       "outputs": {"f_f_w": 140.0, "beta_f": 1.2}}
+    ],
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "beta_f 用 1.20 而非渠道转述的 1.22，避免被误读成已核对值。"
+  },
+  {
+    "id": "FX-T-BOLT", "clause": "FX-C-A3", "title": "螺栓强度设计值（夹具）",
+    "axes": ["bolt_grade"], "interpolation": "group", "status": "verified", "unit": "MPa",
+    "values": [
+      {"axes": {"bolt_grade": "4.6"}, "outputs": {"f_v_b": 90.0, "f_c_b": 200.0}},
+      {"axes": {"bolt_grade": "8.8"}, "outputs": {"f_v_b": 200.0, "f_c_b": 400.0}}
+    ],
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "id": "FX-T-MU", "clause": "FX-C-A4", "title": "抗滑移系数 μ（夹具）",
+    "axes": ["surface_treatment"], "interpolation": "group", "status": "verified", "unit": "无量纲",
+    "values": [
+      {"axes": {"surface_treatment": "喷砂"}, "outputs": {"mu": 0.4}},
+      {"axes": {"surface_treatment": "手工钢丝刷清除浮锈"}, "outputs": {"mu": 0.2}}
+    ],
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "id": "FX-T-PRELOAD", "clause": "FX-C-A4", "title": "高强螺栓预拉力 P（夹具，单位 kN）",
+    "axes": ["bolt_grade"], "interpolation": "group", "status": "verified", "unit": "kN",
+    "values": [
+      {"axes": {"bolt_grade": "10.9"}, "outputs": {"P": 60.0}},
+      {"axes": {"bolt_grade": "8.8"}, "outputs": {"P": 50.0}}
+    ],
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "本表故意用 kN：验证查表结果在入口层换算成 N，式体里不出现 1000。"
+  },
+  {
+    "id": "FX-T-K", "clause": "FX-C-A4", "title": "孔径影响系数 k（夹具）",
+    "axes": ["hole_type"], "interpolation": "group", "status": "verified", "unit": "无量纲",
+    "values": [
+      {"axes": {"hole_type": "标准孔"}, "outputs": {"k": 1.0}},
+      {"axes": {"hole_type": "大孔"}, "outputs": {"k": 0.9}}
+    ],
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "k=0.9 是虚构值，与渠道转述的 0.85 无关。"
+  },
+  {
+    "id": "FX-T-STEEL", "clause": "FX-C-A5", "title": "钢材强度设计值 f（夹具）",
+    "axes": ["steel_grade", "thickness_group"], "interpolation": "group", "status": "verified",
+    "unit": "MPa",
+    "values": [
+      {"axes": {"steel_grade": "Q235", "thickness_group": "t<=16"}, "outputs": {"f": 160.0}},
+      {"axes": {"steel_grade": "Q345", "thickness_group": "t<=16"}, "outputs": {"f": 200.0}},
+      {"axes": {"steel_grade": "Q345", "thickness_group": "16<t<=40"}, "outputs": {"f": 190.0}}
+    ],
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": ""
+  },
+  {
+    "id": "FX-T-PHI", "clause": "FX-C-A5", "title": "稳定系数 φ（夹具线性表）",
+    "axes": ["lambda"], "interpolation": "linear", "status": "verified", "unit": "无量纲",
+    "values": [
+      {"x": 0.0, "outputs": {"phi": 1.0}},
+      {"x": 20.0, "outputs": {"phi": 0.97}},
+      {"x": 40.0, "outputs": {"phi": 0.92}},
+      {"x": 60.0, "outputs": {"phi": 0.86}},
+      {"x": 80.0, "outputs": {"phi": 0.75}},
+      {"x": 100.0, "outputs": {"phi": 0.62}},
+      {"x": 120.0, "outputs": {"phi": 0.49}},
+      {"x": 150.0, "outputs": {"phi": 0.35}},
+      {"x": 200.0, "outputs": {"phi": 0.2}}
+    ],
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "夹具值单调下降即可；真实 φ 表属附录 D（V3），插值口径必须与原文一致，不得据此猜测。"
+  }
+]

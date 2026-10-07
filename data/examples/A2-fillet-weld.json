@@ -1,0 +1,19 @@
+{
+  "case_id": "DEMO-A2-FILLET",
+  "module": "fillet_weld",
+  "steel_grade": "Q235",
+  "quality_class": "B",
+  "thickness_group": "t<=16",
+  "load_direction": "侧面",
+  "h_f": 8.0,
+  "l_w": 240.0,
+  "n_welds": 2,
+  "t_min": 10.0,
+  "forces": {
+    "N": 420.0
+  },
+  "units": {
+    "force": "kN",
+    "length": "mm"
+  }
+}

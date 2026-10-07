@@ -142,8 +142,19 @@ def test_verified_case_with_full_source_is_clean(tmp_path):
     records = pending_records()
     source = {"type": "textbook", "title": "夹具书名", "edition": "第 1 版",
               "example_no": "例 1-1"}
-    records["cases"] = [dict(CASE, status="verified", source=source)]
+    records["cases"] = [dict(CASE, status="verified", source=source,
+                             tolerance={"ratio": 0.01})]
     assert _load(tmp_path, records).problems == []
+
+
+def test_verified_case_without_tolerance_is_rejected(tmp_path):
+    """口径 K3：真值比对容差逐算例登记；缺容差的 verified 算例在 schema 层就拦下。"""
+    records = pending_records()
+    source = {"type": "textbook", "title": "夹具书名", "edition": "第 1 版",
+              "example_no": "例 1-1"}
+    records["cases"] = [dict(CASE, status="verified", source=source)]
+    problems = _load(tmp_path, records).problems
+    assert any(p["field"] == "tolerance" and "容差" in p["problem"] for p in problems)
 
 
 def test_selfcheck_sample_cannot_live_in_cases(tmp_path):

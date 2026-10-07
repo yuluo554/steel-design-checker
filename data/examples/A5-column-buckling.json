@@ -1,0 +1,22 @@
+{
+  "case_id": "DEMO-A5-COLUMN",
+  "module": "column_buckling",
+  "steel_grade": "Q345",
+  "quality_class": "B",
+  "thickness_group": "16<t<=40",
+  "section": "双轴对称工字形",
+  "section_class": "c",
+  "l_0x": 6000.0,
+  "l_0y": 3000.0,
+  "A": 6000.0,
+  "i_x": 100.0,
+  "i_y": 40.0,
+  "forces": {
+    "N": 800.0
+  },
+  "units": {
+    "force": "kN",
+    "length": "mm",
+    "area": "mm2"
+  }
+}

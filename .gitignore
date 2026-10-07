@@ -30,3 +30,6 @@ reports/
 Thumbs.db
 Desktop.ini
 .DS_Store
+
+# 运行产物
+/.tmp_parse/

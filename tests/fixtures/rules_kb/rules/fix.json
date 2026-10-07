@@ -1,0 +1,56 @@
+[
+  {
+    "id": "FX-R-WELD-ORDINAL",
+    "name": "夹具：动载对接焊缝等级下限（已核对档）",
+    "check_type": "limit",
+    "scope": "document",
+    "gate_keywords": ["对接焊缝"],
+    "when": {"keyword_any": ["动力荷载"]},
+    "assert": {"kind": "ordinal_min", "slot": "weld_class", "order": ["三级", "二级", "一级"], "min": "二级"},
+    "basis": [{"clause_id": "FX-C-WELD", "gist": "夹具：动载对接焊缝等级下限"}],
+    "suggestion": "夹具建议：提高焊缝质量等级",
+    "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "虚构夹具：唯一作用是证明 verified 档规则能出 abnormal。真实规则的依据只到 located，所以 data/ 里所有携带阈值的规则一律把 bound/min 写成 null 并被记为不启用。"
+  },
+  {
+    "id": "FX-R-MU-PRESENCE",
+    "name": "夹具：摩擦面与抗滑移系数缺标注（已核对档）",
+    "check_type": "presence",
+    "scope": "document",
+    "gate_keywords": ["摩擦型"],
+    "when": {"keyword_any": ["摩擦型"]},
+    "assert": {"kind": "presence", "slots": ["surface", "mu"]},
+    "basis": [{"clause_id": "FX-C-MU", "gist": "夹具：摩擦型连接须写明处理与系数"}],
+    "suggestion": "夹具建议：补写抗滑移系数",
+    "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"}
+  },
+  {
+    "id": "FX-R-HF-VERIFIED",
+    "name": "夹具：最小焊脚限值（已核对档，出 abnormal）",
+    "check_type": "construct",
+    "scope": "document",
+    "gate_keywords": ["焊脚"],
+    "when": {"slot_present": "min_hf"},
+    "assert": {"kind": "numeric_min", "slot": "min_hf", "bound": 5.0, "unit": "mm"},
+    "basis": [{"clause_id": "FX-C-WELD", "gist": "夹具：借用同一条已核对依据"}],
+    "suggestion": "夹具建议：加大焊脚",
+    "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"}
+  },
+  {
+    "id": "FX-R-HF-CAPPED",
+    "name": "夹具：规则自称 verified 但依据只 located（必须被压到 suspicious）",
+    "check_type": "limit",
+    "scope": "document",
+    "gate_keywords": ["焊脚"],
+    "when": {"slot_present": "min_hf"},
+    "assert": {"kind": "numeric_min", "slot": "min_hf", "bound": 6.0, "unit": "mm"},
+    "basis": [{"clause_id": "FX-C-LOC", "gist": "夹具：依据只到 located"}],
+    "suggestion": "夹具建议：见 K5 档位矩阵",
+    "status": "verified",
+    "verified_by": {"channel": "合成夹具", "date": "2026-10-07", "url": "fixture://synthetic"},
+    "notes": "陷阱用例：规则 status=verified，但 effective_status 取 min(规则, 依据)=located，于是同一份文档上 FX-R-HF-VERIFIED 判 abnormal、本条只能判 suspicious。"
+  }
+]

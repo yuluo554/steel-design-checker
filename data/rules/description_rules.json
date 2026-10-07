@@ -1,0 +1,500 @@
+[
+  {
+    "also_expect": [
+      "牌号缺标注时其强度设计值无法进入验算"
+    ],
+    "assert": {
+      "kind": "presence",
+      "slots": [
+        "grade",
+        "qclass"
+      ]
+    },
+    "basis": [
+      {
+        "clause_id": "GB50017-2017:4.3.2",
+        "gist": "钢材应具有屈服强度、抗拉强度、断后伸长率和硫、磷含量的合格保证"
+      },
+      {
+        "clause_id": "GB55006-2021:3.0.2",
+        "gist": "钢材力学性能与弯曲试验的合格保证（承接 50017 4.3.2）"
+      }
+    ],
+    "check_type": "presence",
+    "gate_keywords": [
+      "钢材",
+      "牌号",
+      "材质",
+      "质量等级"
+    ],
+    "id": "R-STEEL-GRADE-ANNOTATION",
+    "name": "钢材牌号与质量等级缺标注",
+    "notes": "本条只判「文档有没有写」，不判牌号本身是否可用（牌号体系 Q345/Q355 之争见 plan/07 §四 V5）。",
+    "scope": "document",
+    "status": "located",
+    "suggestion": "补写钢材牌号与质量等级，并明确对应力学性能的合格保证",
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "规则表本体与依据条款同档登记：条号与主题已由渠道原文逐字核对；本条的措辞与阈值尚未核对（V2/V8），因此阈值一律写 null，判定层据此不启用数值判定。依据条款 GB50017-2017:4.3.2",
+      "url": "jianbiaoku.com/webarbs/book/198（plan/07 §一 渠道 A；本次复取返回 404，本地转储缓存已被删除，待重定位）"
+    },
+    "when": {
+      "any_of": [
+        {
+          "keyword_any": [
+            "钢材",
+            "钢构件",
+            "牌号",
+            "材质"
+          ]
+        },
+        {
+          "slot_present": "grade"
+        }
+      ]
+    }
+  },
+  {
+    "also_expect": [
+      "连接板与主体材质不匹配需人工确认"
+    ],
+    "assert": {
+      "kind": "consistency",
+      "slot": "grade"
+    },
+    "basis": [
+      {
+        "clause_id": "GB50017-2017:4.3.2",
+        "gist": "钢材性能的合格保证按牌号与厚度分组提出"
+      },
+      {
+        "clause_id": "GB55006-2021:3.0.2",
+        "gist": "材料要求（要点化）"
+      }
+    ],
+    "check_type": "consistency",
+    "gate_keywords": [
+      "钢材",
+      "牌号",
+      "材质",
+      "连接板"
+    ],
+    "id": "R-STEEL-GRADE-CONSISTENCY",
+    "name": "钢材牌号前后矛盾",
+    "notes": "证据是文档两处原文自相矛盾本身，不需要规范数值，因此 located 档也可判 abnormal（plan/04 §四 闸门表）。",
+    "scope": "document",
+    "status": "located",
+    "suggestion": "统一全文牌号表述，或对不同材质分别列出适用范围与连接板用料",
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "规则表本体与依据条款同档登记：条号与主题已由渠道原文逐字核对；本条的措辞与阈值尚未核对（V2/V8），因此阈值一律写 null，判定层据此不启用数值判定。依据条款 GB50017-2017:4.3.2",
+      "url": "jianbiaoku.com/webarbs/book/198（plan/07 §一 渠道 A；本次复取返回 404，本地转储缓存已被删除，待重定位）"
+    },
+    "when": {
+      "keyword_any": [
+        "钢",
+        "构件",
+        "材质",
+        "连接板"
+      ]
+    }
+  },
+  {
+    "also_expect": [
+      "焊缝检验要求未写明对应质量等级"
+    ],
+    "assert": {
+      "keyword_any": [
+        "一级",
+        "二级",
+        "三级"
+      ],
+      "kind": "presence",
+      "slots": [
+        "weld_class"
+      ]
+    },
+    "basis": [
+      {
+        "clause_id": "GB50017-2017:11.1.6",
+        "gist": "焊缝质量分级（一/二/三级）选用；检验依 GB 50661、GB 50205"
+      },
+      {
+        "clause_id": "GB55006-2021:7.2.3",
+        "gist": "焊缝无损检测比例（一级 100%、二级不低于 20%）"
+      },
+      {
+        "clause_id": "GB50017-2017:4.4.5",
+        "gist": "焊缝强度指标按表 4.4.5 取值（不同质量等级取值不同）"
+      }
+    ],
+    "check_type": "presence",
+    "gate_keywords": [
+      "对接焊缝",
+      "焊缝质量",
+      "一级",
+      "二级",
+      "三级"
+    ],
+    "id": "R-WELD-CLASS-001",
+    "name": "对接焊缝质量等级缺标注",
+    "notes": "依据 4.4.5 为强制性条文（06 D14 的 7 条之一），命中时随 finding 输出强条核对提示。",
+    "scope": "document",
+    "status": "located",
+    "suggestion": "补写对接焊缝质量等级，并明确对应的无损检测比例与检验要求",
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "规则表本体与依据条款同档登记：条号与主题已由渠道原文逐字核对；本条的措辞与阈值尚未核对（V2/V8），因此阈值一律写 null，判定层据此不启用数值判定。依据条款 GB50017-2017:11.1.6",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）"
+    },
+    "when": {
+      "keyword_any": [
+        "对接焊缝",
+        "焊缝质量"
+      ]
+    }
+  },
+  {
+    "assert": {
+      "kind": "ordinal_min",
+      "min": null,
+      "order": [
+        "三级",
+        "二级",
+        "一级"
+      ],
+      "slot": "weld_class"
+    },
+    "basis": [
+      {
+        "clause_id": "GB50017-2017:11.1.6",
+        "gist": "焊缝质量分级选用（下限条文的条号已定位，措辞未逐字核对）"
+      }
+    ],
+    "check_type": "limit",
+    "gate_keywords": [
+      "动力荷载",
+      "对接焊缝"
+    ],
+    "id": "R-WELD-CLASS-ORDINAL",
+    "name": "直接承受动力荷载的对接焊缝质量等级下限",
+    "notes": "阈值未核对 ⇒ min 写 null（口径 K14/D11 在规则表上的形态），判定层记「规则不启用」而不是猜一个下限。",
+    "scope": "document",
+    "status": "located",
+    "suggestion": "取得正式文本后把等级下限填入本规则；当前一律不启用",
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "规则表本体与依据条款同档登记：条号与主题已由渠道原文逐字核对；本条的措辞与阈值尚未核对（V2/V8），因此阈值一律写 null，判定层据此不启用数值判定。依据条款 GB50017-2017:11.1.6",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）"
+    },
+    "when": {
+      "all_of": [
+        {
+          "keyword_any": [
+            "直接承受动力荷载",
+            "动力荷载"
+          ]
+        },
+        {
+          "keyword_any": [
+            "对接焊缝"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "assert": {
+      "bound": null,
+      "kind": "numeric_min",
+      "slot": "min_hf",
+      "unit": "mm"
+    },
+    "basis": [
+      {
+        "clause_id": "GB50017-2017:11.3.5",
+        "gist": "角焊缝最小计算长度与构造尺寸（1.5√t 一类形式属常见表述，未经原文核对，V8）"
+      }
+    ],
+    "check_type": "construct",
+    "gate_keywords": [
+      "焊脚",
+      "角焊缝"
+    ],
+    "id": "R-WELD-MIN-HF-CONSTRUCT",
+    "name": "角焊缝最小焊脚尺寸",
+    "notes": "同 R-WELD-CLASS-ORDINAL：构造限值未核对 ⇒ bound=null ⇒ 不启用（plan/07 §四 V8）。",
+    "scope": "document",
+    "status": "located",
+    "suggestion": "取得正式文本后填入限值；当前不做数值判定",
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "规则表本体与依据条款同档登记：条号与主题已由渠道原文逐字核对；本条的措辞与阈值尚未核对（V2/V8），因此阈值一律写 null，判定层据此不启用数值判定。依据条款 GB50017-2017:11.3.5",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）"
+    },
+    "when": {
+      "slot_present": "min_hf"
+    }
+  },
+  {
+    "also_expect": [
+      "主受力连接未采用摩擦型高强螺栓"
+    ],
+    "assert": {
+      "kind": "cross_param",
+      "require_any_keywords": [
+        "摩擦型",
+        "高强",
+        "高强度",
+        "摩擦面",
+        "抗滑移"
+      ],
+      "require_any_slots": [
+        "surface",
+        "mu"
+      ]
+    },
+    "basis": [
+      {
+        "clause_id": "GB50017-2017:11.4.2",
+        "gist": "高强度螺栓摩擦型连接计算，含 n_f、μ、P（表 11.4.2-1/-2）"
+      },
+      {
+        "clause_id": "JGJ82-2011:3.1.7",
+        "gist": "高强度螺栓不得与普通螺栓混用（强制性条文）"
+      }
+    ],
+    "check_type": "cross_param",
+    "gate_keywords": [
+      "螺栓",
+      "主受力",
+      "高强"
+    ],
+    "id": "R-BOLT-GRADE-MISMATCH",
+    "name": "主受力连接的螺栓连接形式未写明",
+    "notes": "性能等级与受力的匹配下限（如主受力连接不宜用 4.6 级）属未核对的规范判断，本条只判「同段落有没有把连接形式说清」，不判等级高低。段落级作用域（scope=paragraph）是这条成立的前提：全文他处出现「摩擦面」不能替主受力段落补上依据。",
+    "scope": "paragraph",
+    "status": "located",
+    "suggestion": "在主受力连接段落写明连接形式（摩擦型/承压型）与摩擦面处理、抗滑移系数",
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "规则表本体与依据条款同档登记：条号与主题已由渠道原文逐字核对；本条的措辞与阈值尚未核对（V2/V8），因此阈值一律写 null，判定层据此不启用数值判定。依据条款 GB50017-2017:11.4.2",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）"
+    },
+    "when": {
+      "all_of": [
+        {
+          "keyword_any": [
+            "主受力",
+            "主要受力"
+          ]
+        },
+        {
+          "slot_present": "bolt_grade"
+        }
+      ]
+    }
+  },
+  {
+    "also_expect": [
+      "抗滑移系数缺标注时摩擦型连接承载力无法验算"
+    ],
+    "assert": {
+      "kind": "presence",
+      "slots": [
+        "surface",
+        "mu"
+      ]
+    },
+    "basis": [
+      {
+        "clause_id": "JGJ82-2011:6.2.6",
+        "gist": "摩擦面处理方法与抗滑移系数应符合设计要求（强制性条文）"
+      },
+      {
+        "clause_id": "JGJ82-2011:3.2.4",
+        "gist": "摩擦面抗滑移系数（表 3.2.4-1/3.2.4-2）"
+      },
+      {
+        "clause_id": "GB50017-2017:11.4.2",
+        "gist": "摩擦型连接受剪承载力依赖 μ 与 P"
+      }
+    ],
+    "check_type": "presence",
+    "gate_keywords": [
+      "摩擦面",
+      "抗滑移",
+      "摩擦型"
+    ],
+    "id": "R-SLIP-SURFACE-MU",
+    "name": "摩擦面处理与抗滑移系数缺标注",
+    "scope": "document",
+    "status": "located",
+    "suggestion": "补写摩擦面处理方式与设计抗滑移系数，并注明现场抗滑移系数试验要求",
+    "verified_by": {
+      "channel": "官方",
+      "date": "2026-10-07",
+      "note": "规则表本体与依据条款同档登记：条号与主题已由渠道原文逐字核对；本条的措辞与阈值尚未核对（V2/V8），因此阈值一律写 null，判定层据此不启用数值判定。依据条款 JGJ82-2011:6.2.6",
+      "url": "https://www.yuanlin8.com/guifan/jiegou/9387af26b3.html"
+    },
+    "when": {
+      "keyword_any": [
+        "摩擦型",
+        "高强",
+        "高强度"
+      ]
+    }
+  },
+  {
+    "also_expect": [
+      "耐火极限缺标注时防护构造无法核对"
+    ],
+    "assert": {
+      "kind": "presence",
+      "slots": [
+        "fire_hour",
+        "coating"
+      ]
+    },
+    "basis": [
+      {
+        "clause_id": "GB55006-2021:6.3.3",
+        "gist": "防火措施（要点化）"
+      },
+      {
+        "clause_id": "GB55006-2021:6.3.2",
+        "gist": "构件耐火极限"
+      }
+    ],
+    "check_type": "presence",
+    "gate_keywords": [
+      "防火",
+      "耐火",
+      "涂装",
+      "防腐"
+    ],
+    "id": "R-FIRE-HOUR-PRESENCE",
+    "name": "防火与涂装要求缺标注",
+    "scope": "document",
+    "status": "located",
+    "suggestion": "补写构件耐火极限要求与防腐涂装体系（含干膜厚度）",
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "规则表本体与依据条款同档登记：条号与主题已由渠道原文逐字核对；本条的措辞与阈值尚未核对（V2/V8），因此阈值一律写 null，判定层据此不启用数值判定。依据条款 GB55006-2021:6.3.3",
+      "url": "jianbiaoku.com/webarbs/book/159286（同上，待重定位）"
+    },
+    "when": {
+      "keyword_any": [
+        "防火",
+        "耐火",
+        "涂装",
+        "防腐"
+      ]
+    }
+  },
+  {
+    "assert": {
+      "bound": null,
+      "kind": "numeric_min",
+      "slot": "fire_hour",
+      "unit": "h"
+    },
+    "basis": [
+      {
+        "clause_id": "GB55006-2021:6.3.2",
+        "gist": "构件耐火极限（表体数值与建筑分类分档未核对）"
+      }
+    ],
+    "check_type": "limit",
+    "gate_keywords": [
+      "耐火极限",
+      "防火"
+    ],
+    "id": "R-FIRE-HOUR-LIMIT",
+    "name": "构件耐火极限下限",
+    "notes": "bound=null ⇒ 不启用；与 R-FIRE-HOUR-PRESENCE 分工：那条判「写没写」，本条本应判「够不够」。",
+    "scope": "document",
+    "status": "located",
+    "suggestion": "耐火极限下限依赖建筑的防火分类，须取得正式文本后填入",
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "规则表本体与依据条款同档登记：条号与主题已由渠道原文逐字核对；本条的措辞与阈值尚未核对（V2/V8），因此阈值一律写 null，判定层据此不启用数值判定。依据条款 GB55006-2021:6.3.2",
+      "url": "jianbiaoku.com/webarbs/book/159286（同上，待重定位）"
+    },
+    "when": {
+      "slot_present": "fire_hour"
+    }
+  },
+  {
+    "also_expect": [
+      "高温环境构件需同时核对强度折减与防护措施"
+    ],
+    "assert": {
+      "keyword_any": [
+        "温度作用",
+        "防护",
+        "隔热",
+        "耐热"
+      ],
+      "kind": "presence"
+    },
+    "basis": [
+      {
+        "clause_id": "GB50017-2017:18.3.3",
+        "gist": "高于 100℃ 高温环境下的温度作用验算与防护（强制性条文）"
+      },
+      {
+        "clause_id": "GB55006-2021:6.3.4",
+        "gist": "高于 100℃ 环境的高温防护"
+      }
+    ],
+    "check_type": "presence",
+    "gate_keywords": [
+      "100℃",
+      "100 °C",
+      "高温",
+      "温度作用"
+    ],
+    "id": "R-HIGH-TEMP-PROTECTION",
+    "name": "高于 100℃ 环境的温度作用与防护",
+    "notes": "gate_keywords 决定「文档根本没提高温时本条不参与」，when 再要求「提到了高温但没提防护」，两层合起来避免对无关文档报噪声。",
+    "scope": "document",
+    "status": "located",
+    "suggestion": "写明使用温度、是否需验算温度作用及相应防护措施",
+    "verified_by": {
+      "channel": "建标库",
+      "date": "2026-10-06",
+      "note": "规则表本体与依据条款同档登记：条号与主题已由渠道原文逐字核对；本条的措辞与阈值尚未核对（V2/V8），因此阈值一律写 null，判定层据此不启用数值判定。依据条款 GB50017-2017:18.3.3",
+      "url": "jianbiaoku.com/webarbs/book/198（同上，待重定位）"
+    },
+    "when": {
+      "all_of": [
+        {
+          "keyword_any": [
+            "100℃",
+            "100 °C",
+            "高温",
+            "温度作用"
+          ]
+        },
+        {
+          "not": {
+            "keyword_any": [
+              "温度作用",
+              "防护",
+              "隔热"
+            ]
+          }
+        }
+      ]
+    }
+  }
+]
