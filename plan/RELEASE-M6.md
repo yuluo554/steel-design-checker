@@ -176,10 +176,18 @@ clone 落在**仓库树外**的 `../sdc-clean-clone`（`find_data_dir` 的 CWD �
 | 4 | `37572650848` | 第 4 次 branch push（= tag 之后的**结果性回写**提交，pattern ③） | **四矩阵全绿**，收集数与第 3 轮完全一致（23/303 ×3 + 25/334 ×1） |
 | tag | `v0.1.0` push | — | **没有产生 run**：ci.yml 只配 `push: branches [main]` + `pull_request`，tag ref 不匹配。如实记录，不虚构第四轮 |
 
-**push 数 = run 数** 对账：4 次 branch push → 4 个 run ✓（1、2 红，3、4 绿）；tag push 不触发（上表）。
-tag 之后不再迁 tag：`v0.1.0` 固定在 CI 全绿的提交 `570a0a3` 上，回写内容（含本段）在其后。
-**本行是发布台账的最后一条**——记录 run 4 的那次 push 自己会触发 run 5，
-其结论直接在仓库 Actions 页可查，不再回填一轮。
+**push 数 = run 数** 对账：6 次 branch push → 6 个 run ✓（1、2 红，3~6 绿）；tag push 不触发（上表）。
+第 5、6 轮（`37572887217`、`37572960779`）各为一次台账补录的 push，四矩阵均 success，
+收集数与前两轮一致（23/303 ×3 + 25/334 ×1）。
+
+两条如实的补充：
+
+1. 第 5 轮日志里有一条 `! Node.js 20 is deprecated. The following actions target Node.js 20 but
+   are being forced to run on Node.js 24: actions/checkout…` —— 这是 **annotation 级告警**
+   （runner 对 actions/checkout@v4、setup-python@v5 的 Node 运行时提示），四个作业 conclusion
+   全为 success，**不是失败**，也不改 workflow 去追它；
+2. **本行是 CI 对账的最后一条**。台账每补录一次就多一次 push，继续回填就是无限递归；
+   此后 HEAD 的 CI 状态由 README 的 CI 徽章与仓库 Actions 页常驻承载，本文件不再逐轮追记。
 
 ### 两轮红各是什么，都不是"放宽门槛"能解决的
 
