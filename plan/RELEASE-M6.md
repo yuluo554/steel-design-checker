@@ -166,16 +166,20 @@ clone 落在**仓库树外**的 `../sdc-clean-clone`（`find_data_dir` 的 CWD �
 | CI windows/3.8（`dev,gui`） | 334 | 1 | GUI 常驻该矩阵；CI 不跑 PyInstaller ⇒ 未构建那条跳过 |
 
 
-## 四、CI 首跑与三轮对账
+## 四、CI 首跑与四轮对账
 
 | 轮 | run id | 触发 | 结果 |
 |---|---|---|---|
 | 1 | `37570991561` | 第 1 次 branch push（main，SSH） | 4 作业：**ubuntu-22.04/3.8 绿、ubuntu-latest/3.12 绿**；两条 windows 各 1 条红 |
 | 2 | `37571427131` | 第 2 次 branch push | 测试步**四条全绿**（含 windows/3.8+gui 的 334 项），三条作业红在 `Bench gate` |
 | 3 | `37571747456` | 第 3 次 branch push | **四矩阵全绿**（windows/3.8+gui、windows/3.12、ubuntu-22.04/3.8、ubuntu-latest/3.12） |
+| 4 | `37572650848` | 第 4 次 branch push（= tag 之后的**结果性回写**提交，pattern ③） | **四矩阵全绿**，收集数与第 3 轮完全一致（23/303 ×3 + 25/334 ×1） |
 | tag | `v0.1.0` push | — | **没有产生 run**：ci.yml 只配 `push: branches [main]` + `pull_request`，tag ref 不匹配。如实记录，不虚构第四轮 |
 
-**push 数 = run 数** 对账：3 次 branch push → 3 个 run ✓；tag push 不触发（上表）。
+**push 数 = run 数** 对账：4 次 branch push → 4 个 run ✓（1、2 红，3、4 绿）；tag push 不触发（上表）。
+tag 之后不再迁 tag：`v0.1.0` 固定在 CI 全绿的提交 `570a0a3` 上，回写内容（含本段）在其后。
+**本行是发布台账的最后一条**——记录 run 4 的那次 push 自己会触发 run 5，
+其结论直接在仓库 Actions 页可查，不再回填一轮。
 
 ### 两轮红各是什么，都不是"放宽门槛"能解决的
 
