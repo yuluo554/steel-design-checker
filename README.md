@@ -19,6 +19,7 @@ GB 55006-2021 符合性检查单 + 内置基准与 docx 交付物。
 | docx 交付物 | `sdc report --case X.json --out 验算书.docx`；`check`/`checklist` 加 `--out` | 0 外链、两次导出字节一致、免责声明强制存在 |
 | 一键基准 | `sdc bench --all` | 四基准合一 + 指标表（下表） |
 | 数据推进看板 | `sdc selfcheck` | 三档 status 进度 + 未启用原因 + 「核对哪条条款解锁哪些规则」队列 |
+| 桌面界面（五页签） | `sdc gui`，或双击 `dist/sdc-gui/sdc-gui.exe` | 验算台 / 设计说明核查 / 规范检查单 / 报告导出 / 知识库与状态；正文与终端逐字同源，无第二套判定 |
 
 ## 指标
 
@@ -76,15 +77,35 @@ py -3.8 -X utf8 -m sdc report --case data/examples/A2-fillet-weld.json --out 验
 
 退出码：`0` 完成 / `1` 降级完成（拒算、有可疑项、指标未达标）/ `2` 输入不可用。
 
-依赖：运行只需 Python 3.8+ 标准库；测试用 `pip install -e ".[dev]"`。GUI 与打包（M5）走 extras。
+依赖：运行只需 Python 3.8+ 标准库；测试用 `pip install -e ".[dev]"`。
+
+## 桌面版（GUI + exe）
+
+```bash
+pip install -e ".[gui]"                      # PySide6（上限按实测 pin：3.8 上可解析的最高版本是 6.6.3.1）
+py -3.8 -X utf8 -m sdc gui                  # 五页签界面（页签②的文档解析走子进程）
+py -3.8 -X utf8 -m sdc gui --screenshot 帧.png   # 抓一帧（native QPA 才有中文字体）
+
+pip install -e ".[pkg]"                      # PyInstaller
+py -3.8 -m PyInstaller --noconfirm sdc.spec # 产出 dist/sdc-cli 与 dist/sdc-gui 两个 onedir 包
+py -3.8 -X utf8 scripts/verify_dist.py      # 构建红线：白名单 + 逐份 sha256 对账 → DIST_AUDIT_OK
+py -3.8 -X utf8 scripts/clean_env_check.py  # 中立目录 + 剥离 PATH 跑双 exe → CLEAN_ENV_OK
+```
+
+界面上没有任何一套自己的判定：每个页签的正文就是命令面用的那个渲染函数的输出，
+`tests/test_gui_contract.py` 把两边输出逐字对账（含 `bench --all` 的整张指标表）。
+数据目录按「显式参数 > `SDC_DATA_DIR` > 包内 `_MEIPASS/data` > exe 同侧 `_internal/data` >
+CWD 上溯」解析；打包版的一键基准用同侧的 `sdc-cli.exe` 当解析子进程，找不到时那一行
+显示**不可用**而不是达标。
 
 ## 仓库结构
 
 ```
-src/sdc/{kb,engine,parse,rules,report,synth}/   分层：数据 → 引擎 → 解析 → 判定 → 交付物
+src/sdc/{kb,engine,parse,rules,report,synth,gui}/   分层：数据 → 引擎 → 解析 → 判定 → 交付物 → 界面
+sdc.spec + scripts/{bundle_rules,verify_dist,clean_env_check,entry_cli,entry_gui}.py   打包与构建红线
 data/{clauses,tables,formulas,symbols,rules,checklist,cases,synth,selfcheck,examples}/
 plan/       需求解读、架构选型、模块详设、数据计划与里程碑、决策记录、条文查证、交接快照
-tests/      19 个测试模块（schema/门控/引擎/解析/核查/基准/报告/守门）
+tests/      22 个测试模块（schema/门控/引擎/解析/核查/基准/报告/界面契约/打包与守门）
 ```
 
 项目计划与逐条口径见 [plan/00-README总览.md](plan/00-README总览.md)；

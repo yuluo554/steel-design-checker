@@ -19,7 +19,8 @@
 | HANDOFF-M2.md | M1 → M2（公式引擎）交接快照 | ✅ 已执行完毕（M2 结果见 HANDOFF-M3） |
 | HANDOFF-M3.md | M2 → M3（文本核查）交接快照 | ✅ 已落盘 2026-10-07 |
 | HANDOFF-M4.md | M3 文本核查 → M4（内置基准 + 报告导出）交接快照 | ✅ 已执行完毕（M4 结果见 HANDOFF-M5）；**M3 定档轮又回填了 §三/§四/§五**（附录 D 落地结果 + K37/K38 + 「0. 引擎支持分段」） |
-| HANDOFF-M5.md | M4 内置基准 → M5（桌面交付）交接快照 | ✅ 已落盘 2026-10-07 |
+| HANDOFF-M5.md | M4 内置基准 → M5（桌面交付）交接快照 | ✅ 已执行完毕（M5 结果见 HANDOFF-M6） |
+| HANDOFF-M6.md | M5 桌面交付 → M6（脱敏发布 + 收尾固化）交接快照 | ✅ 已落盘 2026-10-07 |
 | ../README.md（仓库根） | 面向外部的总说明：能做什么、指标表、纪律、快速开始 | ✅ M4 新建；指标表由 `sdc bench --all --markdown` 生成，`tests/test_suite.py` 逐行对账 |
 
 ## 决策记录
@@ -34,7 +35,7 @@
 - **M2 公式引擎**：5 个验算模块实现，算例回归（容差判定）✅ 完成 2026-10-07（数据未核对 ⇒ 全模块拒算，这是设计行为）
 - **M3 文本核查**：设计说明参数卡解析 + 限值规则引擎 + GB 55006-2021 检查单 ✅ 完成 2026-10-07（其后 T5 定档轮把附录 D 升 verified，但没有任何模块出数值——f 仍来自 located 的表 4.4.1）
 - **M4 内置基准**：一键四基准 + 指标表写进 README + docx 交付物（0 外链／两次导出字节一致／免责声明强制存在）✅ 完成 2026-10-07（两个指标仍「不可判」：算例分母 0、可硬判 abnormal 规则 0 条）
-- **M5 桌面交付**：PySide6 界面 + PyInstaller onedir 双 exe + 打包断言
+- **M5 桌面交付**：PySide6 界面 + PyInstaller onedir 双 exe + 打包断言 ✅ 完成 2026-10-07（GUI 与 CLI 同一批函数、逐字对账；`DIST_AUDIT_OK` + `CLEAN_ENV_OK`；冻结态子进程通路 K45 解决）
 - **M6 脱敏发布 GitHub + Release（exe）+ 收尾固化**
 
 ## 当前进度
@@ -47,3 +48,4 @@
 | M2 公式引擎 | ✅ 完成 2026-10-07：`src/sdc/engine/`（式体 AST 求值 + 单位入口层 + 参数卡校验 + 查表 + 编排）+ `sdc run` + `sdc bench`；5 模块在真实数据上**全部拒算且不出数值**，数值通路由 `tests/fixtures/kb/` 合成 verified 夹具覆盖；门控失败路径含「located 却带 values」的陷阱测试与反向构造条款门控。测试：M1 的 8 个模块 + M2 新增 6 个模块，按文件分批全绿。偏差与待拍板见 HANDOFF-M3 |
 | M3 文本核查 | ✅ 完成 2026-10-07：`src/sdc/parse/`（docx/txt→槽位→IR，正则只在解析层）+ `src/sdc/rules/`（闸门矩阵 + 判定引擎，不 import `re`）+ `src/sdc/checklist.py` + `sdc parse/check/checklist` 与 `bench --parse/--audit`。指标：**F1 1.0000**（TP206/FP0/FN0）、**注入 12/12 检出、误报 0**、finding 全带条款与段落位置；数据侧新增 `rules/` 10 条、`checklist/` 107 条、55006 条款 30→107（全 8 章双主机文字层）。**T5 前提被查坏**（双镜像实为同一底图；φ↔公式官方常数下仅 793/953）⇒ 重拍为补第三路证据再定档，本轮 verified 仍 0。细目见 [HANDOFF-M4.md](HANDOFF-M4.md)。**其后 M3 定档轮已完成**（第三路＝出版社电子版 PDF 矢量文字层，±0.001 下 953/953 ⇒ 附录 D 一套升 verified，见 D22/D23）；另：本行原写「判定引擎不 import `re`」的字面表述在 M4 实测中被更正（D24①/K39），成立的是"不读文档、不对文档执行正则 + 解析判定分进程" |
 | M4 内置基准 | ✅ 完成 2026-10-07：**一键基准** `sdc bench --all`（四基准合一 + 指标表，另加 `--sweep`／`--markdown`／`--json`，达标 7 / 不可判 2 / 未达标 0，rc=1）+ **docx 交付物**（`sdc report --case --out`、`check`/`checklist --out`；三类正文与终端渲染同源，落盘前自检 fail closed：0 外链、两次导出字节一致、免责声明必存、无真实身份信息）+ **selfcheck 两档看板**（`[6]` 未启用原因四分类、`[7]` 按解锁数排序的核对队列）+ 根 `README.md` 指标表（与实跑逐行对账）。口径新增 K39~K44（D24），并更正 K26 的字面表述。测试 19 个文件按文件分批全绿（新增 `test_report.py` 19 项、`test_suite.py` 15 项）。偏差：两个「不可判」不是达标——`data/cases/` 仍 0 例 ⇒ 通过率分母 0；10 条核查规则的依据全 located ⇒ 可硬判 abnormal 分母 0。细目见 [HANDOFF-M5.md](HANDOFF-M5.md) |
+| M5 桌面交付 | ✅ 完成 2026-10-07：**五页签 GUI**（`src/sdc/gui/`：①验算台 ②设计说明核查 ③规范检查单 ④报告导出 ⑤知识库与状态）+ **GUI↔CLI 契约测试**（12 项逐字对账，含 `bench --all` 全文与三类 docx 字节相同）+ **onedir 双 exe**（`sdc.spec`：`dist/sdc-cli` 13 MB 不含 Qt、`dist/sdc-gui` 108 MB）+ **构建红线**（`scripts/bundle_rules.py` 白名单单源、`scripts/verify_dist.py` → `DIST_AUDIT_OK`，40 份内嵌数据逐份对账含子目录）+ **干净环境验证**（`scripts/clean_env_check.py` → `CLEAN_ENV_OK`：%TEMP% 中立目录、PATH 无 Python、CLI 六连 + GUI 存活探针 + `sdc-cli gui` 老实降级）。口径新增 K45~K48（D25）：冻结态子进程通路（解 HANDOFF-M5 §三.4）、打包白名单与断言单源、stdout/stderr 同编码、界面与命令面同源。测试 22 个文件 310 项全绿（新增 `test_gui_pages.py` 19、`test_gui_contract.py` 12、`test_packaging.py` 15）。偏差：①GUI 页签②仍只吃 `.docx/.txt/.md`（PDF 未支持，与 M3 同）；②docx 版式仍是最小 OOXML（无 Word 表格/标题样式，M4 留的 spike 未做）；③`data/cases/` 仍 0 例 ⇒ 指标表两个「不可判」照旧；④CI 矩阵（D12）尚未建 workflow，列 M6。细目见 [HANDOFF-M6.md](HANDOFF-M6.md) |
