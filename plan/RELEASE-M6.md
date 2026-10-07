@@ -168,7 +168,41 @@ clone 落在**仓库树外**的 `../sdc-clean-clone`（`find_data_dir` 的 CWD �
 
 ## 四、CI 首跑
 
-待回填：`gh run list` 对账 push 数 = run 数；四矩阵 passed/skipped 逐项归因。
+| 轮 | run id | push | 结果 |
+|---|---|---|---|
+| 1 | `37570991561` | 第 1 次 push（main，SSH） | 4 个作业：**ubuntu-22.04/3.8 绿、ubuntu-latest/3.12 绿**；**windows-latest/3.12 与 windows-latest/3.8+gui 各 1 条红** |
+| 2 | 见下方回填 | 修复提交 push | 待回填 |
+
+**push 数 = run 数**：本轮 1 push 触发 1 run（tag push 是否触发取决于 ci.yml 的触发器，本仓库
+只配 `push: branches [main]` 与 `pull_request`，**tag 不触发 CI**，如实记录不虚构第二轮）。
+
+### 首跑红的唯一原因，是仓库自己的守门测试抓住了 CI 的脚手架
+
+```
+AssertionError: 以下文本文件含 CR，会打挂跨平台字节基准：['collect.txt']
+```
+
+`Collect count` 那一步用 `> collect.txt` 落地收集输出。Windows runner 上 Python 的 stdout 经
+shell 重定向会写成 **CRLF**（`_utf8_stream` 只 reconfigure 编码，不改 newline 翻译），而
+`tests/test_eol_guard.py` 扫的是**工作树**（不只是跟踪面——这是 M5 定下的"提交前就要拦住"口径），
+于是它如实报红。ubuntu 矩阵因为换行本来就是 LF 而看不出来。
+
+处置：**不给门槛放水**，改的是产生 scratch 的那一步：
+- 收集数改成管道直出（`pytest --collect-only -q | awk ...`），不再落地文件；
+- 基准门禁的 JSON 输入支持 `-` 从 stdin 读（`bench --all --json | ci_bench_gate.py - ${PIPESTATUS[0]}`），
+  同样不在工作树里留 `bench.json`。
+
+两条都是"CI 首跑把只在 CI 才暴露的问题抓出来"的价值实证（方法论阶段 7 的预言在此二次兑现）。
+
+### 计数逐项归因（首跑实测，与 §三 的预测一致）
+
+| 矩阵 | extras | 收集 | 跳过明细 |
+|---|---|---|---|
+| ubuntu-22.04 / 3.8 | dev | 303 | `SKIPPED [2] tests\_gui.py:19`（GUI 两模块模块级 importorskip，合计 31 项不进收集）+ `SKIPPED [1] tests	est_packaging.py:251`（CI 不跑 PyInstaller） |
+| ubuntu-latest / 3.12 | dev | 303 | 同上（3.12 无版本差型失败） |
+| windows-latest / 3.8 | dev,gui | 334 | 仅 `test_packaging.py:251` 一条；**GUI 31 项真跑** |
+| windows-latest / 3.12 | dev | 303 | 同 ubuntu 两条 GUI 跳过 + 一条未构建 |
+
 
 ## 五、发布执行记录
 

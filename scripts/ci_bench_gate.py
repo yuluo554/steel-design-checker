@@ -51,11 +51,16 @@ def _expected_rc(rows):
 
 def main(argv):
     if len(argv) != 3:
-        sys.stderr.write("用法：ci_bench_gate.py <bench.json> <bench 退出码>\n")
+        sys.stderr.write("用法：ci_bench_gate.py <bench.json 或 '-'> <bench 退出码>\n")
         return 2
     try:
-        with open(argv[1], "r", encoding="utf-8") as handle:
-            report = json.load(handle)
+        if argv[1] == "-":
+            # CI 里从管道读：落地 scratch 文件会被仓库自己的 EOL 守门测试拦下
+            # （Windows runner 的重定向写 CRLF，而 CI 首跑就是被这条抓住的）
+            report = json.loads(sys.stdin.read())
+        else:
+            with open(argv[1], "r", encoding="utf-8") as handle:
+                report = json.load(handle)
     except (OSError, ValueError) as exc:
         sys.stderr.write("读不到基准 JSON：%s\n" % exc)
         return 2

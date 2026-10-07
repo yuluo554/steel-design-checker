@@ -37,14 +37,13 @@ jobs:
           python -m pip install -e ".[${{ matrix.extras }}]"
 
       # 收集数对账：GUI 模块的声明式跳过会让不同矩阵数出不同的 passed，
-      # 所以把收集总数与跳过原因都打印出来，逐项归因写进 RELEASE-M6 留档
+      # 所以把收集总数打印出来，逐项归因写进 RELEASE-M6 留档。
+      # 注意：**不落地任何 scratch 文件**——Windows runner 上 `> collect.txt` 会写成 CRLF，
+      # 而 tests/test_eol_guard.py 扫的是工作树（CI 首跑就是被这条抓住的）
       - name: Collect count and skip reasons
         run: |
-          set +e
-          python -X utf8 -m pytest --collect-only -q > collect.txt
-          echo "collect_rc=$?"
-          set -e
-          awk -F': ' '/^tests\/test_/ {s+=$2; n++} END {printf "collected_files=%d collected_items=%d\n", n, s}' collect.txt
+          set +o pipefail
+          python -X utf8 -m pytest --collect-only -q 2>&1 | awk -F': ' '/^tests\/test_/ {s+=$2; n++} END {printf "collected_files=%d collected_items=%d\n", n, s}'
           python -X utf8 -m sdc --version
 
       - name: Run the test suite
@@ -55,11 +54,11 @@ jobs:
 
       - name: "Bench gate (未达标或不可用即红，两个不可判如实留档)"
         run: |
-          set +e
-          python -X utf8 -m sdc bench --all --json > bench.json
-          bench_rc=$?
-          set -e
-          python -X utf8 scripts/ci_bench_gate.py bench.json "$bench_rc"
+          set +e +o pipefail
+          python -X utf8 -m sdc bench --all --json | python -X utf8 scripts/ci_bench_gate.py - "${PIPESTATUS[0]}"
+          gate_rc=$?
+          set -e -o pipefail
+          exit "$gate_rc"
 
       - name: Synth corpus is byte-reproducible
         run: python -X utf8 -m sdc synth --check
