@@ -194,14 +194,14 @@ shell 重定向会写成 **CRLF**（`_utf8_stream` 只 reconfigure 编码，不�
 
 两条都是"CI 首跑把只在 CI 才暴露的问题抓出来"的价值实证（方法论阶段 7 的预言在此二次兑现）。
 
-### 计数逐项归因（首跑实测，与 §三 的预测一致）
+### 计数逐项归因（首跑实测，取自 run `37570991561` 的 `collected_files/collected_items` 输出）
 
 | 矩阵 | extras | 收集 | 跳过明细 |
 |---|---|---|---|
-| ubuntu-22.04 / 3.8 | dev | 303 | `SKIPPED [2] tests\_gui.py:19`（GUI 两模块模块级 importorskip，合计 31 项不进收集）+ `SKIPPED [1] tests	est_packaging.py:251`（CI 不跑 PyInstaller） |
-| ubuntu-latest / 3.12 | dev | 303 | 同上（3.12 无版本差型失败） |
-| windows-latest / 3.8 | dev,gui | 334 | 仅 `test_packaging.py:251` 一条；**GUI 31 项真跑** |
-| windows-latest / 3.12 | dev | 303 | 同 ubuntu 两条 GUI 跳过 + 一条未构建 |
+| ubuntu-22.04 / 3.8 | dev | 23 个文件 / 303 项 | `SKIPPED [2] tests\_gui.py:19`（GUI 两模块模块级 importorskip，合计 31 项不进收集）+ `SKIPPED [1] tests	est_packaging.py:251`（CI 不跑 PyInstaller） |
+| ubuntu-latest / 3.12 | dev | 23 / 303 | 同上（3.12 无版本差型失败） |
+| windows-latest / 3.8 | dev,gui | **25 / 334** | 仅 `test_packaging.py:251` 一条；**GUI 31 项真跑** |
+| windows-latest / 3.12 | dev | 23 / 303 | 同 ubuntu 两条 GUI 跳过 + 一条未构建 |
 
 
 ## 五、发布执行记录

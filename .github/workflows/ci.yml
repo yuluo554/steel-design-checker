@@ -54,11 +54,15 @@ jobs:
 
       - name: "Bench gate (未达标或不可用即红，两个不可判如实留档)"
         run: |
-          set +e +o pipefail
-          python -X utf8 -m sdc bench --all --json | python -X utf8 scripts/ci_bench_gate.py - "${PIPESTATUS[0]}"
-          gate_rc=$?
-          set -e -o pipefail
-          exit "$gate_rc"
+          # 退出码必须单独取（`${PIPESTATUS[0]}` 在管道执行前就展开，会拿到陈旧值——
+          # run 37571427131 就是被门禁自己那条"退出码与状态对账"断言抓住的）
+          # 落地文件走 .tmp_parse/：既被 .gitignore 覆盖，也在 test_eol_guard 的跳过名单里
+          mkdir -p .tmp_parse
+          set +e
+          python -X utf8 -m sdc bench --all --json > .tmp_parse/ci_bench.json
+          bench_rc=$?
+          set -e
+          python -X utf8 scripts/ci_bench_gate.py .tmp_parse/ci_bench.json "$bench_rc"
 
       - name: Synth corpus is byte-reproducible
         run: python -X utf8 -m sdc synth --check
