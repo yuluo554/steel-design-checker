@@ -8,6 +8,10 @@
 - docProps 的 creator/lastModifiedBy 用占位符，时间戳写死 epoch。
 
 产物只含文本部件，无超链接、无图片、无外部引用（0 外链硬断言的成立前提）。
+
+`application` 与 `creator` 有默认值：合成语料用默认值（改了会打挂 `data/synth/` 的字节冻结），
+报告导出（`sdc report`）另传自己的值。两条产物共用同一套固定 ZipInfo 写法，
+"两次导出字节一致"因此是同一条纪律，不是两处各写一遍。
 """
 
 import io
@@ -18,6 +22,7 @@ W_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 FIXED_DATE_TIME = (1980, 1, 1, 0, 0, 0)
 META_PLACEHOLDER = "SYNTH_PLACEHOLDER"
 EPOCH_STAMP = "1970-01-01T00:00:00Z"
+APP_NAME = "sdc-synth"
 
 _CONTENT_TYPES = (
     '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
@@ -65,24 +70,28 @@ _STYLES = (
     '<w:name w:val="Normal"/></w:style></w:styles>' % W_NS
 )
 
-_CORE = (
-    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-    '<cp:coreProperties '
-    'xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" '
-    'xmlns:dc="http://purl.org/dc/elements/1.1/" '
-    'xmlns:dcterms="http://purl.org/dc/terms/" '
-    'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
-    '<dc:creator>%s</dc:creator><cp:lastModifiedBy>%s</cp:lastModifiedBy>'
-    '<dcterms:created xsi:type="dcterms:W3CDTF">%s</dcterms:created>'
-    '<dcterms:modified xsi:type="dcterms:W3CDTF">%s</dcterms:modified>'
-    '</cp:coreProperties>' % (META_PLACEHOLDER, META_PLACEHOLDER, EPOCH_STAMP, EPOCH_STAMP)
-)
+def _core(creator: str) -> str:
+    return (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        '<cp:coreProperties '
+        'xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" '
+        'xmlns:dc="http://purl.org/dc/elements/1.1/" '
+        'xmlns:dcterms="http://purl.org/dc/terms/" '
+        'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
+        '<dc:creator>%s</dc:creator><cp:lastModifiedBy>%s</cp:lastModifiedBy>'
+        '<dcterms:created xsi:type="dcterms:W3CDTF">%s</dcterms:created>'
+        '<dcterms:modified xsi:type="dcterms:W3CDTF">%s</dcterms:modified>'
+        '</cp:coreProperties>' % (creator, creator, EPOCH_STAMP, EPOCH_STAMP)
+    )
 
-_APP = (
-    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-    '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties">'
-    '<Application>sdc-synth</Application></Properties>'
-)
+
+def _app(application: str) -> str:
+    return (
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+        '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/'
+        'extended-properties">'
+        '<Application>%s</Application></Properties>' % application
+    )
 
 
 def _escape(text: str) -> str:
@@ -104,25 +113,30 @@ def document_xml(paragraphs: List[str]) -> str:
             '</w:body></w:document>' % (W_NS, body))
 
 
-def _entries(paragraphs: List[str]) -> List[Tuple[str, bytes]]:
+def _entries(paragraphs: List[str], application: str, creator: str) -> List[Tuple[str, bytes]]:
     return [
         ("[Content_Types].xml", _CONTENT_TYPES.encode("utf-8")),
         ("_rels/.rels", _ROOT_RELS.encode("utf-8")),
         ("word/_rels/document.xml.rels", _DOC_RELS.encode("utf-8")),
         ("word/styles.xml", _STYLES.encode("utf-8")),
         ("word/document.xml", document_xml(paragraphs).encode("utf-8")),
-        ("docProps/core.xml", _CORE.encode("utf-8")),
-        ("docProps/app.xml", _APP.encode("utf-8")),
+        ("docProps/core.xml", _core(creator).encode("utf-8")),
+        ("docProps/app.xml", _app(application).encode("utf-8")),
     ]
 
 
-def build_docx(paragraphs: List[str]) -> bytes:
+def build_docx(paragraphs: List[str], application: str = APP_NAME,
+               creator: str = META_PLACEHOLDER) -> bytes:
     buffer = io.BytesIO()
     with zipfile.ZipFile(buffer, "w", zipfile.ZIP_STORED) as archive:
-        for name, payload in _entries(paragraphs):
+        for name, payload in _entries(paragraphs, application, creator):
             info = zipfile.ZipInfo(name, date_time=FIXED_DATE_TIME)
             info.compress_type = zipfile.ZIP_STORED
             info.external_attr = 0
             info.create_system = 0
             archive.writestr(info, payload)
     return buffer.getvalue()
+
+
+DOCX_PARTS = tuple(name for name, _payload in
+                   _entries([], APP_NAME, META_PLACEHOLDER))
