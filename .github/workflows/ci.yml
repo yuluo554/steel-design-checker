@@ -37,13 +37,14 @@ jobs:
           python -m pip install -e ".[${{ matrix.extras }}]"
 
       # 收集数对账：GUI 模块的声明式跳过会让不同矩阵数出不同的 passed，
-      # 所以把收集数与跳过原因都打印出来，逐项归因写进 RELEASE-M6 留档
+      # 所以把收集总数与跳过原因都打印出来，逐项归因写进 RELEASE-M6 留档
       - name: Collect count and skip reasons
         run: |
           set +e
           python -X utf8 -m pytest --collect-only -q > collect.txt
           echo "collect_rc=$?"
-          tail -n 2 collect.txt
+          set -e
+          awk -F': ' '/^tests\/test_/ {s+=$2; n++} END {printf "collected_files=%d collected_items=%d\n", n, s}' collect.txt
           python -X utf8 -m sdc --version
 
       - name: Run the test suite

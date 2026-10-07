@@ -74,11 +74,43 @@ py -3.8 -X utf8 scripts/audit_release.py dist        # ⑤ 构建产物本体扫
 
 发布 zip 与源码的同一基线用 `git diff <发布基线>..HEAD -- src/` 为空来证明，防"扫的是旧产物"。
 
-### ④ 改写执行记录
+### ④ 改写执行记录（2026-10-07，用户授权）
 
-待回填：备份 bundle → `git filter-branch --env-filter` → 清 `refs/original` + reflog + gc →
-三扫（逐提交 blob grep / `git log --all -p` / 提交信息）→ `git config user.email` 同步。
-字面值不入仓，终验在仓外用固定字面执行。
+| 序 | 动作 | 命令 | 结论 |
+|---|---|---|---|
+| 1 | 范围诊断 | `git rev-list --all \| while read c; do git grep -lF "<旧邮箱>" "$c"; done \| sort -u` | **0 个 blob 命中** ⇒ 邮箱只在提交元数据 ⇒ 单跑 `--env-filter` 足够，不需要 tree-filter |
+| 2 | 仓外备份 | `git bundle create ../steel-design-checker-history-backup.bundle --all` + `git bundle verify` | 备份在**仓库外**，记录完整历史（12 个提交）；改写失败可整仓恢复 |
+| 3 | 全历史改写 | `git filter-branch -f --env-filter '…' -- --all`（输出**不接管道**，重定向到文件） | rc=0，12 个提交全部重写，`refs/heads/main` was rewritten |
+| 4 | 树未被改动证明 | `git rev-parse 2481ce3^{tree}` vs `git rev-parse HEAD^{tree}` | 两个 tree 哈希**完全相同**（`d13c12fd…`）⇒ 只动元数据，工作树与基准不受影响 |
+| 5 | 清理 | `rm -rf .git/refs/original` → `git reflog expire --expire=now --all` → `git gc --prune=now --aggressive` | `git fsck --no-reflogs` 无错误；`git status --porcelain` 空 |
+| 6 | 本地配置同步 | `git config user.email "…@users.noreply.github.com"` | 后续提交不再引入旧邮箱 |
+| 7 | 终验三扫 | ①逐提交 blob grep ②`git log --all -p` 计数 ③`git log --all --format="%an %ae %cn %ce"` 计数 ④`git cat-file commit` 逐个提交对象头 | **全部 0 命中**；阳性对照用历史里确实存在的字面（`steel-design-checker`，19 处）先证明扫描通道本身工作正常 |
+| 8 | 工具复核 | `audit_release.py metadata` / `messages` | 两个模式均 `DESENSITIZE_AUDIT_OK`；`metadata` 只剩 1 个不同值（noreply） |
+
+字面值不入仓、不入本文：改写前 `git log` 取到的是「11 位数字@qq.com」形态的真实邮箱，
+终验在**本 shell 会话内**用固定字面执行（`--all` 扫描在清理 `refs/original` 之后进行，
+避免备份 ref 把旧对象扫进来误报）。
+
+### 五步合跑结论（改写后）
+
+```
+py -3.8 -X utf8 scripts/audit_release.py all      # rc=0
+[selftest] 阳性/阴性对照 9 组
+[tracked]  文本 133 份 / 二进制 25 份
+[binary]   展开 25 份跟踪二进制（docx 全 zip 条目）
+[messages] 全历史提交信息 12 条
+[metadata] 作者/提交者邮箱 1 个不同值（noreply）
+[history]  补丁全文 1,427,055 字符
+[dist]     遍历 dist 树 252 个文件
+汇总：硬门 0 类命中 / 复核项 12 类命中 → DESENSITIZE_AUDIT_OK
+```
+
+12 处复核项 = 上表 9 处（跟踪面）+ 全历史补丁的 `drive_path` 14 次与 `sister_word` 5 次
+（同一批文件在各历史版本里重复出现所致），判定理由与跟踪面一致，无新增面。
+
+**⑤ 构建产物本体扫描的关键结论**：M5 在开发机路径下构建的 252 个产物文件里**没有**个人标记字节，
+也没有禁区成分——PyInstaller 只把模块记成相对名，构建机绝对路径没有跟进 exe。这条不是猜的：
+字节读法逐个文件扫（含 `base_library.zip`、`PYZ-00.pyz`、Qt DLL 与 `.pyd`）才敢这么写。
 
 **阳性对照不是形式**：首轮 selftest 抓出两处扫描器自身的问题——邮箱正则把域名要求成"至少三段"
 （两段域，形如 `<本地部分>@<服务商>.com`，被放行），以及 `\.env$` 前面多加了路径分隔符锚
