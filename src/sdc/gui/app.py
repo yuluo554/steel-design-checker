@@ -85,11 +85,27 @@ def run(data_dir: Optional[str] = None, argv: Optional[Sequence[str]] = None) ->
     return int(app.exec())
 
 
+def drain_events(app, rounds: int = 3) -> None:
+    """多轮事件循环 + 显式冲刷 DeferredDelete（抓帧前必须调）。
+
+    实测缺陷（阶段二 P1-1）：只调一次 ``processEvents()`` 就 ``grab()`` 会抓到**标签重影**——
+    ``page_verify._rebuild()`` 用 ``deleteLater()`` 清旧控件，而 ``DeferredDelete`` 事件
+    要等事件循环才真正删除，一次 ``processEvents()`` 来不及，旧标签仍被绘制。
+    这里既跑多轮，也显式 ``sendPostedEvents(None, DeferredDelete)``，两处一起才稳。
+    """
+    from PySide6.QtCore import QCoreApplication, QEvent
+
+    for _ in range(rounds):
+        app.processEvents()
+        QCoreApplication.sendPostedEvents(None, QEvent.DeferredDelete)
+
+
 def capture(data_dir: Optional[str], out_path: str) -> int:
     """截一张主窗口帧（DoD 里的可演示物）。
 
     两个实测坑：offscreen 平台拿不到中文字体，抓帧要在 native QPA 上跑；
     `QPixmap.save(BytesIO)` 在 PySide6 6.6 不可用，所以存进 QBuffer 再落盘。
+    第三个坑见 :func:`drain_events`：抓帧前必须把挂起的事件（尤其 ``deleteLater()``）跑完。
     """
     from PySide6.QtCore import QBuffer, QIODevice
 
@@ -101,7 +117,7 @@ def capture(data_dir: Optional[str], out_path: str) -> int:
     app = QApplication.instance() or QApplication([])
     window = build_main_window(resolved)
     window.show()
-    app.processEvents()
+    drain_events(app)
     buffer = QBuffer()
     buffer.open(QIODevice.ReadWrite)
     window.grab().save(buffer, "PNG")

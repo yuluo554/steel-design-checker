@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "review": {
+      "reviewed_on": "2026-10-19",
+      "cycle_months": 12,
+      "next_review_due": "2027-10-19",
+      "reviewer": "执行方（阶段三 任务 5，权威渠道直连核实；公告原文与渠道状态见 plan/07）",
+      "standards": [
+        {
+          "standard": "GB 50017-2017《钢结构设计标准》",
+          "issued": "2017-12-12",
+          "effective": "2018-07-01",
+          "currency": "现行（本体未被废止）；其 4.3.2 等强制性条文自 GB 55006-2021 施行之日（2022-01-01）起废止—— 废止条号由住建部公告 2021 年第 69 号及 ≥10 个载体逐字证实（plan/07 §七 V7）。本库引用的计算条文（第 11 章连接、第 7 章轴心受力）不在废止清单内；「由 55006 3.0.2 承接」这半句仍未核实，按未核实处理。",
+          "authority_url": "https://www.mohurd.gov.cn/gongkai/zc/wjk/art/2021/art_17339_761191.html ; https://openstd.samr.gov.cn/bzgk/gb/std_list?p.p2=GB%2050017-2017",
+          "conclusion": "本库 35 条条款 + 11 张表 + 9 条公式 + 32 个符号来自该标准，全部 status=located（数值未取到，不入计算路径）；本轮复核确认标准现行、废止范围不含本库引用条文，故 located 档位与 blocked 判定不变。"
+        },
+        {
+          "standard": "GB 55006-2021《钢结构通用规范》（全文强制）",
+          "issued": "2021-04-09",
+          "effective": "2022-01-01",
+          "currency": "现行；本轮**直连住建部公告原文核实**（公告 2021 年第 69 号，发文 2021-04-09，实施 2022-01-01，全文强制，附件 2 为「废止的现行工程建设标准相关强制性条文」）",
+          "authority_url": "https://www.mohurd.gov.cn/gongkai/zc/wjk/art/2021/art_17339_761191.html",
+          "conclusion": "本库 107 条检查单（GB 55006 全 8 章）与 107 条条款据此建立，M3 已按「双主机文字层」档登记；本轮复核不改变任何条目档位。"
+        },
+        {
+          "standard": "JGJ 82-2011《钢结构高强度螺栓连接技术规程》",
+          "issued": "2011-01-07",
+          "effective": "2011-10-01",
+          "currency": "现行；批准发布为「2011 年 1 月 7 日第 875 号公告」，替代 JGJ 82-91（plan/07 §三 逐字登记）。其 6 条强制性条文已随 GB 55006-2021 一并废止（公告附件第 15 项，双渠道一致）。**住建部公告页本轮未直连**：mohurd 站内检索接口不可用，候选页逐条核对均不匹配，现行性以全国标准信息公共服务平台条目检索入口为据。",
+          "authority_url": "https://openstd.samr.gov.cn/bzgk/gb/std_list?p.p2=JGJ%2082-2011",
+          "conclusion": "本库 19 条条款 + 2 张表 + 5 条公式 + 4 个符号来自该规程，全部 located；废止的是强制性条文，本库引用的 4.1.1 计算式不在其中（V2 已解、系数仍属二手渠道 → located）。"
+        }
+      ],
+      "covered_files": {
+        "clauses/gb50017.json": {
+          "standard": [
+            "GB 50017-2017《钢结构设计标准》"
+          ],
+          "used_by": [
+            "sdc.kb",
+            "sdc.rules.gate"
+          ]
+        },
+        "clauses/gb55006.json": {
+          "standard": [
+            "GB 55006-2021《钢结构通用规范》（全文强制）"
+          ],
+          "used_by": [
+            "sdc.kb",
+            "sdc.rules.gate"
+          ]
+        },
+        "clauses/jgj82-2011.json": {
+          "standard": [
+            "JGJ 82-2011《钢结构高强度螺栓连接技术规程》"
+          ],
+          "used_by": [
+            "sdc.kb",
+            "sdc.rules.gate"
+          ]
+        },
+        "tables/gb50017.json": {
+          "standard": [
+            "GB 50017-2017《钢结构设计标准》"
+          ],
+          "used_by": [
+            "sdc.kb",
+            "sdc.rules.gate"
+          ]
+        },
+        "tables/jgj82-2011.json": {
+          "standard": [
+            "JGJ 82-2011《钢结构高强度螺栓连接技术规程》"
+          ],
+          "used_by": [
+            "sdc.kb",
+            "sdc.rules.gate"
+          ]
+        },
+        "formulas/gb50017.json": {
+          "standard": [
+            "GB 50017-2017《钢结构设计标准》"
+          ],
+          "used_by": [
+            "sdc.kb",
+            "sdc.rules.gate"
+          ]
+        },
+        "formulas/jgj82-2011.json": {
+          "standard": [
+            "JGJ 82-2011《钢结构高强度螺栓连接技术规程》"
+          ],
+          "used_by": [
+            "sdc.kb",
+            "sdc.rules.gate"
+          ]
+        },
+        "symbols/jgj82-2011.json": {
+          "standard": [
+            "JGJ 82-2011《钢结构高强度螺栓连接技术规程》"
+          ],
+          "used_by": [
+            "sdc.kb",
+            "sdc.rules.gate"
+          ]
+        },
+        "symbols/symbols.json": {
+          "standard": [
+            "GB 50017-2017《钢结构设计标准》"
+          ],
+          "used_by": [
+            "sdc.kb",
+            "sdc.rules.gate"
+          ]
+        },
+        "rules/description_rules.json": {
+          "standard": [
+            "GB 50017-2017《钢结构设计标准》",
+            "GB 55006-2021《钢结构通用规范》（全文强制）",
+            "JGJ 82-2011《钢结构高强度螺栓连接技术规程》"
+          ],
+          "used_by": [
+            "sdc.kb",
+            "sdc.rules.engine"
+          ]
+        },
+        "checklist/gb55006.json": {
+          "standard": [
+            "GB 55006-2021《钢结构通用规范》（全文强制）"
+          ],
+          "used_by": [
+            "sdc.kb",
+            "sdc.checklist"
+          ]
+        }
+      },
+      "declared_not_used": [
+        {
+          "item": "python-docx（pyproject `report` extras 声明）",
+          "not_used_by": [
+            "sdc.report",
+            "sdc.engine"
+          ],
+          "reason": "登记为可选 extras 但代码不使用：它会写入真实时间与用户名，打挂交付物「无身份信息 + 两次导出字节一致」（K42）。"
+        },
+        {
+          "item": "pypdf（pyproject `pdf` extras 声明）",
+          "not_used_by": [
+            "sdc.parse"
+          ],
+          "reason": "PDF 输入尚未支持（只 .docx/.txt/.md），extras 仅登记不启用。"
+        }
+      ]
+    }
+  },
+  "note": "阶段三 任务 5：规则集复核元数据。本仓知识文件是顶层 JSON 数组，无法在同一文件里承载文件级 meta.review，故单列本文件（loader 只扫 data/<kind>/ 目录，不读这里），由 tests/test_clause_review.py 守门：standards 覆盖每个知识文件、authority_url 非空、声明「本版本不依赖」的项必须有 not_used_by。"
+}

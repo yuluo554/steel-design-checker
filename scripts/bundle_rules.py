@@ -24,7 +24,9 @@ DATA_SUBDIRS = ("clauses", "tables", "formulas", "symbols", "rules", "checklist"
                 "selfcheck", "examples", "synth")
 
 # 明确不入包的 data 成员
-DATA_EXCLUDED = ("README.md", "cases")
+# - `review/`：阶段三 任务 5 的规则集复核元数据（人审与守门用），不是运行必需数据，
+#   且内含权威渠道 URL —— 按 K40/K42 不进交付物。
+DATA_EXCLUDED = ("README.md", "cases", "review")
 
 # 任何深度都不得出现的路径成分（本项目自己的取证/计划/会话产物与本地环境目录）
 FORBIDDEN_ANYWHERE = (".git", ".tmp_verify", ".tmp_parse", ".venv", "venv", "plan",

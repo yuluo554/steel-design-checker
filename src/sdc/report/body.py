@@ -20,6 +20,13 @@ TITLE_RESULT = "钢结构连接与构件验算书"
 TITLE_CHECK = "设计说明文本核查清单"
 TITLE_CHECKLIST = "GB 55006-2021 符合性检查单"
 
+# 报告头：依据版本（阶段三 任务 5）。文号/实施日期与 README「判定依据」表、
+# data/review/ruleset-review.json 的 meta.review 三处一致，由 tests/test_clause_review.py 守门。
+# 刻意不写「生成时间」：本仓交付物要求无身份信息 + 两次导出逐字节一致（K42）。
+STANDARDS_LINE = ("依据规范：GB 50017-2017（2018-07-01 实施）、"
+                  "GB 55006-2021（2022-01-01 实施）、JGJ 82-2011（2011-10-01 实施）；"
+                  "本次复核 2026-10-19，下次复核 2027-10-19")
+
 
 def _name(path: str) -> str:
     """只留文件名：绝对路径里带机器名与用户名，不进交付物（口径 K42）。"""
@@ -28,7 +35,7 @@ def _name(path: str) -> str:
 
 
 def _header(title: str, tool: str, extra: List[str]) -> List[str]:
-    out = [title, "导出命令：sdc %s；引擎版本：%s" % (tool, __version__)]
+    out = [title, "导出命令：sdc %s；引擎版本：%s" % (tool, __version__), STANDARDS_LINE]
     out.extend(line for line in extra if line)
     out.append("")
     return out

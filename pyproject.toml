@@ -12,12 +12,15 @@ license = { text = "MIT" }
 authors = [{ name = "yuluo554" }]
 keywords = ["steel", "structural-design", "gb-50017", "gb-55006", "offline", "compliance"]
 classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Manufacturing",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.12",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Natural Language :: Chinese (Simplified)",
+    "Topic :: Scientific/Engineering",
 ]
 dependencies = []
 
@@ -25,6 +28,7 @@ dependencies = []
 Homepage = "https://github.com/yuluo554/steel-design-checker"
 Repository = "https://github.com/yuluo554/steel-design-checker.git"
 Issues = "https://github.com/yuluo554/steel-design-checker/issues"
+Changelog = "https://github.com/yuluo554/steel-design-checker/blob/main/CHANGELOG.md"
 
 [project.optional-dependencies]
 # dev 之外的 extras 在 M1 均不安装：M1 只用标准库（合成语料的 docx 由 zipfile 直写 OOXML，
