@@ -11,8 +11,10 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # 守门范围 = 会被 clone 出来的文件。`.tmp_verify/` 与 `.tmp_parse/` 都在 .gitignore 里
 # （取证缓存与 IR 工作目录，收尾不删），它们不落进仓库就不该参与跨平台字节基准，
 # 但目录名必须写在这里——否则会话里一份带 CRLF 的临时输出会把守门测试本身打挂。
+# `update/` 同理：二次迭代的交接物已在 .gitignore 里（含本机绝对路径），
+# 两处必须一致，否则交接物一落盘就把本测试打红（2026-10-22 复验已发生一次）。
 SKIP_DIRS = (".git", ".venv", "__pycache__", ".tmp_verify", ".tmp_parse",
-             ".qoder-credits", ".pytest_cache", "build", "dist")
+             ".qoder-credits", ".pytest_cache", "build", "dist", "update")
 TEXT_EXTS = (".py", ".md", ".json", ".txt", ".toml", ".ini", ".cfg", ".yaml",
              ".yml", ".ps1", ".sh")
 TEXT_NAMES = (".gitignore", ".gitattributes")

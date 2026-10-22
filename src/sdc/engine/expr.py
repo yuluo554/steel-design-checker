@@ -166,10 +166,9 @@ def _eval(node: ast.AST, env: Dict[str, float], where: str) -> float:
             raise ExprError("%s：式体只允许数值常量，出现 %r" % (where, node.value))
         return float(node.value)
 
-    # Python 3.7 及更早的 Num/Str 节点（保持 3.8 兼容，也防不同编译后端差异）
-    num = getattr(ast, "Num", None)
-    if num is not None and isinstance(node, num):
-        return _num(node.value, where)
+    # 0.1.1 删掉了原来的 `ast.Num` 兜底分支：`ast.parse` 从 3.8 起就只产 `ast.Constant`，
+    # 上面那段已完整覆盖；而 `getattr(ast, "Num", ...)` 本身会触发
+    # DeprecationWarning（ast.Num 3.12 起弃用、3.14 移除），把 pytest 的告警淹成 1735 条。
 
     if isinstance(node, ast.Name):
         if node.id in CONSTANTS:

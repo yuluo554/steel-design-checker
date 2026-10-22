@@ -4,7 +4,12 @@
 本轮已知的不可判就那两项，名单写死在这里是故意的：冒出第三个说明有人改了数据却没登记，
 CI 应该红一次，而不是默默放行。退出码与状态的一致性也在这里对账（`bench` 自己按 K43 取码）。
 
-用法：`python scripts/ci_bench_gate.py bench.json <bench 的退出码>`
+0.1.1 起 CI 用 `bench --all --allow-indeterminate`：带上它 `bench` 对"只有不可判"的指标表
+返回 0（DEC2=A 的退出码粒度），所以 `_expected_rc` 必须知道本次带没带旗标，否则会把
+合法的 0 判成"退出码不一致"。旗标只影响「不可判」这一档 —— 「未达标」与「不可用」
+仍然一律红，这是本文件的核心断言（见 `_expected_rc` 与 tests/test_ci_workflow.py 的负控）。
+
+用法：`python scripts/ci_bench_gate.py bench.json <bench 的退出码> [--allow-indeterminate]`
 """
 
 import json
@@ -16,7 +21,7 @@ STATUS_LABEL = {"pass": "达标", "fail": "未达标",
 KNOWN_UNMEASURABLE = ("算例通过率", "可硬判 abnormal 的规则分母")
 
 
-def gate(report, bench_rc):
+def gate(report, bench_rc, allow_indeterminate=False):
     """返回 (打印行, 违规行)：违规非空即 exit 1。"""
     lines = []
     problems = []
@@ -34,38 +39,49 @@ def gate(report, bench_rc):
         elif status == "unmeasurable" and row.get("name") not in KNOWN_UNMEASURABLE:
             problems.append("新的不可判项未登记：%s" % row.get("name"))
 
-    expected = _expected_rc(rows)
+    expected = _expected_rc(rows, allow_indeterminate)
     if bench_rc != expected:
-        problems.append("退出码与指标表不一致：bench 返回 %s，按 K43 应为 %s" % (bench_rc, expected))
+        problems.append("退出码与指标表不一致：bench 返回 %s，按 K43%s 应为 %s" % (
+            bench_rc, "（含 --allow-indeterminate）" if allow_indeterminate else "", expected))
     return lines, problems
 
 
-def _expected_rc(rows):
-    """复刻 suite._exit_code 的口径 K43，用来对账而不是照抄它的结论。"""
+def _expected_rc(rows, allow_indeterminate=False):
+    """复刻 suite._exit_code 的口径 K43，用来对账而不是照抄它的结论。
+
+    `allow_indeterminate` 只把 `unmeasurable` 从"非 0"里摘出来；`fail` 永远推成 1，
+    `unavailable` 永远推成 2 —— 这三条不许被旗标连坐放行。
+    """
     if any(row.get("status") == "unavailable" for row in rows):
         return 2
-    if rows and all(row.get("status") == "pass" for row in rows):
+    if any(row.get("status") == "fail" for row in rows):
+        return 1
+    passing = ("pass", "unmeasurable") if allow_indeterminate else ("pass",)
+    if rows and all(row.get("status") in passing for row in rows):
         return 0
     return 1
 
 
 def main(argv):
-    if len(argv) != 3:
-        sys.stderr.write("用法：ci_bench_gate.py <bench.json> <bench 退出码>\n")
+    args = [a for a in argv[1:] if a != "--allow-indeterminate"]
+    allow_indeterminate = len(args) != len(argv[1:])
+    if len(args) != 2:
+        sys.stderr.write("用法：ci_bench_gate.py <bench.json> <bench 退出码>"
+                         " [--allow-indeterminate]\n")
         return 2
     try:
-        with open(argv[1], "r", encoding="utf-8") as handle:
+        with open(args[0], "r", encoding="utf-8") as handle:
             report = json.load(handle)
     except (OSError, ValueError) as exc:
         sys.stderr.write("读不到基准 JSON：%s\n" % exc)
         return 2
     try:
-        bench_rc = int(argv[2])
+        bench_rc = int(args[1])
     except ValueError:
-        sys.stderr.write("退出码不是整数：%s\n" % argv[2])
+        sys.stderr.write("退出码不是整数：%s\n" % args[1])
         return 2
 
-    lines, problems = gate(report, bench_rc)
+    lines, problems = gate(report, bench_rc, allow_indeterminate)
     for line in lines:
         sys.stdout.write(line + "\n")
     if problems:

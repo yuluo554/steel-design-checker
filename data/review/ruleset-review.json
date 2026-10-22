@@ -136,19 +136,19 @@
       },
       "declared_not_used": [
         {
-          "item": "python-docx（pyproject `report` extras 声明）",
+          "item": "python-docx（0.1.0 曾以 `report` extras 登记，0.1.1 起移除）",
           "not_used_by": [
             "sdc.report",
             "sdc.engine"
           ],
-          "reason": "登记为可选 extras 但代码不使用：它会写入真实时间与用户名，打挂交付物「无身份信息 + 两次导出字节一致」（K42）。"
+          "reason": "代码不使用：它会写入真实时间与用户名，打挂交付物「无身份信息 + 两次导出字节一致」（K42）。0.1.1 已把 `report` extra 从 pyproject 删除，登记仍保留以说明「本版本不依赖它」。"
         },
         {
-          "item": "pypdf（pyproject `pdf` extras 声明）",
+          "item": "pypdf（0.1.0 曾以 `pdf` extras 登记，0.1.1 起移除）",
           "not_used_by": [
             "sdc.parse"
           ],
-          "reason": "PDF 输入尚未支持（只 .docx/.txt/.md），extras 仅登记不启用。"
+          "reason": "PDF 输入尚未支持（只 .docx/.txt/.md）。0.1.1 已把 `pdf` extra 从 pyproject 删除，登记仍保留以说明「本版本不依赖它」。"
         }
       ]
     }

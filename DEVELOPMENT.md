@@ -55,12 +55,34 @@ tests/                                              25 个测试模块（schema/
 所以 CI 打印收集总数并在 RELEASE-M6 里逐项归因。**CI 不落地任何 scratch 文件**：Windows runner 上
 `> collect.txt` 会写成 CRLF，而 `tests/test_eol_guard.py` 扫工作树（CI 首跑就是被这条抓住的）。
 
+CI 另有一条 `No CRLF committed to the index`（`git ls-files --eol | grep i/crlf`）：EOL 测试只能看见
+**工作树**，看不见索引里到底存了什么，这条把「提交进仓库的 CRLF」挡在合并前。
+
+基准那一步从 0.1.1 起用 `sdc bench --all --json --allow-indeterminate`（DEC2=A）：分母 0 的
+「不可判」按 0 放行，「未达标 / 不可用」照旧红；门禁脚本要拿到同一个旗标才能对账退出码。
+
+**可选 extras 只有 `dev` / `gui` / `pkg`**（0.1.1 移除了 `report` / `pdf`：代码里 0 使用，
+装了只会白拉 python-docx + lxml / pypdf）。
+
 本机等价命令（本机 venv 引导 pip 会崩，见 HANDOFF-M1 §五；测试用 `pythonpath = ["src"]` 免安装）：
 
 ```bash
 py -3.8 -X utf8 -m pytest -q -rs
 py -3.8 -X utf8 -m sdc bench --all
 ```
+
+测试总数**随 extras 变化**，复验时必须说清装法（2026-10-22 实测，全新 venv）：
+
+| 装法 | 0.1.0 基线 | 0.1.1 实测 |
+| --- | --- | --- |
+| `pip install -e .` + `pytest`（核心） | `301 passed, 3 skipped` | **`304 passed, 3 skipped`** |
+| `pip install -e ".[dev]"` | `309 passed, 2 skipped` | **`313 passed, 2 skipped`** |
+| `.[dev]` + `PySide6>=6.4,<6.7` | `340 passed, 1735 warnings` | **`344 passed`, 0 warnings** |
+
+增量来源（+3 / +4 / +4）：`test_suite.py` 两条（旗标只放行 `unmeasurable`；
+放行后仍逐项列「不可判」）+ `test_run_cli.py` 一条（命令面四态）——
+这三条不依赖 pyyaml；`test_ci_workflow.py` 那条门禁负控要靠 `[dev]` 的 pyyaml，
+所以核心档只 +3。
 
 ## 四、条款库三档与拒算门控（口径见 plan/05、plan/07）
 
@@ -86,8 +108,8 @@ py -3.8 -X utf8 scripts/clean_env_check.py           # 中立目录 + 剥离 PAT
 
 | 项 | 值 |
 | --- | --- |
-| 版本 | `v0.1.0`（包版本 `0.1.0`，`pyproject.toml` / `src/sdc/__init__.py`） |
-| 发布留档 | [plan/RELEASE-M6.md](plan/RELEASE-M6.md) |
+| 版本 | `v0.1.1`（包版本 `0.1.1`，`pyproject.toml` / `src/sdc/__init__.py`） |
+| 发布留档 | [plan/RELEASE-M6.md](plan/RELEASE-M6.md)（v0.1.0）、[plan/RELEASE-0.1.1.md](plan/RELEASE-0.1.1.md)（v0.1.1） |
 | 构建红线 | `scripts/verify_dist.py`（DIST_AUDIT_OK）+ `scripts/clean_env_check.py`（CLEAN_ENV_OK） |
 | 脱敏审计 | `scripts/audit_release.py`（五步审计：无 URL、无绝对路径、无用户名） |
 

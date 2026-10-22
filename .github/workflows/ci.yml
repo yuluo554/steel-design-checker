@@ -31,6 +31,19 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      # EOL 门在 CI 层的对应条款：`test_eol_guard.py` 只能看见**工作树**，
+      # 看不见"索引里到底存了什么"。这条断言直接读 git 的判定，把
+      # 「提交进仓库的 CRLF」（含被 -text 标记而绕过 .gitattributes 的文件）挡在合并前。
+      - name: No CRLF committed to the index
+        run: |
+          offenders=$(git ls-files --eol | grep 'i/crlf' || true)
+          if [ -n "$offenders" ]; then
+            echo "以下文件在索引里存的是 CRLF（会打挂跨平台字节基准）："
+            echo "$offenders"
+            exit 1
+          fi
+          echo "EOL_INDEX_OK（索引内 0 个 i/crlf）"
+
       - name: Install with extras
         run: |
           python -m pip install -U pip
@@ -57,12 +70,16 @@ jobs:
           # 退出码必须单独取（`${PIPESTATUS[0]}` 在管道执行前就展开，会拿到陈旧值——
           # run 37571427131 就是被门禁自己那条"退出码与状态对账"断言抓住的）
           # 落地文件走 .tmp_parse/：既被 .gitignore 覆盖，也在 test_eol_guard 的跳过名单里
+          # 0.1.1 起带 --allow-indeterminate（DEC2=A）：分母 0 的两项按「不可判」放行，
+          # 「未达标/不可用」照旧红。门禁脚本必须拿到同一个旗标，否则会对账失败。
           mkdir -p .tmp_parse
           set +e
-          python -X utf8 -m sdc bench --all --json > .tmp_parse/ci_bench.json
+          python -X utf8 -m sdc bench --all --json --allow-indeterminate > .tmp_parse/ci_bench.json
           bench_rc=$?
           set -e
-          python -X utf8 scripts/ci_bench_gate.py .tmp_parse/ci_bench.json "$bench_rc"
+          python -X utf8 scripts/ci_bench_gate.py .tmp_parse/ci_bench.json "$bench_rc" \
+            --allow-indeterminate
+          echo "bench_rc=$bench_rc（带旗标时应为 0；为 1 说明出现了真·未达标）"
 
       - name: Synth corpus is byte-reproducible
         run: python -X utf8 -m sdc synth --check

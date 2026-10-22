@@ -22,6 +22,9 @@ reports/
 /.tmp_verify/
 # 会话产物
 .qoder-credits/
+# 二次迭代交接物（诊断 / 路线 / 提示词）：含本机绝对路径，不入公开仓，
+# 也不参与跨平台字节基准（tests/test_eol_guard.py 的 SKIP_DIRS 与此保持一致）
+update/
 
 # 环境与密钥
 .env

@@ -432,17 +432,26 @@ def run_audit_eval(kb, data_dir: str, ir_dir: str) -> Dict[str, Any]:
     }
 
 
-def build_report(kb, only_cases: bool = False) -> Dict[str, Any]:
+def build_report(kb, only_cases: bool = False,
+                 allow_indeterminate: bool = False) -> Dict[str, Any]:
+    """算例对账报告。
+
+    `allow_indeterminate`（口径 K43 的退出码粒度，DEC2=A）：分母为 0 的「不可判」
+    不再让 `ok` 变假；**「未达标」仍然变假**——判据只放宽「量不了」这一档，
+    不放宽「量了但没达标」。
+    """
     cases = run_cases(kb)
     report = {
         "data_dir": kb.data_dir,
         "data_fingerprint": data_fingerprint(kb.data_dir),
         "cases": cases,
         "selfcheck_samples": [] if only_cases else run_selfcheck_samples(kb),
+        "allow_indeterminate": bool(allow_indeterminate),
     }
-    report["ok"] = (cases["denominator"] > 0
-                    and cases["passed"] == cases["denominator"]
-                    and all(row["status"] == "ok" for row in report["selfcheck_samples"]))
+    report["ok"] = bool(
+        (cases["denominator"] > 0 or allow_indeterminate)
+        and cases["passed"] == cases["denominator"]
+        and all(row["status"] == "ok" for row in report["selfcheck_samples"]))
     return report
 
 
@@ -534,6 +543,9 @@ def render_text(report: Dict[str, Any]) -> str:
     if not cases["denominator"]:
         out.append("  分母 0，样本待补 —— 无来源可确证的算例一律不作真值（口径 K7/D07）。")
         out.append("  这是诚实结果，不是通过；不得用编造来源换取通过率数字。")
+        if report.get("allow_indeterminate"):
+            out.append("  本次带 --allow-indeterminate：这一项按「不可判」放行（不计失败），"
+                       "「未达标」仍判失败。")
     else:
         out.append("  %d / %d 通过，通过率 %.1f%%" % (
             cases["passed"], cases["denominator"], 100.0 * cases["pass_rate"]))

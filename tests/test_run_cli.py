@@ -113,6 +113,25 @@ def test_bench_cli_exit_codes(capsys):
     assert main(["--data-dir", FIXTURE_KB_DIR, "bench", "--cases"]) == 0
 
 
+def test_allow_indeterminate_flag_flips_the_zero_denominator_code(capsys):
+    """DEC2=A 的命令面契约：默认严格（1），带旗标放行「不可判」（0）。
+
+    这里的实数据分母是 0 —— 正是这条旗标存在的场景。旗标不许改文案的口径：
+    输出里仍要写「分母 0，样本待补」，只是退出码从"降级完成"变成 0。
+    """
+    assert main(["--data-dir", REPO_DATA_DIR, "bench"]) == 1
+    capsys.readouterr()
+    assert main(["--data-dir", REPO_DATA_DIR, "bench", "--allow-indeterminate"]) == 0
+    out = capsys.readouterr().out
+    assert "分母 0，样本待补" in out, "放行不许把分母 0 说成通过"
+    assert "allow-indeterminate" in out, "要说明这次用的是放行档"
+    # --parse/--audit 的「不可判」是缺 IR，不属于分母 0，旗标对它们没有意义 ⇒ 明确拒绝
+    assert main(["--data-dir", REPO_DATA_DIR, "bench", "--parse",
+                 "--allow-indeterminate"]) == 2
+    assert main(["--data-dir", REPO_DATA_DIR, "bench", "--cases",
+                 "--allow-indeterminate"]) == 0
+
+
 def test_bench_json_is_sorted_and_timestamp_free(capsys):
     assert main(["--data-dir", REPO_DATA_DIR, "bench", "--json"]) == 1
     report = json.loads(capsys.readouterr().out)

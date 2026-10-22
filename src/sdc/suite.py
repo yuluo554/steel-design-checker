@@ -343,7 +343,8 @@ def _eval_or_none(build, label: str, notes: List[str], enabled: bool):
         return None
 
 
-def build_report(kb, data_dir: str, workdir: Optional[str] = None) -> Dict[str, Any]:
+def build_report(kb, data_dir: str, workdir: Optional[str] = None,
+                 allow_indeterminate: bool = False) -> Dict[str, Any]:
     """四基准合一：指标表 + 明细。`--all` 与 `--sweep` 共用这一份构建。"""
     workdir = os.path.abspath(workdir or DEFAULT_WORKDIR)
     determinism = {}  # type: Dict[str, Any]
@@ -374,7 +375,7 @@ def build_report(kb, data_dir: str, workdir: Optional[str] = None) -> Dict[str, 
     trace = _traceability(data_dir)
 
     metrics = _metrics(cases, determinism, parse_eval, audit_eval, gate, trace, notes)
-    exit_code = _exit_code(metrics)
+    exit_code = _exit_code(metrics, allow_indeterminate=allow_indeterminate)
     return {
         "data_dir": os.path.abspath(data_dir),
         "data_fingerprint": data_fingerprint(data_dir),
@@ -383,6 +384,7 @@ def build_report(kb, data_dir: str, workdir: Optional[str] = None) -> Dict[str, 
         "workdir": workdir,
         "metrics": metrics,
         "notes": notes,
+        "allow_indeterminate": bool(allow_indeterminate),
         "exit_code": exit_code,
         "ok": exit_code == RC_OK,
         "detail": {
@@ -512,11 +514,18 @@ def _metrics(cases, determinism, parse_eval, audit_eval, gate, trace,
     return rows
 
 
-def _exit_code(metrics: List[Dict[str, Any]]) -> int:
-    """口径 K43：不可用 = 2；任一未达标或不可判 = 1；全达标 = 0。"""
+def _exit_code(metrics: List[Dict[str, Any]],
+               allow_indeterminate: bool = False) -> int:
+    """口径 K43：不可用 = 2；任一未达标或不可判 = 1；全达标 = 0。
+
+    `allow_indeterminate`（DEC2=A 的粒度修正）：只有 `unmeasurable`（分母 0，
+    "这条现在量不了"）从 1 里摘出来，`fail` 与 `unavailable` 照旧。
+    判据只放宽"量不了"，不放宽"量了但没达标"。
+    """
     if any(row["status"] == "unavailable" for row in metrics):
         return RC_BAD_INPUT
-    if all(row["status"] == "pass" for row in metrics):
+    blocking = ("pass", "unmeasurable") if allow_indeterminate else ("pass",)
+    if all(row["status"] in blocking for row in metrics):
         return RC_OK
     return RC_DEGRADED
 
@@ -650,7 +659,12 @@ def render_text(report: Dict[str, Any], sweep_only: bool = False,
 
     code = report["exit_code"] if exit_code is None else exit_code
     out.append("")
-    out.append("退出码：%d（口径 K43：全达标 0 / 有未达标或不可判 1 / 不可用 2）" % code)
+    if report.get("allow_indeterminate"):
+        out.append("退出码：%d（口径 K43 + --allow-indeterminate："
+                   "全达标 0 / 有未达标 1 / 不可用 2；不可判按 0 放行，"
+                   "但仍逐项列在上面的指标表里，不写成达标）" % code)
+    else:
+        out.append("退出码：%d（口径 K43：全达标 0 / 有未达标或不可判 1 / 不可用 2）" % code)
     out.append("")
     out.append("免责声明：%s" % DISCLAIMER)
     return "\n".join(out)

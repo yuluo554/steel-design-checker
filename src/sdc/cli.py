@@ -69,6 +69,9 @@ def build_parser() -> argparse.ArgumentParser:
     b = sub.add_parser("bench", help="内置基准：算例通过率 / 解析 F1 / 核查检出率 / 一键四基准")
     b.add_argument("--cases", action="store_true", dest="only_cases",
                    help="只对账 data/cases，跳过引擎自校验样例")
+    b.add_argument("--allow-indeterminate", action="store_true", dest="allow_indeterminate",
+                   help="「不可判」（分母 0）不计失败，只有「未达标」才 exit 1；"
+                        "默认严格。CI 把 bench 当门时用这一条，样本补齐后自动生效")
     b.add_argument("--parse", action="store_true", dest="bench_parse",
                    help="解析字段级 P/R/F1 对账 data/synth 真值（只吃 --ir-dir 的 IR）")
     b.add_argument("--audit", action="store_true", dest="bench_audit",
@@ -276,13 +279,22 @@ def checklist_command(data_dir: str, ir_path: Optional[str],
     return report, (EXIT_DEGRADED if degraded else EXIT_OK), ""
 
 
-def bench_suite_command(data_dir: str, workdir: Optional[str], sweep_only: bool):
-    """`bench --all` / `--sweep` 的报告；退出码按 K43 的口径分别取。"""
+def bench_suite_command(data_dir: str, workdir: Optional[str], sweep_only: bool,
+                        as_markdown: bool = False, allow_indeterminate: bool = False):
+    """`bench --all` / `--sweep` 的报告 → (report 或 None, 退出码, 错误信息)。
+
+    两者的确定性步骤都要把整批语料解析两遍，那一步走子进程（口径 K39/K45）；
+    `--sweep` 的退出码只看确定性回归自己，`--all` 看整张指标表（口径 K43，
+    `allow_indeterminate` 只把「不可判」从 1 里摘出来，「未达标」照旧）。
+    """
     kb, error = load_kb_or_error(data_dir)
     if kb is None:
         return None, EXIT_BAD_INPUT, error
+    if as_markdown and sweep_only:
+        return None, EXIT_BAD_INPUT, ("bench --sweep 没有指标表：--markdown 只对 --all 有意义\n")
     try:
-        report = suite.build_report(kb, data_dir, workdir)
+        report = suite.build_report(kb, data_dir, workdir,
+                                    allow_indeterminate=allow_indeterminate)
     except InputError as exc:
         return None, EXIT_BAD_INPUT, "套件输入不可用：%s\n" % exc
     code = suite.sweep_exit_code(report) if sweep_only else report["exit_code"]
@@ -296,26 +308,6 @@ def export_command(paragraphs: list, out_path: str):
     except ReportError as exc:
         return None, EXIT_BAD_INPUT, "%s\n" % exc
     return written, EXIT_OK, ""
-
-
-def bench_suite_command(data_dir: str, workdir: Optional[str], sweep_only: bool,
-                        as_markdown: bool = False):
-    """`bench --all` / `--sweep` 的报告 → (report 或 None, 退出码, 错误信息)。
-
-    两者的确定性步骤都要把整批语料解析两遍，那一步走子进程（口径 K39/K45）；
-    `--sweep` 的退出码只看确定性回归自己，`--all` 看整张指标表（口径 K43）。
-    """
-    kb, error = load_kb_or_error(data_dir)
-    if kb is None:
-        return None, EXIT_BAD_INPUT, error
-    if as_markdown and sweep_only:
-        return None, EXIT_BAD_INPUT, ("bench --sweep 没有指标表：--markdown 只对 --all 有意义\n")
-    try:
-        report = suite.build_report(kb, data_dir, workdir)
-    except InputError as exc:
-        return None, EXIT_BAD_INPUT, "套件输入不可用：%s\n" % exc
-    code = suite.sweep_exit_code(report) if sweep_only else report["exit_code"]
-    return report, code, ""
 
 
 def _cmd_run(data_dir: str, case_path: str, module: Optional[str], as_json: bool) -> int:
@@ -348,12 +340,14 @@ def _cmd_report(data_dir: str, case_path: str, module: Optional[str], out_path: 
     return rc
 
 
-def _cmd_bench(data_dir: str, only_cases: bool, as_json: bool) -> int:
+def _cmd_bench(data_dir: str, only_cases: bool, as_json: bool,
+               allow_indeterminate: bool = False) -> int:
     kb, error = load_kb_or_error(data_dir)
     if kb is None:
         _err(error)
         return EXIT_BAD_INPUT
-    report = bench_module.build_report(kb, only_cases=only_cases)
+    report = bench_module.build_report(kb, only_cases=only_cases,
+                                       allow_indeterminate=allow_indeterminate)
     if as_json:
         _emit(json.dumps(report, sort_keys=True, ensure_ascii=False, indent=2))
     else:
@@ -392,8 +386,10 @@ def _cmd_bench_text(data_dir: str, kind: str, ir_dir: Optional[str],
 
 
 def _cmd_bench_suite(data_dir: str, workdir: Optional[str], sweep_only: bool,
-                     as_json: bool, as_markdown: bool = False) -> int:
-    report, code, error = bench_suite_command(data_dir, workdir, sweep_only, as_markdown)
+                     as_json: bool, as_markdown: bool = False,
+                     allow_indeterminate: bool = False) -> int:
+    report, code, error = bench_suite_command(data_dir, workdir, sweep_only, as_markdown,
+                                             allow_indeterminate)
     if report is None:
         _err(error)
         return code
@@ -585,13 +581,19 @@ def main(argv=None) -> int:
                                  "复用现成 IR 请用 --parse/--audit\n" % chosen[0])
                 return EXIT_BAD_INPUT
             return _cmd_bench_suite(data_dir, args.workdir, chosen[0] == "sweep",
-                                    args.as_json, args.as_markdown)
+                                    args.as_json, args.as_markdown,
+                                    args.allow_indeterminate)
         if chosen in (["parse"], ["audit"]):
+            if args.allow_indeterminate:
+                _err("bench --%s 的「不可判」是缺 IR / 缺语料，不由 --allow-indeterminate"
+                     "放宽（它只作用于 --cases / --all 的分母 0）\n" % chosen[0])
+                return EXIT_BAD_INPUT
             return _cmd_bench_text(data_dir, chosen[0], args.ir_dir, args.as_json)
         if args.ir_dir or args.workdir:
             _err("bench：--ir-dir/--workdir 只对 --parse/--audit/--sweep/--all 有意义\n")
             return EXIT_BAD_INPUT
-        return _cmd_bench(data_dir, args.only_cases, args.as_json)
+        return _cmd_bench(data_dir, args.only_cases, args.as_json,
+                          args.allow_indeterminate)
     if args.command == "parse":
         return _cmd_parse(args.doc, args.doc_dir, args.out, args.ir_dir, args.module,
                           args.as_json)

@@ -107,6 +107,39 @@ def test_bench_gate_green_when_only_known_unmeasurable():
     assert problems and "退出码" in problems[0]
 
 
+def test_bench_gate_honours_allow_indeterminate_without_letting_anything_else_through():
+    """CI 用 `--all --allow-indeterminate` ⇒ 门禁的码表必须跟着走，但只跟着走这一档。
+
+    负控三连（缺一条就等于门禁可以被旗标绕过）：
+    1. 只有不可判 + rc=0 → 绿（否则 CI 会在合法的 0 上报"退出码不一致"）；
+    2. 同样一批再插一条 fail + rc=0 → **红**（只改旗标不补数据，必须被抓住）；
+    3. 插一条 fail + rc=1 → 仍红（未达标本来就是红，与旗标无关）；
+    4. unavailable 与旗标无关，永远是 2。
+    """
+    rows = [_row("解析 F1", "pass"), _row("算例通过率", "unmeasurable"),
+            _row("可硬判 abnormal 的规则分母", "unmeasurable")]
+    _lines, problems = gate_mod.gate({"metrics": rows, "data_fingerprint": "f"}, 0,
+                                     allow_indeterminate=True)
+    assert problems == [], problems
+
+    with_fail = rows + [_row("误报", "fail")]
+    _lines, problems = gate_mod.gate({"metrics": with_fail, "data_fingerprint": "f"}, 0,
+                                     allow_indeterminate=True)
+    assert problems, "带旗标也不许把「未达标」放行"
+    assert any("未达标" in p for p in problems), problems
+    assert any("退出码" in p for p in problems), "rc=0 配上 fail 行必须报退出码不一致"
+
+    _lines, problems = gate_mod.gate({"metrics": with_fail, "data_fingerprint": "f"}, 1,
+                                     allow_indeterminate=True)
+    assert any("未达标" in p for p in problems), problems
+    assert not any("退出码" in p for p in problems), "rc=1 与 fail 行是一致的，不该报码表冲突"
+
+    with_gone = rows + [_row("解析 F1", "unavailable")]
+    _lines, problems = gate_mod.gate({"metrics": with_gone, "data_fingerprint": "f"}, 0,
+                                     allow_indeterminate=True)
+    assert any("不可用" in p for p in problems), problems
+
+
 def test_readme_test_module_count_matches_disk():
     """README 与 plan 的计数漂移是文档债第一眼（全仓同步：测试模块数一处不漏）。"""
     modules = sorted(n for n in os.listdir(os.path.join(REPO, "tests"))

@@ -122,6 +122,40 @@ def test_exit_code_separates_unmeasurable_from_pass():
         == suite.RC_BAD_INPUT
 
 
+def test_allow_indeterminate_only_relaxes_the_zero_denominator_bucket():
+    """DEC2=A 的负控：`--allow-indeterminate` 只放行「不可判」，绝不放行「未达标」。
+
+    三条断言缺一不可：
+    1. 全 pass + unmeasurable → 带旗标 0（这就是它存在的理由）；
+    2. 同样这批 + 一条 fail → 带旗标仍 1（**关键**：不许顺手把 fail 一起放掉）；
+    3. unavailable 不受旗标影响，永远是 2（通路断了不许当达标）。
+    """
+    ok = suite._row("x", "gate", "m", "pass", "src")
+    unknown = suite._row("y", "g", "m", "unmeasurable", "s")
+    assert suite._exit_code([ok, unknown], allow_indeterminate=True) == suite.RC_OK
+    assert suite._exit_code([ok, unknown], allow_indeterminate=False) == suite.RC_DEGRADED
+
+    bad = suite._row("z", "g", "m", "fail", "s")
+    assert suite._exit_code([ok, unknown, bad], allow_indeterminate=True) == suite.RC_DEGRADED
+    gone = suite._row("w", "g", "m", "unavailable", "s")
+    assert suite._exit_code([ok, unknown, gone], allow_indeterminate=True) == suite.RC_BAD_INPUT
+
+
+def test_report_still_lists_unmeasurable_rows_when_relaxed(report):
+    """放行不等于改口径：指标表里那两行仍要写「不可判」，不许被渲染成「达标」。"""
+    relaxed = suite.build_report(load_kb(REPO_DATA_DIR), REPO_DATA_DIR,
+                                 os.path.join(WORKDIR, "relaxed"),
+                                 allow_indeterminate=True)
+    assert relaxed["allow_indeterminate"] is True
+    assert relaxed["exit_code"] == suite.RC_OK, "分母 0 在放行档不该再判红"
+    unmeasurable = [row["name"] for row in relaxed["metrics"]
+                    if row["status"] == "unmeasurable"]
+    assert unmeasurable, "放行后仍必须有不可判行，否则这条旗标被实现成了改数据"
+    text = suite.render_text(relaxed)
+    assert "不可判的指标（是诚实的分母 0，不是通过）" in text
+    assert "--allow-indeterminate" in text, "退出码那行要说清这次用的是哪档口径"
+
+
 # ---------------------------------------------------------------------------
 # 数据目录不含语料时的诚实降级（夹具 KB 只有数值通路）
 # ---------------------------------------------------------------------------
