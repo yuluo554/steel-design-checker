@@ -147,11 +147,35 @@ dist/sdc-cli/sdc-cli.exe bench                          →                  rc=
 
 | 项 | 值 |
 |---|---|
-| tag | `v0.1.1`（annotated），指向 `f026c037eeda59aeed61045e0b21e16e4c878e8e` = CI 绿的那个提交 |
-| `git rev-list --count v0.1.1..HEAD` | **0**（tag 与 HEAD 零滞后） |
+| tag | `v0.1.1`（annotated），指向 `39338d7b41880e221e3a5c048aebbe02336a013f` = CI 绿的那个提交 |
+| `git rev-list --count v0.1.1..HEAD`（**tag 时刻**） | **0** |
+| `git rev-list --count v0.1.1..HEAD`（**收尾提交后**） | **1** —— 见下「tag 后补录」 |
 | `v0.1.0` 的 tag 与 Release | **未动**（`570a0a32…` 与 3 个旧附件原样） |
-| CI | run **`39702409322`** @ 2026-10-22T00:53:26Z → **success**（4/4 job） |
-| `git rev-list --count v0.1.0..HEAD` | **8** = 原 7 + 本次发布提交（旧版仍滞后，说明探针有效） |
+| CI（tag 时刻） | run **`39703164118`** @ 2026-10-22 → **success**（4/4 job） |
+| CI（收尾提交） | run **`39703952199`** @ 2026-10-22 → **success**（4/4 job） |
+| `git rev-list --count v0.1.0..HEAD` | **9** = 原 7 + 发布提交 + 收尾提交（旧版仍滞后，说明探针有效） |
+
+### tag 后补录（本仓既定形态，D26④）
+
+tag 之后有一个**纯文档**提交 `f2c4f42`（`docs: v0.1.1 收尾 —— 状态位与口径账本同步`），
+改的是 `README.md` 与 `plan/00|05|06`，把里程碑 🚧→✅、补 D27 与 K43 粒度修正行。
+
+**这是一致性风险，所以给出「发布物仍与代码一致」的直接证据**：
+
+```
+$ git diff --stat v0.1.1..HEAD -- src/ data/ pyproject.toml sdc.spec \
+      scripts/entry_cli.py scripts/entry_gui.py scripts/bundle_rules.py
+（空输出）
+```
+
+即 **构建输入零改动** ⇒ tag 上的两个 exe 与当前代码的运行时面完全相同，
+收尾提交不可能改变任何产物字节。
+
+**为什么不把 tag 挪到 `f2c4f42`**：D26④ 的原文就是「CI run id 与 Release URL 用
+**tag 后小提交补录，不迁 tag**」。v0.1.0 时的台账 §五 也是这么做的（发布后回填）。
+迁 tag 会让「被 CI 验过的那个提交」与 tag 指向脱钩，反而更难追溯；
+而 `v0.1.1..HEAD` 这个数字本身不区分「文档补录」与「代码滞后」，
+所以本仓的口径是**用 `-- src/ data/` 的 diff 判代码是否滞后，而不是只看计数**。
 
 ### 附件复验（真下载，2026-10-22）
 
@@ -177,9 +201,12 @@ cli/sdc-cli/sdc-cli.exe bench --allow-indeterminate  →             rc=0
 ### 复跑手册
 
 ```bash
-# 1) tag 滞后（正控应为 0；对 v0.1.0 跑同一条应为 8 —— 原 7 + 本次发布提交）
-git rev-list --count v0.1.1..HEAD
-git rev-list --count v0.1.0..HEAD
+# 1) tag 滞后：计数会含 tag 后的纯文档补录，所以**代码是否滞后看 diff 而不是只看数字**
+git rev-list --count v0.1.1..HEAD                 # tag 时刻 0；收尾提交后 1（纯文档）
+git diff --stat v0.1.1..HEAD -- src/ data/ pyproject.toml sdc.spec \
+    scripts/entry_cli.py scripts/entry_gui.py scripts/bundle_rules.py
+                                                  # 期望：(空输出) = 构建输入零改动
+git rev-list --count v0.1.0..HEAD                 # 期望 9（原 7 + 发布 + 收尾）＝旧版仍滞后
 
 # 2) 附件三方对撞
 gh release download v0.1.1 --repo yuluo554/steel-design-checker --dir dl --clobber
