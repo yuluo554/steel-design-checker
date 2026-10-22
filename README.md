@@ -23,6 +23,7 @@
 
 ```bash
 # 方式 A（免安装）：Releases 里下 sdc-gui 与 sdc-cli 两个 zip，一起解压 → 双击 sdc-gui.exe
+#   当前发布版本 **v0.1.1**（2026-10-22）；两个包必须同一版，混用会因版本不同而对不上
 #   两个包要一起放（页签②解析与一键基准用同侧 sdc-cli.exe 当子进程），理由见 DEVELOPMENT.md
 # 方式 B（源码）：运行只需 Python 3.8+ 标准库，不装任何包
 git clone https://github.com/yuluo554/steel-design-checker.git
@@ -76,7 +77,7 @@ py -3.8 -X utf8 -m sdc run --module fillet_weld --case data/examples/A2-fillet-w
 | GB 55006-2021《钢结构通用规范》（全文强制） | 2021 版 | 2022-01-01 实施 | **2026-10-19（2027-10-19）** | 现行；住建部公告 2021 年第 69 号已直连核实 |
 | JGJ 82-2011《钢结构高强度螺栓连接技术规程》 | 2011 版（替代 JGJ 82-91） | 2011-10-01 实施 | **2026-10-19（2027-10-19）** | 现行；6 条强条已随 GB 55006-2021 废止（公告附件第 15 项） |
 | 条款库 `data/clauses/`（GB50017 35 条 + GB55006 107 条 + JGJ82 19 条，三档 status） | 数据指纹 `235a0c14…` | 2026-10-06/07 入库 | 2026-10-07 | — |
-| 引擎与打包口径 K1–K46（唯一一份，见 [plan/06-决策记录.md](plan/06-决策记录.md)） | `v0.1.0` | 2026-10-07 | 2026-10-07 | — |
+| 引擎与打包口径 K1–K51（唯一一份，见 [plan/06-决策记录.md](plan/06-决策记录.md)） | `v0.1.1` | 2026-10-07 | 2026-10-22 | — |
 
 复核结论与权威出处以 [data/review/ruleset-review.json](data/review/ruleset-review.json) 的
 `meta.review` 为准（每个知识文件的依据与依赖面逐条登记），由 `tests/test_clause_review.py` 守门；
