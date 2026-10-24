@@ -46,7 +46,7 @@ tests/                                              25 个测试模块（schema/
 
 | OS | Python | extras |
 | --- | --- | --- |
-| ubuntu-22.04 | 3.8（开发基线；24.04 不提供 3.8） | dev |
+| ubuntu-24.04 | 3.8（开发基线；镜像不预装，由 setup-python 下 3.8.18 的 24.04 构建） | dev |
 | ubuntu-latest | 3.12 | dev |
 | windows-latest | 3.8 | dev,gui（唯一装 PySide6 的矩阵） |
 | windows-latest | 3.12 | dev |

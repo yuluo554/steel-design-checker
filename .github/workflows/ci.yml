@@ -1,7 +1,8 @@
 name: CI
 
 # 发布门（plan/05 §七 M6 行 / 决策 D12）：3.8 是开发基线，3.12 防"dev 绿 CI 红"的版本差。
-# ubuntu-24.04 的 runner 不再提供 3.8，所以 3.8 矩阵锁 22.04。
+# ubuntu-24.04 的 runner 不再预装 3.8，但 setup-python 仍可从 manifest 下
+# python-3.8.18-linux-24.04-x64.tar.gz，所以 3.8 矩阵钉 24.04（不走会漂移的 ubuntu-latest）。
 on:
   push:
     branches: [main]
@@ -20,7 +21,7 @@ jobs:
         include:
           # gui extras 只加在一个矩阵：其余矩阵不装 PySide6，
           # tests/_gui.py 的 importorskip 会把 GUI 两个模块声明式跳过（-rs 逐项可见）
-          - { os: ubuntu-22.04, python-version: "3.8", extras: dev }
+          - { os: ubuntu-24.04, python-version: "3.8", extras: dev }
           - { os: ubuntu-latest, python-version: "3.12", extras: dev }
           - { os: windows-latest, python-version: "3.8", extras: "dev,gui" }
           - { os: windows-latest, python-version: "3.12", extras: dev }
